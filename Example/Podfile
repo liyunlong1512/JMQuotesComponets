@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'JMQuotesComponets_Example' do
+  pod 'JMQuotesComponets', :path => '../'
+
+  target 'JMQuotesComponets_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
