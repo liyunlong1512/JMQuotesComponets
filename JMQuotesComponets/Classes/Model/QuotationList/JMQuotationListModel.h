@@ -13,20 +13,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JMQuotationListModel : NSObject
 
-/** 股票市场类型 */
-@property(nonatomic, assign) StockMarketType stockMarketType;
-
 /** 股票名称 */
-@property (nonatomic, copy) NSString *stockName;
+@property (nonatomic, copy) NSString *name;
 
 /** 股票代码 */
-@property (nonatomic, copy) NSString *stockCode;
+@property (nonatomic, copy) NSString *assetId;
 
 /** 现价 */
-@property (nonatomic, copy) NSString *currentPrice;
+@property (nonatomic, copy) NSString *price;
 
 /** 涨跌幅 */
-@property (nonatomic, copy) NSString *quoteChange;
+@property (nonatomic, copy) NSString *changePct;
+
+/** 涨跌额 */
+@property (nonatomic, copy) NSString *change;
+
+/** 股票类型 */
+@property(nonatomic, assign) StockMarketType  stockMarketType;
 
 @end
 

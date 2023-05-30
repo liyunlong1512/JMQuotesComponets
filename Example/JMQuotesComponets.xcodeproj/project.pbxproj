@@ -31,6 +31,7 @@
 		FA71C3F82A25AA3000706DD1 /* fs.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F12A25AA3000706DD1 /* fs.json */; };
 		FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F22A25AA3000706DD1 /* weekK.json */; };
 		FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F32A25AA3000706DD1 /* more_dayK.json */; };
+		FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3FB2A25EB0A00706DD1 /* hqlist.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		FA71C3F12A25AA3000706DD1 /* fs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fs.json; sourceTree = "<group>"; };
 		FA71C3F22A25AA3000706DD1 /* weekK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekK.json; sourceTree = "<group>"; };
 		FA71C3F32A25AA3000706DD1 /* more_dayK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = more_dayK.json; sourceTree = "<group>"; };
+		FA71C3FB2A25EB0A00706DD1 /* hqlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqlist.json; sourceTree = "<group>"; };
 		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +216,7 @@
 		FA71C3EC2A25AA3000706DD1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FA71C3FB2A25EB0A00706DD1 /* hqlist.json */,
 				FA71C3ED2A25AA3000706DD1 /* yearK.json */,
 				FA71C3EE2A25AA3000706DD1 /* moonK.json */,
 				FA71C3EF2A25AA3000706DD1 /* wr.json */,
@@ -314,6 +317,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				FA71C3F42A25AA3000706DD1 /* yearK.json in Resources */,
 				FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */,
+				FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */,
 				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
 				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,

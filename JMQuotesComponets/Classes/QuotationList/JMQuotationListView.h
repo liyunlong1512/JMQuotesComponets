@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<QuotationListDelegate> delegate;
 
 /** 数据源 */
-@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *dataJsonList;
 
 @end
 

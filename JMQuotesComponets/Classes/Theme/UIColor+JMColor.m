@@ -39,7 +39,7 @@
 #pragma mark - 一级文本色
 
 + (UIColor *)primaryTextColor {
-    return [UIColor colorWithRGBHex:0x545B66];
+    return [UIColor colorWithRGBHex:0x13161];
 }
 
 #pragma mark - 二级文本色

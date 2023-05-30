@@ -13,6 +13,9 @@
 
 @interface JMViewController ()<QuotationListDelegate, StockDetailsViewDelegate>
 
+/** 自选列表 */
+@property (nonatomic, strong) JMQuotationListView *quotationListView;
+
 /** 个股详情view */
 @property (nonatomic, strong) JMStockDetailsView *stockDetailsView;
 
@@ -30,9 +33,9 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-//    [self CreateWatchlistUI];
+    [self CreateWatchlistUI];
     
-    [self CreateStockDetails];
+//    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,70 +146,22 @@
 #pragma mark - 创建自选列表
 
 - (void)CreateWatchlistUI{
-    NSMutableArray * listArray = [[NSMutableArray alloc] init];
-    NSDictionary *myDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"0", @"stockMarketType",
-                            @"腾讯控股", @"stockName",
-                            @"00700", @"stockCode",
-                            @"333.200", @"currentPrice",
-                            @"-1.40", @"quoteChange",
-                            nil];
-    NSDictionary *myDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"0", @"stockMarketType",
-                             @"美团-W", @"stockName",
-                             @"03690", @"stockCode",
-                             @"128.600", @"currentPrice",
-                             @"-1.09", @"quoteChange",
-                             nil];
-    NSDictionary *myDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"0", @"stockMarketType",
-                             @"阿里巴巴-SW", @"stockName",
-                             @"09988", @"stockCode",
-                             @"82.450", @"currentPrice",
-                             @"-6.04", @"quoteChange",
-                             nil];
-    NSDictionary *myDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"1", @"stockMarketType",
-                             @"苹果", @"stockName",
-                             @"AAPL", @"stockCode",
-                             @"175.050", @"currentPrice",
-                             @"1.37", @"quoteChange",
-                             nil];
-    NSDictionary *myDict4 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"1", @"stockMarketType",
-                             @"特斯拉", @"stockName",
-                             @"TSLA", @"stockCode",
-                             @"176.890", @"currentPrice",
-                             @"1.74", @"quoteChange",
-                             nil];
-    NSDictionary *myDict5 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"1", @"stockMarketType",
-                             @"Meta Platforms", @"stockName",
-                             @"META", @"stockCode",
-                             @"246.850", @"currentPrice",
-                             @"1.80", @"quoteChange",
-                             nil];
-    NSDictionary *myDict6 = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"1", @"stockMarketType",
-                             @"BTCUSDT.P", @"stockName",
-                             @"BTC", @"stockCode",
-                             @"8080.000", @"currentPrice",
-                             @"0.00", @"quoteChange",
-                             nil];
     
+    [self.view addSubview:self.quotationListView];
+    [self.quotationListView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).mas_offset(64);
+    }];
     
-    [listArray addObject:myDict];
-    [listArray addObject:myDict1];
-    [listArray addObject:myDict2];
-    [listArray addObject:myDict3];
-    [listArray addObject:myDict4];
-    [listArray addObject:myDict5];
-    [listArray addObject:myDict6];
+    // 获取 JSON 文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"hqlist" ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    self.quotationListView.dataJsonList = jsonObject[@"result"];
     
-    JMQuotationListView *quotationListView = [[JMQuotationListView alloc] initWithFrame:CGRectMake(0, 64, kSCREEN_WIDTH, kSCREEN_HEIGHT - 64)];
-    quotationListView.delegate = self;
-    quotationListView.dataSource = listArray;
-    [self.view addSubview:quotationListView];
 }
 
 #pragma mark — Lazy
@@ -217,6 +172,14 @@
         _stockDetailsView.delegate = self;
     }
     return _stockDetailsView;
+}
+
+- (JMQuotationListView *)quotationListView{
+    if (!_quotationListView) {
+        _quotationListView = [[JMQuotationListView alloc] init];
+        _quotationListView.delegate = self;
+    }
+    return _quotationListView;
 }
 
 @end

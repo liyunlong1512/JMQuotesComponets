@@ -13,6 +13,12 @@
 #import "JMDelayPromptView.h"
 #import "JMQuotationListHeadView.h"
 
+typedef NS_ENUM(NSInteger, SortState) {
+    SortStateDefault,
+    SortStateAscending,
+    SortStateDescending
+};
+
 @interface JMQuotationListView () <UITableViewDataSource, UITableViewDelegate, DelayPromptViewDelegate, QuotationListHeadViewDelegate>
 
 /** 延时行情提示 */
@@ -26,15 +32,20 @@
 
 /** 最新价格排序按钮 */
 @property (nonatomic,strong) UIButton *sortPriceBtn;
+@property (nonatomic, assign) SortState sortPriceState;
 
 /** 涨跌幅排序按钮 */
 @property (nonatomic,strong) UIButton *sortQuoteChangeBtn;
+@property (nonatomic, assign) SortState sortQuoteState;
 
 /** 行情列表 */
 @property (nonatomic, strong) UITableView *tableView;
 
-/** 处理后数据源 */
-@property (nonatomic,strong) NSMutableArray *processedDataSource;
+/** 默认数据源 */
+@property (nonatomic,strong) NSMutableArray *defaultDataSource;
+
+/** 排序数据源 */
+@property (nonatomic,strong) NSMutableArray *sortDataSource;
 
 @end
 
@@ -44,6 +55,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self createUI];
+        self.sortPriceState = SortStateDefault;
+        self.sortQuoteState = SortStateDefault;
     }
     return self;
 }
@@ -96,26 +109,6 @@
     
 }
 
-#pragma mark -  数据处理
-
-- (void)setDataSource:(NSMutableArray *)dataSource {
-    
-    [dataSource enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
-        JMQuotationListModel *model = [[JMQuotationListModel alloc] init];
-        model.stockMarketType = [dic[@"stockMarketType"] intValue];
-        model.stockName = dic[@"stockName"];
-        model.stockCode = dic[@"stockCode"];
-        model.currentPrice = dic[@"currentPrice"];
-        model.quoteChange = dic[@"quoteChange"];
-        
-        [self.processedDataSource addObject:model];
-        
-    }];
-    
-    [self.tableView reloadData];
-    
-}
-
 #pragma mark - QuotationListHeadViewDelegate
 
 - (void)quotationListHeadViewWithSelectionIndex:(NSInteger)index {
@@ -155,10 +148,11 @@
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         // 在这里执行删除操作
-        [self.processedDataSource removeObjectAtIndex:indexPath.row];
+        [self.defaultDataSource removeObjectAtIndex:indexPath.row];
         [self.tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView setEditing:NO animated:YES];
 //        [self.tableView reloadData];
+        
     }];
     return @[deleteAction];
 }
@@ -166,7 +160,7 @@
 // 处理某行的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedStockCode:)]) {
-        JMQuotationListModel *model = self.processedDataSource[indexPath.row];
+        JMQuotationListModel *model = self.defaultDataSource[indexPath.row];
         NSString * stockMarketType = @"";
         //市场类型
         switch (model.stockMarketType) {
@@ -189,13 +183,13 @@
             default:
                 break;
         }
-        [self.delegate quotationListDelegateWithSelectedStockCode:[NSString stringWithFormat:@"%@.%@",model.stockCode, stockMarketType]];
+        [self.delegate quotationListDelegateWithSelectedStockCode:[NSString stringWithFormat:@"%@.%@",model.assetId, stockMarketType]];
     }
 }
 
 /// 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.processedDataSource.count;
+    return self.defaultDataSource.count;
 }
 
 // 需要注意的是，这个代理方法和直接返回当前Cell高度的代理方法并不一样。
@@ -209,17 +203,113 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JMQuotationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMQuotationListTableViewCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.quotationListModel = self.processedDataSource[indexPath.row];
+    cell.quotationListModel = self.defaultDataSource[indexPath.row];
     return cell;
+}
+
+#pragma mark - 按钮事件
+
+- (void)SortQuoteChangeButtonClick:(UIButton *)sender {
+    switch (self.sortQuoteState) {
+        case SortStateDefault:
+            self.sortQuoteState = SortStateAscending;
+            [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_s.png")] forState:UIControlStateNormal];
+            break;
+        case SortStateAscending:
+            self.sortQuoteState = SortStateDescending;
+            [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_n.png")] forState:UIControlStateNormal];
+            break;
+        case SortStateDescending:
+            self.sortQuoteState = SortStateDefault;
+            [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)SortPriceButtonClick:(UIButton *)sender {
+    switch (self.sortPriceState) {
+        case SortStateDefault:
+            self.sortPriceState = SortStateAscending;
+            [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_s.png")] forState:UIControlStateNormal];
+            
+            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                if (a.price.floatValue > b.price.floatValue) {
+                    return NSOrderedAscending;
+                } else if (a.price.floatValue < b.price.floatValue) {
+                    return NSOrderedDescending;
+                } else {
+                    return NSOrderedSame;
+                }
+            }];
+            
+            break;
+        case SortStateAscending:
+            self.sortPriceState = SortStateDescending;
+            [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_n.png")] forState:UIControlStateNormal];
+            
+            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                if (a.price.floatValue < b.price.floatValue) {
+                    return NSOrderedAscending;
+                } else if (a.price.floatValue > b.price.floatValue) {
+                    return NSOrderedDescending;
+                } else {
+                    return NSOrderedSame;
+                }
+            }];
+            
+            break;
+        case SortStateDescending:
+            self.sortPriceState = SortStateDefault;
+            [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
+            
+            // 价格降序
+            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+
+                if (a.price.floatValue < b.price.floatValue) {
+                    return NSOrderedAscending;
+                } else if (a.price.floatValue > b.price.floatValue) {
+                    return NSOrderedDescending;
+                } else {
+                    return NSOrderedSame;
+                }
+            }];
+
+            // 市场排序
+            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                if (a.stockMarketType < b.stockMarketType) {
+                    return NSOrderedAscending;
+                } else if (a.stockMarketType > b.stockMarketType) {
+                    return NSOrderedDescending;
+                } else {
+                    return NSOrderedSame;
+                }
+            }];
+            
+            break;
+        default:
+            break;
+    }
+    
+    [self.tableView reloadData];
+    
 }
 
 #pragma mark — Lazy
 
-- (NSMutableArray *)processedDataSource {
-    if (!_processedDataSource) {
-        _processedDataSource = [[NSMutableArray alloc] init];
+- (NSMutableArray *)sortDataSource {
+    if (!_sortDataSource) {
+        _sortDataSource = [[NSMutableArray alloc] init];
     }
-    return _processedDataSource;
+    return _sortDataSource;
+}
+
+- (NSMutableArray *)defaultDataSource {
+    if (!_defaultDataSource) {
+        _defaultDataSource = [[NSMutableArray alloc] init];
+    }
+    return _defaultDataSource;
 }
 
 - (UITableView *)tableView {
@@ -243,14 +333,14 @@
     if (!_sortQuoteChangeBtn) {
         _sortQuoteChangeBtn = [[UIButton alloc] init];
         
-        UIImage *imgae = [UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")];
-        [_sortQuoteChangeBtn setImage:imgae forState:UIControlStateNormal];
+        [_sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
         [_sortQuoteChangeBtn setTitle:@"涨跌幅" forState:UIControlStateNormal];
         [_sortQuoteChangeBtn setTitleColor:UIColor.quotesListHeadTitleColor forState:UIControlStateNormal];
         [_sortQuoteChangeBtn.titleLabel setFont:kFont_Regular(12)];
         [_sortQuoteChangeBtn setLayoutType:KJButtonContentLayoutStyleLeftImageRight];
         [_sortQuoteChangeBtn setPadding:2.f];
         [_sortQuoteChangeBtn setPeriphery:0.f];
+        [_sortQuoteChangeBtn addTarget:self action:@selector(SortQuoteChangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sortQuoteChangeBtn;
 }
@@ -258,14 +348,14 @@
 - (UIButton *)sortPriceBtn {
     if (!_sortPriceBtn) {
         _sortPriceBtn = [[UIButton alloc] init];
-        UIImage *imgae = [UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")];
-        [_sortPriceBtn setImage:imgae forState:UIControlStateNormal];
+        [_sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
         [_sortPriceBtn setTitle:@"最新价格" forState:UIControlStateNormal];
         [_sortPriceBtn setTitleColor:UIColor.quotesListHeadTitleColor forState:UIControlStateNormal];
         [_sortPriceBtn.titleLabel setFont:kFont_Regular(12)];
         [_sortPriceBtn setLayoutType:KJButtonContentLayoutStyleLeftImageRight];
         [_sortPriceBtn setPadding:2.f];
         [_sortPriceBtn setPeriphery:0.f];
+        [_sortPriceBtn addTarget:self action:@selector(SortPriceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sortPriceBtn;
 }
@@ -294,6 +384,64 @@
         _delayPromptView.delegate = self;
     }
     return  _delayPromptView;
+}
+
+#pragma mark -  数据处理
+
+-(void)setDataJsonList:(NSMutableArray *)dataJsonList {
+    _dataJsonList = dataJsonList;
+    
+    [dataJsonList enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSArray *assetIdList = [dic[@"assetId"] componentsSeparatedByString:@"."];
+        NSString *type = assetIdList.lastObject;
+        StockMarketType _stockMarketType = 0;
+        if ([type isEqualToString:@"HK"]) {
+            _stockMarketType = StockMarketType_HK;
+        } else if ([type isEqualToString:@"US"]) {
+            _stockMarketType = StockMarketType_US;
+        } else if ([type isEqualToString:@"SZ"]) {
+            _stockMarketType = StockMarketType_SZ;
+        } else if ([type isEqualToString:@"SH"]) {
+            _stockMarketType = StockMarketType_SH;
+        }
+        
+        JMQuotationListModel *model = [[JMQuotationListModel alloc] init];
+        model.name = dic[@"name"];
+        model.assetId = dic[@"assetId"];
+        model.price = dic[@"price"];
+        model.change = dic[@"change"];
+        model.changePct = dic[@"changePct"];
+        model.stockMarketType = _stockMarketType;
+        [self.defaultDataSource addObject:model];
+        [self.sortDataSource addObject:model];
+    }];
+    
+    // 价格降序
+    [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+
+        if (a.price.floatValue < b.price.floatValue) {
+            return NSOrderedAscending;
+        } else if (a.price.floatValue > b.price.floatValue) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+
+    // 市场排序
+    [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+        if (a.stockMarketType < b.stockMarketType) {
+            return NSOrderedAscending;
+        } else if (a.stockMarketType > b.stockMarketType) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    
+    [self.tableView reloadData];
+    
 }
 
 @end

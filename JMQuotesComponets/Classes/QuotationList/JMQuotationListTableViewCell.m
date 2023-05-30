@@ -44,28 +44,29 @@
 
 - (void)createUI {
     
-    /// 市场icon
-    [self.contentView addSubview:self.stockMarketIcon];
-    [self.stockMarketIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.contentView).mas_offset(16);
-        make.width.mas_offset(kWidthScale(16));
-        make.height.mas_offset(kHeightScale(12));
-    }];
-    
     /// 股票名称
     [self.contentView addSubview:self.stockNameLab];
     [self.stockNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).mas_offset(11);
-        make.left.equalTo(self.stockMarketIcon.mas_right).mas_offset(4);
+        make.top.equalTo(self.contentView).mas_offset(12);
+        make.left.equalTo(self.contentView).mas_offset(16);
         make.width.mas_lessThanOrEqualTo(kWidthScale(140));
+    }];
+    
+    /// 市场icon
+    [self.contentView addSubview:self.stockMarketIcon];
+    [self.stockMarketIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.stockNameLab.mas_bottom);
+        make.left.equalTo(self.stockNameLab);
+        make.width.mas_offset(kWidthScale(16));
+        make.height.mas_offset(kHeightScale(12));
+        make.bottom.equalTo(self.contentView.mas_bottom).mas_offset(-12);
     }];
 
     /// 股票代码
     [self.contentView addSubview:self.stockCodeLab];
     [self.stockCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.stockNameLab.mas_bottom).mas_offset(5);
-        make.left.equalTo(self.stockNameLab);
-        make.bottom.equalTo(self.contentView.mas_bottom).mas_offset(-12);
+        make.centerY.equalTo(self.stockMarketIcon);
+        make.left.equalTo(self.stockMarketIcon.mas_right).mas_offset(4);
     }];
 
     /// 涨跌幅
@@ -76,7 +77,7 @@
         make.width.mas_offset(kWidthScale(72));
         make.height.mas_offset(kHeightScale(24));
     }];
-    
+
     /// 最新价格
     [self.contentView addSubview:self.latestPriceLab];
     [self.latestPriceLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,21 +174,22 @@
     }
     
     // 股票名称
-    self.stockNameLab.text = quotationListModel.stockName;
+    self.stockNameLab.text = quotationListModel.name;
     // 股票代码
-    self.stockCodeLab.text = quotationListModel.stockCode;
+    NSArray *assetIdList = [quotationListModel.assetId componentsSeparatedByString:@"."];
+    self.stockCodeLab.text = assetIdList.firstObject;
     // 最新价格
-    self.latestPriceLab.text = quotationListModel.currentPrice;
+    self.latestPriceLab.text = quotationListModel.price;
     // 涨跌幅
-    if ([quotationListModel.quoteChange floatValue]  == 0.00){
-        self.quoteChangeLab.text = [NSString stringWithFormat:@"%@%%",quotationListModel.quoteChange];
+    if ([quotationListModel.changePct floatValue]  == 0.00){
+        self.quoteChangeLab.text = [NSString stringWithFormat:@"%.2f%%",quotationListModel.changePct.floatValue * 100];
         self.quoteChangeLab.backgroundColor = UIColor.flatColor;
     } else {
-        if ([quotationListModel.quoteChange hasPrefix:@"-"]) {
-            self.quoteChangeLab.text = [NSString stringWithFormat:@"%@%%",quotationListModel.quoteChange];
+        if ([quotationListModel.changePct hasPrefix:@"-"]) {
+            self.quoteChangeLab.text = [NSString stringWithFormat:@"%.2f%%",quotationListModel.changePct.floatValue * 100];
             self.quoteChangeLab.backgroundColor = UIColor.downColor;
         } else {
-            self.quoteChangeLab.text = [NSString stringWithFormat:@"+%@%%",quotationListModel.quoteChange];
+            self.quoteChangeLab.text = [NSString stringWithFormat:@"+%.2f%%",quotationListModel.changePct.floatValue * 100];
             self.quoteChangeLab.backgroundColor = UIColor.upColor;
         }
     }

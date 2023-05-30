@@ -649,8 +649,9 @@ static void dispatch_main_async_safe(dispatch_block_t block) {
     
     // 回调函数
     WEAK_SELF(weakSelf);
+    UIImage *image = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")];
     [self.selectorView setSelectionIndicatorsBlock:^(NSString * _Nonnull title, NSInteger idx) {
-        [weakSelf.switchIndexBtn setImage:kImageNamed(@"expand_n") forState:UIControlStateNormal];
+        [weakSelf.switchIndexBtn setImage:image forState:UIControlStateNormal];
         [weakSelf.switchIndexBtn setTitle:title forState:UIControlStateNormal];
         [weakSelf.switchIndexBtn setLayoutType:KJButtonContentLayoutStyleLeftImageRight];
         weakSelf.selectorView.hidden = YES;
@@ -766,7 +767,7 @@ static void dispatch_main_async_safe(dispatch_block_t block) {
 - (UIButton *)switchIndexBtn {
     if (!_switchIndexBtn) {
         _switchIndexBtn = [[UIButton alloc] init];
-        [_switchIndexBtn setImage:kImageNamed(@"expand_n") forState:UIControlStateNormal];
+        [_switchIndexBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")] forState:UIControlStateNormal];
         [_switchIndexBtn setTitle:@"MA" forState:UIControlStateNormal];
         [_switchIndexBtn setTitleColor:UIColor.handicapInfoTextColor forState:UIControlStateNormal];
         [_switchIndexBtn.titleLabel setFont:[UIFont systemFontOfSize:10.f]];
