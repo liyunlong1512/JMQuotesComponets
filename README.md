@@ -22,7 +22,7 @@ pod 'JMQuotesComponets'
 
 ## Author
 
-liyunlong1512, yunlong.li@fargowealth.com.hk
+yunlong.li, yunlong.li@fargowealth.com.hk
 
 ## License
 

@@ -24,6 +24,13 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		AC5F65F005FAF37BB34339FA /* Pods_JMQuotesComponets_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B1B069AA26C01FD593F58B /* Pods_JMQuotesComponets_Example.framework */; };
+		FA71C3F42A25AA3000706DD1 /* yearK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3ED2A25AA3000706DD1 /* yearK.json */; };
+		FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3EE2A25AA3000706DD1 /* moonK.json */; };
+		FA71C3F62A25AA3000706DD1 /* wr.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3EF2A25AA3000706DD1 /* wr.json */; };
+		FA71C3F72A25AA3000706DD1 /* dayK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F02A25AA3000706DD1 /* dayK.json */; };
+		FA71C3F82A25AA3000706DD1 /* fs.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F12A25AA3000706DD1 /* fs.json */; };
+		FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F22A25AA3000706DD1 /* weekK.json */; };
+		FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F32A25AA3000706DD1 /* more_dayK.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +70,17 @@
 		96FFC59A430A286BB302848B /* Pods-JMQuotesComponets_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JMQuotesComponets_Tests.debug.xcconfig"; path = "Target Support Files/Pods-JMQuotesComponets_Tests/Pods-JMQuotesComponets_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		98B3231F3E98EC6669910890 /* Pods-JMQuotesComponets_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JMQuotesComponets_Example.release.xcconfig"; path = "Target Support Files/Pods-JMQuotesComponets_Example/Pods-JMQuotesComponets_Example.release.xcconfig"; sourceTree = "<group>"; };
 		BB3F739E4E61BAD4A9CA1A8D /* Pods_JMQuotesComponets_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JMQuotesComponets_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8C3B10AAA4F6E781E7AC7C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		CE02BBFEF70A0676CD645D4A /* JMQuotesComponets.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = JMQuotesComponets.podspec; path = ../JMQuotesComponets.podspec; sourceTree = "<group>"; };
+		C8C3B10AAA4F6E781E7AC7C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		CE02BBFEF70A0676CD645D4A /* JMQuotesComponets.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JMQuotesComponets.podspec; path = ../JMQuotesComponets.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EC5457A7DF2BEAE2C4797AD8 /* Pods-JMQuotesComponets_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JMQuotesComponets_Tests.release.xcconfig"; path = "Target Support Files/Pods-JMQuotesComponets_Tests/Pods-JMQuotesComponets_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		FA71C3ED2A25AA3000706DD1 /* yearK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yearK.json; sourceTree = "<group>"; };
+		FA71C3EE2A25AA3000706DD1 /* moonK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = moonK.json; sourceTree = "<group>"; };
+		FA71C3EF2A25AA3000706DD1 /* wr.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wr.json; sourceTree = "<group>"; };
+		FA71C3F02A25AA3000706DD1 /* dayK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayK.json; sourceTree = "<group>"; };
+		FA71C3F12A25AA3000706DD1 /* fs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fs.json; sourceTree = "<group>"; };
+		FA71C3F22A25AA3000706DD1 /* weekK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekK.json; sourceTree = "<group>"; };
+		FA71C3F32A25AA3000706DD1 /* more_dayK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = more_dayK.json; sourceTree = "<group>"; };
+		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +117,6 @@
 				96FFC59A430A286BB302848B /* Pods-JMQuotesComponets_Tests.debug.xcconfig */,
 				EC5457A7DF2BEAE2C4797AD8 /* Pods-JMQuotesComponets_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -144,6 +157,7 @@
 		6003F593195388D20070C39A /* Example for JMQuotesComponets */ = {
 			isa = PBXGroup;
 			children = (
+				FA71C3EC2A25AA3000706DD1 /* Assets */,
 				6003F59C195388D20070C39A /* JMAppDelegate.h */,
 				6003F59D195388D20070C39A /* JMAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -195,6 +209,20 @@
 				C8C3B10AAA4F6E781E7AC7C8 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		FA71C3EC2A25AA3000706DD1 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				FA71C3ED2A25AA3000706DD1 /* yearK.json */,
+				FA71C3EE2A25AA3000706DD1 /* moonK.json */,
+				FA71C3EF2A25AA3000706DD1 /* wr.json */,
+				FA71C3F02A25AA3000706DD1 /* dayK.json */,
+				FA71C3F12A25AA3000706DD1 /* fs.json */,
+				FA71C3F22A25AA3000706DD1 /* weekK.json */,
+				FA71C3F32A25AA3000706DD1 /* more_dayK.json */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +286,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -279,7 +308,14 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				FA71C3F72A25AA3000706DD1 /* dayK.json in Resources */,
+				FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */,
+				FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				FA71C3F42A25AA3000706DD1 /* yearK.json in Resources */,
+				FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */,
+				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
+				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,10 +339,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-JMQuotesComponets_Example/Pods-JMQuotesComponets_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JMQuotesComponets/JMQuotesComponets.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JMQuotesComponets.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -497,10 +539,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JMQuotesComponets/JMQuotesComponets-Prefix.pch";
 				INFOPLIST_FILE = "JMQuotesComponets/JMQuotesComponets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -513,10 +560,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JMQuotesComponets/JMQuotesComponets-Prefix.pch";
 				INFOPLIST_FILE = "JMQuotesComponets/JMQuotesComponets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

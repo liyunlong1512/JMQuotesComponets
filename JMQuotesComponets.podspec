@@ -24,19 +24,22 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/liyunlong1512/JMQuotesComponets'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'liyunlong1512' => 'yunlong.li@fargowealth.com.hk' }
+  s.author           = { 'yunlong.li' => 'yunlong.li@fargowealth.com.hk' }
   s.source           = { :git => 'https://github.com/liyunlong1512/JMQuotesComponets.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'JMQuotesComponets/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'JMQuotesComponets' => ['JMQuotesComponets/Assets/*.png']
-  # }
+  s.resource_bundles = {
+      'JMQuotesComponets' => ['JMQuotesComponets/Assets/*.png']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'SDWebImage'
+  s.dependency 'Masonry'
+  s.dependency 'YYCategories'
 end

@@ -1,0 +1,38 @@
+{
+  "name": "JMQuotesComponets",
+  "version": "0.1.0",
+  "summary": "A short description of JMQuotesComponets.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/liyunlong1512/JMQuotesComponets",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "yunlong.li": "yunlong.li@fargowealth.com.hk"
+  },
+  "source": {
+    "git": "https://github.com/liyunlong1512/JMQuotesComponets.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source_files": "JMQuotesComponets/Classes/**/*",
+  "resource_bundles": {
+    "JMQuotesComponets": [
+      "JMQuotesComponets/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "SDWebImage": [
+
+    ],
+    "Masonry": [
+
+    ],
+    "YYCategories": [
+
+    ]
+  }
+}
