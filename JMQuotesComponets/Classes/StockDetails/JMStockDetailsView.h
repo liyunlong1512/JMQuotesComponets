@@ -34,30 +34,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JMStockDetailsView : UIView
 
-/** 数据源 */
-@property (nonatomic, strong) NSDictionary *dataSource;
-
 @property (nonatomic, weak) id<StockDetailsViewDelegate> delegate;
 
+
 /**
- *  更新盘口数据
- *  data            数据
- *  isMQTT      是否MQTT
+ *  初始化设置数据
+ *  handicapJson 盘口数据
+ *  kLineJson       K线数据
  */
-- (void)UpdateHandicapDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+- (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
+                      KLineJson:(NSDictionary *)kLineJson;
 
 /**
  *  更新K线数据
- *  data            数据
- *  isMQTT      是否MQTT
+ *  json            数据
+ *  chartType   K线tab类型
+ *  weights       复权类型
+ *  more           是否数据加载更多
  */
-- (void)UpdateKLineDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+- (void)updateKLineDataWithJson:(NSDictionary *)json
+                      ChartTyep:(NSInteger)chartType
+                        Weights:(NSString *)weights
+                           More:(BOOL)more;
 
 /**
- *  加载更多K线数据
- *  data:  数据
+ *  MQTT数据
  */
-- (void)LoadMoreKLineData:(NSDictionary *)data;
+- (void)setMQTTDataWithJson:(NSDictionary *)json;
 
 @end
 

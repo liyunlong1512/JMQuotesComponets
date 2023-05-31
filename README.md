@@ -122,29 +122,29 @@ dataJsonList 数据结构
 // 赋值，数据结构参考下面
 
 /**
- *  初始化赋值
+ *  初始化设置数据
+ *  handicapJson    盘口数据   传result这一层
+ *  kLineJson       K线数据   传result这一层
  */
-self.stockDetailsView.dataSource = jsondata;
-
-/**
- *  更新盘口数据
- *  data            数据
- *  isMQTT      是否MQTT推送
- */
-- (void)UpdateHandicapDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+- (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
+                      KLineJson:(NSDictionary *)kLineJson;
 
 /**
  *  更新K线数据
- *  data            数据
- *  isMQTT      是否MQTT推送
+ *  json            数据         传result这一层
+ *  chartType       K线tab类型
+ *  weights         复权类型
+ *  more            是否数据加载更多
  */
-- (void)UpdateKLineDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+- (void)updateKLineDataWithJson:(NSDictionary *)json
+                      ChartTyep:(NSInteger)chartType
+                        Weights:(NSString *)weights
+                           More:(BOOL)more;
 
 /**
- *  加载更多K线数据
- *  data:  数据
+ *  MQTT数据 传整体数据过来
  */
-- (void)LoadMoreKLineData:(NSDictionary *)data;
+- (void)setMQTTDataWithJson:(NSDictionary *)json;
 
 
 // StockDetailsViewDelegate 代理方法
@@ -175,21 +175,161 @@ self.stockDetailsView.dataSource = jsondata;
 
 ```
 
-dataSource 数据结构
+数据结构
 
 ```ruby
-// 初始化加载数据使用
+// 盘口数据结构
 {
-    "pkdata": result1,
-    "kdata": result2
+  "code": 0,
+  "message": null,
+  "id": null,
+  "result": [
+    {
+      "assetId": "00700.HK",
+      "name": "腾讯控股",
+      "price": "311.200",
+      "change": "-5.000",
+      "open": "314.600",
+      "preClose": "316.200",
+      "high": "314.600",
+      "low": "310.000",
+      "volume": "7812128",
+      "turnover": "2441574803",
+      "changePct": "-0.0158",
+      "ttmPe": "14.05",
+      "week52High": "416.600",
+      "week52Low": "198.600",
+      "hisHigh": "758.500",
+      "hisLow": "-21.807",
+      "avgPrice": "312.536",
+      "turnRate": "0.0008",
+      "pb": "3.68",
+      "volRate": "1.19",
+      "commitTee": "",
+      "epsp": "22.15",
+      "totalVal": "2983768038673",
+      "ampLiTude": "0.0145",
+      "flshr": "9587943569",
+      "total": "9587943569",
+      "status": 7,
+      "ts": "1685502733000",
+      "lotSize": "100",
+      "bid1": "",
+      "bidQty1": "",
+      "ask1": "",
+      "askQty1": "",
+      "ttmDps": "2.400",
+      "dpsRate": "0.0077",
+      "isShortSell": false,
+      "type": "1",
+      "brokerQueue": "",
+      "fmktVal": "2983768038673"
+    }
+  ]
 }
-result1 获取行情接口返回 result
-result2 获取历史K线接口返回 result
 
-// 更新方法，加载方法data，直接传对应接口返回的数据回来
+```
 
-[self.stockDetailsView UpdateHandicapDataWithDate:result IsMQTT:NO];
+```ruby
+// K线数据结构
+{
+  "code": 0,
+  "message": null,
+  "id": null,
+  "result": {
+    "lastDayTurnover": "13516781502.37",
+    "data": [
+      [
+        1657641600000,
+        "338.600",
+        "341.200",
+        "335.000",
+        "335.400",
+        "17134245",
+        "5778623253.00",
+        "337.800"
+      ],
+      [
+        1657728000000,
+        "334.600",
+        "337.400",
+        "332.000",
+        "335.000",
+        "16774995",
+        "5612694759.00",
+        "335.400"
+      ],
+      [
+        1657814400000,
+        "330.000",
+        "332.400",
+        "323.200",
+        "325.000",
+        "26328504",
+        "8620244653.00",
+        "335.000"
+      ]
+    ],
+    "lastDayVolume": "45550089"
+  }
+}
+```
 
+```ruby
+// MQTT数据结构
+{
+    "data": [
+        [
+            "00700.HK",
+            "腾讯控股",
+            60,
+            7,
+            "316.200",
+            "314.600",
+            "312.000",
+            "314.600",
+            "310.400",
+            "6284686",
+            "1966470854",
+            "-4.200",
+            "-0.0133",
+            "2991438393528",
+            "2991438393528",
+            "0.0007",
+            "14.08",
+            "3.69",
+            "1.31",
+            "0.3318",
+            "312.899",
+            "22.15",
+            84.5277,
+            "",
+            "14.08",
+            1685501051000,
+            "2023-05-31",
+            "10:44:11",
+            "0.0133",
+            2,
+            "416.600",
+            "198.600",
+            "758.500",
+            "-21.807",
+            "",
+            "",
+            "",
+            "",
+            "0.00",
+            "0.00",
+            "0.0000",
+            "",
+            "",
+            ""
+        ]
+    ],
+    "funId": 2,
+    "sendTime": "2023-05-31 10:44:12",
+    "topicName": "QUOT/HK/00700.HK/2"
+}
 ```
 
 ## Author

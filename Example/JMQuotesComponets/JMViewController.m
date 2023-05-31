@@ -33,9 +33,9 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-    [self CreateWatchlistUI];
+//    [self CreateWatchlistUI];
     
-//    [self CreateStockDetails];
+    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +86,7 @@
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    self.stockDetailsView.dataSource = jsonObject;
+    [self.stockDetailsView updateKLineDataWithJson:jsonObject ChartTyep:5 Weights:@"F" More:NO];
 }
 
 - (void)getMoreData {
@@ -98,7 +98,7 @@
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    [self.stockDetailsView LoadMoreKLineData:jsonObject];
+    [self.stockDetailsView updateKLineDataWithJson:jsonObject ChartTyep:5 Weights:@"F" More:YES];
 }
 
 #pragma mark - StockDetailsViewDelegate
@@ -129,7 +129,14 @@
         make.top.mas_equalTo(self.view).mas_offset(64);
     }];
     
-    [self setStockDateWithIndex:3];
+    // 获取 JSON 文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"fs" ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [self.stockDetailsView setDataWithHandicapJson:@{} KLineJson:jsonObject];
     
 }
 

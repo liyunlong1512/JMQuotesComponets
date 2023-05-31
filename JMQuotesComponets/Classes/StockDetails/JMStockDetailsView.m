@@ -183,15 +183,36 @@
 
 #pragma mark - 数据重载
 
-- (void)setDataSource:(NSDictionary *)dataSource {
-    _dataSource = dataSource;
-    self.middleLayerView.dataSource = dataSource;
+//- (void)setDataSource:(NSDictionary *)dataSource {
+//    _dataSource = dataSource;
+//    self.middleLayerView.dataSource = dataSource;
+//}
+//
+//- (void)LoadMoreKLineData:(NSDictionary *)data {
+//    NSDictionary *dict = data[@"data"];
+//    NSArray * arr = dict[@"result"][@"data"];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
+//}
+
+
+- (void)updateKLineDataWithJson:(NSDictionary *)json
+                      ChartTyep:(NSInteger)chartType
+                        Weights:(NSString *)weights
+                           More:(BOOL)more {
+    
+    if (more) {
+        NSDictionary *dict = json[@"data"];
+        NSArray * arr = dict[@"result"][@"data"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
+    } else {
+        self.middleLayerView.dataSource = json;
+    }
+    
 }
 
-- (void)LoadMoreKLineData:(NSDictionary *)data {
-    NSDictionary *dict = data[@"data"];
-    NSArray * arr = dict[@"result"][@"data"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
+- (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
+                      KLineJson:(NSDictionary *)kLineJson {
+    self.middleLayerView.dataSource = kLineJson;
 }
 
 @end
