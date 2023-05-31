@@ -161,29 +161,7 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedStockCode:)]) {
         JMQuotationListModel *model = self.defaultDataSource[indexPath.row];
-        NSString * stockMarketType = @"";
-        //市场类型
-        switch (model.stockMarketType) {
-            case StockMarketType_HK:{
-                stockMarketType = @"HK";
-            }
-                break;
-            case StockMarketType_US:{
-                stockMarketType = @"US";
-            }
-                break;
-            case StockMarketType_SH:{
-                stockMarketType = @"SH";
-            }
-                break;
-            case StockMarketType_SZ:{
-                stockMarketType = @"SZ";
-            }
-                break;
-            default:
-                break;
-        }
-        [self.delegate quotationListDelegateWithSelectedStockCode:[NSString stringWithFormat:@"%@.%@",model.assetId, stockMarketType]];
+        [self.delegate quotationListDelegateWithSelectedStockCode:model.assetId];
     }
 }
 

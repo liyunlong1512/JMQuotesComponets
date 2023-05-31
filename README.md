@@ -119,9 +119,32 @@ dataJsonList 数据结构
     make.top.mas_equalTo(self.view).mas_offset(64);
 }];
 
-// 赋值
-// dataSource 传JSON格式,数据结构参考下面
+// 赋值，数据结构参考下面
+
+/**
+ *  初始化赋值
+ */
 self.stockDetailsView.dataSource = jsondata;
+
+/**
+ *  更新盘口数据
+ *  data            数据
+ *  isMQTT      是否MQTT推送
+ */
+- (void)UpdateHandicapDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+
+/**
+ *  更新K线数据
+ *  data            数据
+ *  isMQTT      是否MQTT推送
+ */
+- (void)UpdateKLineDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+
+/**
+ *  加载更多K线数据
+ *  data:  数据
+ */
+- (void)LoadMoreKLineData:(NSDictionary *)data;
 
 
 // StockDetailsViewDelegate 代理方法
@@ -149,6 +172,23 @@ self.stockDetailsView.dataSource = jsondata;
  */
 - (void)KLineTimeSelectionWithIndex:(NSInteger)index {
 }
+
+```
+
+dataSource 数据结构
+
+```ruby
+// 初始化加载数据使用
+{
+    "pkdata": result1,
+    "kdata": result2
+}
+result1 获取行情接口返回 result
+result2 获取历史K线接口返回 result
+
+// 更新方法，加载方法data，直接传对应接口返回的数据回来
+
+[self.stockDetailsView UpdateHandicapDataWithDate:result IsMQTT:NO];
 
 ```
 

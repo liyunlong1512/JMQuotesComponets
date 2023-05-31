@@ -40,6 +40,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<StockDetailsViewDelegate> delegate;
 
 /**
+ *  更新盘口数据
+ *  data            数据
+ *  isMQTT      是否MQTT
+ */
+- (void)UpdateHandicapDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+
+/**
+ *  更新K线数据
+ *  data            数据
+ *  isMQTT      是否MQTT
+ */
+- (void)UpdateKLineDataWithDate:(NSDictionary *)data IsMQTT:(BOOL)isMQTT;
+
+/**
  *  加载更多K线数据
  *  data:  数据
  */
