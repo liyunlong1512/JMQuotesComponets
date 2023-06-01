@@ -58,17 +58,28 @@ self.quotationListView.dataJsonList = jsondata;
 
 // QuotationListDelegate 代理方法
 
-// 自选股tab 分类
-// 0.全部 1.港股 2.美股
+/**
+ *  自选股分类选择回调
+ *  index: 选中下标
+ * 0.全部 1.港股 2.美股
+ */
 - (void)quotationListDelegateWithSelectedCategoryIndex:(NSInteger)index {
     // 这里可以去根据分类查询自选股
 }
 
-// 选中个股回调
-// stockCode 股票代码
+/**
+ *  选中个股回调
+ *  stockCode: 股票代码
+ */
 - (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode {
     // 跳转个股详情逻辑
 }
+
+/**
+ *  删除个股回调
+ *  stockCode: 股票代码
+ */
+- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode;
 
 ```
 
