@@ -44,11 +44,24 @@ typedef NS_ENUM(NSInteger, SortState) {
 /** 默认数据源 */
 @property (nonatomic,strong) NSMutableArray *defaultDataSource;
 
+/** 排序数据源 */
+@property (nonatomic,strong) NSMutableArray *sortDataSource;
+
 /** 空数据 */
 @property (nonatomic, strong) UIImageView *nullDataImageView;
 
 /** 空数据 */
 @property (nonatomic, strong) UILabel *nullDataLab;
+
+/** HK */
+@property (nonatomic, strong) NSMutableArray *hkDataSource;
+
+/** US */
+@property (nonatomic, strong) NSMutableArray *usDataSource;
+
+/** 沪深 */
+@property (nonatomic, strong) NSMutableArray *hsDataSource;
+
 
 @end
 
@@ -125,6 +138,378 @@ typedef NS_ENUM(NSInteger, SortState) {
     
 }
 
+#pragma mark - 自选股列表排序方法
+
+/**
+ * 自选股列表排序方法
+ * sortState            排序方式
+ * sortType             排序类型 1.价格 2.涨跌幅
+ */
+
+- (void)setDataSortingMethodWithSortState:(SortState)sortState
+                                 SortType:(SortState)sortType  {
+    // 获取当前时间
+    NSDate *currentTime = [NSDate date];
+
+    // 创建一个 NSDateFormatter 对象，用于格式化日期和时间
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    [dateFormatter setDateFormat:@"HH:mm"];
+
+    // 将当前时间格式化为字符串
+    NSString *currentTimeString = [dateFormatter stringFromDate:currentTime];
+
+    // 比较当前时间和默认时间
+    NSString *defaultTime1 = @"04:30";
+    NSString *defaultTime2 = @"16:30";
+    
+    
+    [self.hkDataSource removeAllObjects];
+    [self.usDataSource removeAllObjects];
+    [self.hsDataSource removeAllObjects];
+    [self.sortDataSource removeAllObjects];
+    
+    [self.defaultDataSource enumerateObjectsUsingBlock:^(JMQuotationListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.stockMarketType == StockMarketType_HK) {
+            [self.hkDataSource addObject:model];
+        } else if (model.stockMarketType == StockMarketType_US) {
+            [self.usDataSource addObject:model];
+        } else {
+            [self.hsDataSource addObject:model];
+        }
+    }];
+    
+    if ([currentTimeString compare:defaultTime1] == NSOrderedDescending && [currentTimeString compare:defaultTime2] == NSOrderedAscending) {
+        NSLog(@"当前时间处于默认时间1和默认时间2之间");
+        [self setSortHKWithSortState:sortState SortType:sortType];
+    } else {
+        NSLog(@"当前时间不处于默认时间1和默认时间2之间");
+        [self setSortUSWithSortState:sortState SortType:sortType];
+    }
+}
+
+- (void)setSortHKWithSortState:(SortState)sortState
+                      SortType:(SortState)sortType {
+    
+    switch (sortState) {
+        case SortStateDefault:{
+            [self.sortDataSource addObjectsFromArray:self.defaultDataSource];
+        }
+            break;
+        case SortStateAscending:{
+            
+            if (sortType == 1) {
+                // 价格升序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            if (sortType == 2) {
+                // 涨跌幅升序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            [self.sortDataSource addObjectsFromArray:self.hkDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hsDataSource];
+            [self.sortDataSource addObjectsFromArray:self.usDataSource];
+            
+        }
+            break;
+        case SortStateDescending:{
+            if (sortType == 1) {
+                // 价格降序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            if (sortType == 2) {
+                // 涨跌幅降序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+            }
+            
+            [self.sortDataSource addObjectsFromArray:self.hkDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hsDataSource];
+            [self.sortDataSource addObjectsFromArray:self.usDataSource];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+- (void)setSortUSWithSortState:(SortState)sortState
+                      SortType:(SortState)sortType {
+    switch (sortState) {
+        case SortStateDefault:{
+            [self.sortDataSource addObjectsFromArray:self.defaultDataSource];
+        }
+            break;
+        case SortStateAscending:{
+            if (sortType == 1) {
+                // 价格升序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            if (sortType == 2) {
+                // 涨跌幅升序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            [self.sortDataSource addObjectsFromArray:self.usDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hkDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hsDataSource];
+    
+        }
+            break;
+        case SortStateDescending:{
+            if (sortType == 1) {
+                // 价格降序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.price.floatValue > b.price.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.price.floatValue < b.price.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            if (sortType == 2) {
+                // 涨跌幅降序
+                [self.hkDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.usDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                
+                [self.hsDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
+                    if (a.changePct.floatValue > b.changePct.floatValue) {
+                        return NSOrderedAscending;
+                    } else if (a.changePct.floatValue < b.changePct.floatValue) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+            }
+            
+            [self.sortDataSource addObjectsFromArray:self.usDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hkDataSource];
+            [self.sortDataSource addObjectsFromArray:self.hsDataSource];
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+
 #pragma mark - QuotationListHeadViewDelegate
 
 - (void)quotationListHeadViewWithSelectionIndex:(NSInteger)index {
@@ -160,12 +545,13 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         // 在这里执行删除操作
+        [self.sortDataSource removeObjectAtIndex:indexPath.row];
         [self.defaultDataSource removeObjectAtIndex:indexPath.row];
         [self.tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView setEditing:NO animated:YES];
         
         if ([self.delegate respondsToSelector:@selector(deleteOptionalStockWithSelectedStockCode:)]) {
-            JMQuotationListModel *model = self.defaultDataSource[indexPath.row];
+            JMQuotationListModel *model = self.sortDataSource[indexPath.row];
             [self.delegate deleteOptionalStockWithSelectedStockCode:model.assetId];
         }
         
@@ -181,103 +567,67 @@ typedef NS_ENUM(NSInteger, SortState) {
 // 处理某行的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedStockCode:)]) {
-        JMQuotationListModel *model = self.defaultDataSource[indexPath.row];
+        JMQuotationListModel *model = self.sortDataSource[indexPath.row];
         [self.delegate quotationListDelegateWithSelectedStockCode:model.assetId];
     }
 }
 
 /// 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.defaultDataSource.count;
+    return self.sortDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JMQuotationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMQuotationListTableViewCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.quotationListModel = self.defaultDataSource[indexPath.row];
+    cell.quotationListModel = self.sortDataSource[indexPath.row];
     return cell;
 }
 
 #pragma mark - 按钮事件
 
 - (void)SortQuoteChangeButtonClick:(UIButton *)sender {
+    
     switch (self.sortQuoteState) {
         case SortStateDefault:
             self.sortQuoteState = SortStateAscending;
             [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_s.png")] forState:UIControlStateNormal];
+            [self setDataSortingMethodWithSortState:SortStateAscending SortType:2];
             break;
         case SortStateAscending:
             self.sortQuoteState = SortStateDescending;
             [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_n.png")] forState:UIControlStateNormal];
+            [self setDataSortingMethodWithSortState:SortStateDescending SortType:2];
             break;
         case SortStateDescending:
             self.sortQuoteState = SortStateDefault;
             [self.sortQuoteChangeBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
+            [self setDataSortingMethodWithSortState:SortStateDefault SortType:2];
             break;
         default:
             break;
     }
+    
+    [self.tableView reloadData];
 }
 
 - (void)SortPriceButtonClick:(UIButton *)sender {
+       
     switch (self.sortPriceState) {
         case SortStateDefault:
             self.sortPriceState = SortStateAscending;
             [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_s.png")] forState:UIControlStateNormal];
-            
-            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-                if (a.price.floatValue > b.price.floatValue) {
-                    return NSOrderedAscending;
-                } else if (a.price.floatValue < b.price.floatValue) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedSame;
-                }
-            }];
-            
+            [self setDataSortingMethodWithSortState:SortStateAscending SortType:1];
             break;
         case SortStateAscending:
             self.sortPriceState = SortStateDescending;
             [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort_n.png")] forState:UIControlStateNormal];
-            
-            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-                if (a.price.floatValue < b.price.floatValue) {
-                    return NSOrderedAscending;
-                } else if (a.price.floatValue > b.price.floatValue) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedSame;
-                }
-            }];
-            
+            [self setDataSortingMethodWithSortState:SortStateDescending SortType:1];
             break;
         case SortStateDescending:
             self.sortPriceState = SortStateDefault;
             [self.sortPriceBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"sort.png")] forState:UIControlStateNormal];
-            
-            // 价格降序
-            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-
-                if (a.price.floatValue < b.price.floatValue) {
-                    return NSOrderedAscending;
-                } else if (a.price.floatValue > b.price.floatValue) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedSame;
-                }
-            }];
-
-            // 市场排序
-            [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-                if (a.stockMarketType < b.stockMarketType) {
-                    return NSOrderedAscending;
-                } else if (a.stockMarketType > b.stockMarketType) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedSame;
-                }
-            }];
-            
+            [self setDataSortingMethodWithSortState:SortStateDefault SortType:1];
             break;
         default:
             break;
@@ -288,6 +638,34 @@ typedef NS_ENUM(NSInteger, SortState) {
 }
 
 #pragma mark — Lazy
+
+- (NSMutableArray *)hsDataSource {
+    if (!_hsDataSource) {
+        _hsDataSource = [[NSMutableArray alloc] init];
+    }
+    return _hsDataSource;
+}
+
+- (NSMutableArray *)usDataSource {
+    if (!_usDataSource) {
+        _usDataSource = [[NSMutableArray alloc] init];
+    }
+    return _usDataSource;
+}
+
+- (NSMutableArray *)hkDataSource {
+    if (!_hkDataSource) {
+        _hkDataSource = [[NSMutableArray alloc] init];
+    }
+    return _hkDataSource;
+}
+
+- (NSMutableArray *)sortDataSource {
+    if (!_sortDataSource) {
+        _sortDataSource = [[NSMutableArray alloc] init];
+    }
+    return _sortDataSource;
+}
 
 - (NSMutableArray *)defaultDataSource {
     if (!_defaultDataSource) {
@@ -394,6 +772,7 @@ typedef NS_ENUM(NSInteger, SortState) {
     _dataJsonList = dataJsonList;
     
     [self.defaultDataSource removeAllObjects];
+    [self.sortDataSource removeAllObjects];
     
     [dataJsonList enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -418,29 +797,7 @@ typedef NS_ENUM(NSInteger, SortState) {
         model.changePct = dic[@"changePct"];
         model.stockMarketType = _stockMarketType;
         [self.defaultDataSource addObject:model];
-    }];
-    
-    // 价格降序
-    [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-
-        if (a.price.floatValue < b.price.floatValue) {
-            return NSOrderedAscending;
-        } else if (a.price.floatValue > b.price.floatValue) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-    }];
-
-    // 市场排序
-    [self.defaultDataSource sortUsingComparator:^NSComparisonResult(JMQuotationListModel *a, JMQuotationListModel *b) {
-        if (a.stockMarketType < b.stockMarketType) {
-            return NSOrderedAscending;
-        } else if (a.stockMarketType > b.stockMarketType) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
+        [self.sortDataSource addObject:model];
     }];
     
     self.tableView.hidden = self.defaultDataSource.count == 0 ? YES : NO;
