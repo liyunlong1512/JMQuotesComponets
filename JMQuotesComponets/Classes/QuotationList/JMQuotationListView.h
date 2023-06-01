@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)quotationListDelegateWithSelectedCategoryIndex:(NSInteger)index;
 
+/**
+ *  删除个股回调
+ *  stockCode: 股票代码
+ */
+- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode;
+
 @end
 
 @interface JMQuotationListView : UIView

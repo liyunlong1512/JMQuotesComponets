@@ -145,10 +145,6 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%@",indexPath);
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -161,16 +157,25 @@ typedef NS_ENUM(NSInteger, SortState) {
     [self.tableView setEditing:NO animated:YES];  // 重置编辑状态
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         // 在这里执行删除操作
         [self.defaultDataSource removeObjectAtIndex:indexPath.row];
         [self.tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView setEditing:NO animated:YES];
-//        [self.tableView reloadData];
+        
+        if ([self.delegate respondsToSelector:@selector(deleteOptionalStockWithSelectedStockCode:)]) {
+            JMQuotationListModel *model = self.defaultDataSource[indexPath.row];
+            [self.delegate deleteOptionalStockWithSelectedStockCode:model.assetId];
+        }
         
     }];
-    return @[deleteAction];
+    deleteAction.backgroundColor = UIColor.upColor;
+    deleteAction.image = [UIImage imageWithContentsOfFile:kImageNamed(@"delete.png")];
+    
+    UISwipeActionsConfiguration *Configuration = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    Configuration.performsFirstActionWithFullSwipe = NO;
+    return Configuration;
 }
 
 // 处理某行的点击事件
@@ -185,14 +190,6 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.defaultDataSource.count;
 }
-
-// 需要注意的是，这个代理方法和直接返回当前Cell高度的代理方法并不一样。
-// 这个代理方法会将当前所有Cell的高度都预估出来，而不是只计算显示的Cell，所以这种方式对性能消耗还是很大的。
-// 所以通过设置estimatedRowHeight属性的方式，和这种代理方法的方式，最后性能消耗都是一样的。
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 50.f;
-//}
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JMQuotationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMQuotationListTableViewCell" forIndexPath:indexPath];
@@ -446,9 +443,7 @@ typedef NS_ENUM(NSInteger, SortState) {
         }
     }];
     
-    if (self.defaultDataSource.count == 0) {
-        self.tableView.hidden = YES;
-    }
+    self.tableView.hidden = self.defaultDataSource.count == 0 ? YES : NO;
     
     [self.tableView reloadData];
     

@@ -282,6 +282,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = liyunlong1512;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = L3PAQ8DAQ5;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -546,6 +549,7 @@
 			baseConfigurationReference = 7401FB69DC2C389E3D1C2F5D /* Pods-JMQuotesComponets_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = L3PAQ8DAQ5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JMQuotesComponets/JMQuotesComponets-Prefix.pch";
 				INFOPLIST_FILE = "JMQuotesComponets/JMQuotesComponets-Info.plist";
@@ -567,6 +571,7 @@
 			baseConfigurationReference = 98B3231F3E98EC6669910890 /* Pods-JMQuotesComponets_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = L3PAQ8DAQ5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JMQuotesComponets/JMQuotesComponets-Prefix.pch";
 				INFOPLIST_FILE = "JMQuotesComponets/JMQuotesComponets-Info.plist";

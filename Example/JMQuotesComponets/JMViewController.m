@@ -33,9 +33,9 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-//    [self CreateWatchlistUI];
+    [self CreateWatchlistUI];
     
-    [self CreateStockDetails];
+//    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,11 +153,26 @@
 
 - (void)quotationListDelegateWithSelectedCategoryIndex:(NSInteger)index {
     NSLog(@"自选股分类选中下标%ld", index);
-    self.quotationListView.dataJsonList = [NSMutableArray array];
+    if (index == 0) {
+        // 获取 JSON 文件的路径
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"hqlist" ofType:@"json"];
+        // 读取 JSON 文件数据
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        // 将 JSON 数据转换为 Objective-C 对象
+        NSError *error = nil;
+        NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        self.quotationListView.dataJsonList = jsonObject[@"result"];
+    } else {
+        self.quotationListView.dataJsonList = [NSMutableArray array];
+    }
 }
 
 - (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode {
-    NSLog(@"%@", stockCode);
+    NSLog(@"选中%@", stockCode);
+}
+
+- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode {
+    NSLog(@"删除%@", stockCode);
 }
 
 #pragma mark - 创建自选列表
