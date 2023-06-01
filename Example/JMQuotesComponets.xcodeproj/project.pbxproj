@@ -24,6 +24,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		AC5F65F005FAF37BB34339FA /* Pods_JMQuotesComponets_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B1B069AA26C01FD593F58B /* Pods_JMQuotesComponets_Example.framework */; };
+		FA221BDC2A271E4E00C1E793 /* pkdata.json in Resources */ = {isa = PBXBuildFile; fileRef = FA221BDB2A271E4E00C1E793 /* pkdata.json */; };
 		FA71C3F42A25AA3000706DD1 /* yearK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3ED2A25AA3000706DD1 /* yearK.json */; };
 		FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3EE2A25AA3000706DD1 /* moonK.json */; };
 		FA71C3F62A25AA3000706DD1 /* wr.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3EF2A25AA3000706DD1 /* wr.json */; };
@@ -74,6 +75,7 @@
 		C8C3B10AAA4F6E781E7AC7C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		CE02BBFEF70A0676CD645D4A /* JMQuotesComponets.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JMQuotesComponets.podspec; path = ../JMQuotesComponets.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EC5457A7DF2BEAE2C4797AD8 /* Pods-JMQuotesComponets_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JMQuotesComponets_Tests.release.xcconfig"; path = "Target Support Files/Pods-JMQuotesComponets_Tests/Pods-JMQuotesComponets_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		FA221BDB2A271E4E00C1E793 /* pkdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pkdata.json; sourceTree = "<group>"; };
 		FA71C3ED2A25AA3000706DD1 /* yearK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yearK.json; sourceTree = "<group>"; };
 		FA71C3EE2A25AA3000706DD1 /* moonK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = moonK.json; sourceTree = "<group>"; };
 		FA71C3EF2A25AA3000706DD1 /* wr.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wr.json; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				FA71C3EF2A25AA3000706DD1 /* wr.json */,
 				FA71C3F02A25AA3000706DD1 /* dayK.json */,
 				FA71C3F12A25AA3000706DD1 /* fs.json */,
+				FA221BDB2A271E4E00C1E793 /* pkdata.json */,
 				FA71C3F22A25AA3000706DD1 /* weekK.json */,
 				FA71C3F32A25AA3000706DD1 /* more_dayK.json */,
 			);
@@ -319,6 +322,7 @@
 				FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */,
 				FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */,
 				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
+				FA221BDC2A271E4E00C1E793 /* pkdata.json in Resources */,
 				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -343,6 +347,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-JMQuotesComponets_Example/Pods-JMQuotesComponets_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JMQuotesComponets/JMQuotesComponets.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
@@ -350,6 +355,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JMQuotesComponets.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",

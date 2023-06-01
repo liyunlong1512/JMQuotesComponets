@@ -1,9 +1,11 @@
 PODS:
-  - JMQuotesComponets (0.1.0):
+  - JMQuotesComponets (0.1.1):
     - Masonry
+    - MJExtension
     - SDWebImage
     - YYCategories
   - Masonry (1.1.0)
+  - MJExtension (3.4.1)
   - SDWebImage (5.13.4):
     - SDWebImage/Core (= 5.13.4)
   - SDWebImage/Core (5.13.4)
@@ -17,6 +19,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Masonry
+    - MJExtension
     - SDWebImage
     - YYCategories
 
@@ -25,8 +28,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JMQuotesComponets: 36dee0a60ad2b497bfbf0a412fa670693c73d9b4
+  JMQuotesComponets: e0e7b8ccea41dcf3e90754c9d6d08f09ec28c30c
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   SDWebImage: e5cc87bf736e60f49592f307bdf9e157189298a3
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
 

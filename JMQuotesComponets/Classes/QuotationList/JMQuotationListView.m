@@ -44,8 +44,11 @@ typedef NS_ENUM(NSInteger, SortState) {
 /** 默认数据源 */
 @property (nonatomic,strong) NSMutableArray *defaultDataSource;
 
-/** 排序数据源 */
-@property (nonatomic,strong) NSMutableArray *sortDataSource;
+/** 空数据 */
+@property (nonatomic, strong) UIImageView *nullDataImageView;
+
+/** 空数据 */
+@property (nonatomic, strong) UILabel *nullDataLab;
 
 @end
 
@@ -64,6 +67,19 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (void)createUI {
     
     self.backgroundColor = UIColor.backgroundColor;
+    
+    [self addSubview:self.nullDataImageView];
+    [self.nullDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self);
+        make.centerY.mas_equalTo(self).mas_offset(-20);
+    }];
+    
+    [self addSubview:self.nullDataLab];
+    [self.nullDataLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.nullDataImageView.mas_bottom).mas_offset(16);
+        make.centerX.mas_equalTo(self);
+    }];
+    
     
     [self addSubview:self.delayPromptView];
     [self.delayPromptView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -276,13 +292,6 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 #pragma mark — Lazy
 
-- (NSMutableArray *)sortDataSource {
-    if (!_sortDataSource) {
-        _sortDataSource = [[NSMutableArray alloc] init];
-    }
-    return _sortDataSource;
-}
-
 - (NSMutableArray *)defaultDataSource {
     if (!_defaultDataSource) {
         _defaultDataSource = [[NSMutableArray alloc] init];
@@ -364,10 +373,30 @@ typedef NS_ENUM(NSInteger, SortState) {
     return  _delayPromptView;
 }
 
+- (UILabel *)nullDataLab {
+    if (!_nullDataLab) {
+        _nullDataLab = [[UILabel alloc] init];
+        _nullDataLab.text = @"暂无数据";
+        _nullDataLab.textColor = UIColor.handicapInfoTextColor;
+        _nullDataLab.font = kFont_Regular(12.f);
+    }
+    return _nullDataLab;
+}
+
+- (UIImageView *)nullDataImageView {
+    if (!_nullDataImageView) {
+        _nullDataImageView = [[UIImageView alloc] init];
+        _nullDataImageView.image = [UIImage imageWithContentsOfFile:kImageNamed(@"null_data.png")];
+    }
+    return _nullDataImageView;
+}
+
 #pragma mark -  数据处理
 
 -(void)setDataJsonList:(NSMutableArray *)dataJsonList {
     _dataJsonList = dataJsonList;
+    
+    [self.defaultDataSource removeAllObjects];
     
     [dataJsonList enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -392,7 +421,6 @@ typedef NS_ENUM(NSInteger, SortState) {
         model.changePct = dic[@"changePct"];
         model.stockMarketType = _stockMarketType;
         [self.defaultDataSource addObject:model];
-        [self.sortDataSource addObject:model];
     }];
     
     // 价格降序
@@ -417,6 +445,10 @@ typedef NS_ENUM(NSInteger, SortState) {
             return NSOrderedSame;
         }
     }];
+    
+    if (self.defaultDataSource.count == 0) {
+        self.tableView.hidden = YES;
+    }
     
     [self.tableView reloadData];
     

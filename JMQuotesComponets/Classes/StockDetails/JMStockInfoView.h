@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMStockInfoViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JMStockInfoView : UIView
 
-/** 股票信息list */
-@property (nonatomic, strong) NSArray *stockInfoList;
+/** 盘口信息 */
+@property (nonatomic, strong) JMStockInfoViewModel *stockInfoViewModel;
 
 @end
 

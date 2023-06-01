@@ -161,7 +161,7 @@
 //  定义每个分区上的元素个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return self.expandBtn.isSelected ? self.stockInfoList.count : 9;
+    return self.expandBtn.isSelected ? self.stockInfoViewModel.handicapInfoList.count : 9;
 }
 
 //  设置每个元素大小
@@ -181,7 +181,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     JMHandicapInfoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"JMHandicapInfoCollectionViewCell" forIndexPath:indexPath];
-    cell.model = self.stockInfoList[indexPath.row];
+    cell.model = self.stockInfoViewModel.handicapInfoList[indexPath.row];
     return cell;
     
 }
@@ -224,7 +224,7 @@
 - (UILabel *)tradingStatusLab {
     if (!_tradingStatusLab) {
         _tradingStatusLab = [[UILabel alloc] init];
-        _tradingStatusLab.text = @"交易中  2023/05/14   11:10:50  北京时间";
+        _tradingStatusLab.text = @"--";
         _tradingStatusLab.font = kFont_Regular(11);
         _tradingStatusLab.textColor = UIColor.secondaryTextColor;
     }
@@ -234,9 +234,9 @@
 - (UILabel *)quoteChangeLab {
     if (!_quoteChangeLab) {
         _quoteChangeLab = [[UILabel alloc] init];
-        _quoteChangeLab.text = @"+1.62%";
+        _quoteChangeLab.text = @"--";
         _quoteChangeLab.font = kFont_Regular(14);
-        _quoteChangeLab.textColor = UIColor.upColor;
+        _quoteChangeLab.textColor = UIColor.flatColor;
     }
     return _quoteChangeLab;
 }
@@ -244,9 +244,9 @@
 - (UILabel *)changeAmountLab {
     if (!_changeAmountLab) {
         _changeAmountLab = [[UILabel alloc] init];
-        _changeAmountLab.text = @"+51.62";
+        _changeAmountLab.text = @"--";
         _changeAmountLab.font = kFont_Regular(14);
-        _changeAmountLab.textColor = UIColor.upColor;
+        _changeAmountLab.textColor = UIColor.flatColor;
     }
     return _changeAmountLab;
 }
@@ -254,18 +254,31 @@
 - (UILabel *)latestPriceLab {
     if (!_latestPriceLab) {
         _latestPriceLab = [[UILabel alloc] init];
-        _latestPriceLab.text = @"475.60";
+        _latestPriceLab.text = @"--";
         _latestPriceLab.font = kFont_Regular(40);
-        _latestPriceLab.textColor = UIColor.upColor;
+        _latestPriceLab.textColor = UIColor.flatColor;
     }
     return _latestPriceLab;
 }
 
 #pragma mark - 数据重载
 
-- (void)setStockInfoList:(NSArray *)stockInfoList {
-    _stockInfoList = stockInfoList;
+- (void)setStockInfoViewModel:(JMStockInfoViewModel *)stockInfoViewModel {
+    _stockInfoViewModel = stockInfoViewModel;
+    
+    self.latestPriceLab.text = stockInfoViewModel.price;
+    self.latestPriceLab.textColor = stockInfoViewModel.priceColor;
+    
+    self.changeAmountLab.text = stockInfoViewModel.change;
+    self.changeAmountLab.textColor = stockInfoViewModel.changeColor;
+    
+    self.quoteChangeLab.text = stockInfoViewModel.changePct;
+    self.quoteChangeLab.textColor = stockInfoViewModel.changePctColor;
+    
+    self.tradingStatusLab.text = stockInfoViewModel.tradingStatus;
+    
     [self.handicapInfoCollectionView reloadData];
+    
 }
 
 @end

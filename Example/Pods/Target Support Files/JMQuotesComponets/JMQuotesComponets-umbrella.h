@@ -60,6 +60,7 @@
 #import "JMChatManager.h"
 #import "JMQuotationListModel.h"
 #import "JMStockInfoModel.h"
+#import "JMStockInfoViewModel.h"
 #import "JMDelayPromptView.h"
 #import "JMMenuView.h"
 #import "JMPopMenuCell.h"

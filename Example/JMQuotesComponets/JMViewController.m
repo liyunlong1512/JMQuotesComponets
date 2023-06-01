@@ -86,7 +86,7 @@
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    [self.stockDetailsView updateKLineDataWithJson:jsonObject ChartTyep:5 Weights:@"F" More:NO];
+    [self.stockDetailsView updateKLineDataWithJson:jsonObject ChartTyep:index Weights:@"F" More:NO];
 }
 
 - (void)getMoreData {
@@ -136,7 +136,16 @@
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    [self.stockDetailsView setDataWithHandicapJson:@{} KLineJson:jsonObject];
+    
+    // 获取 JSON 文件的路径
+    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata" ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data1 = [NSData dataWithContentsOfFile:path1];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error1 = nil;
+    NSArray *jsonObject1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error1];
+    
+    [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject];
     
 }
 
@@ -144,6 +153,7 @@
 
 - (void)quotationListDelegateWithSelectedCategoryIndex:(NSInteger)index {
     NSLog(@"自选股分类选中下标%ld", index);
+    self.quotationListView.dataJsonList = [NSMutableArray array];
 }
 
 - (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode {

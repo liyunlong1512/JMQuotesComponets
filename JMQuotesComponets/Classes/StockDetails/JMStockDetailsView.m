@@ -13,6 +13,8 @@
 #import "JMStockInfoView.h"
 #import "JMMiddleLayerView.h"
 #import "JMStockInfoModel.h"
+#import "JMStockInfoViewModel.h"
+#import <MJExtension/MJExtension.h>
 
 @interface JMStockDetailsView ()<DelayPromptViewDelegate,MiddleLayerViewDelegate>
 
@@ -35,61 +37,61 @@
         [self createUI];
         
         
-        NSArray *titleList = @[
-            @"最高", @"今开", @"成交量",
-            @"最低", @"昨收", @"成交额",
-            @"换手率", @"市盈率", @"总市值",
-            @"量比", @"市盈", @"总股本",
-            @"收益", @"市盈", @"流通市值",
-            @"52周高", @"市净率", @"流通股本",
-            @"52周低", @"均价", @"振幅",
-            @"股息率", @"股息", @"每手",
-            ];
-        
-        NSArray *describeList = @[
-            @"", @"", @"",
-            @"", @"", @"",
-            @"", @"TTM", @"",
-            @"", @"动", @"",
-            @"TTM", @"静", @"",
-            @"", @"", @"",
-            @"", @"", @"",
-            @"TTM", @"TTM", @"",
-            ];
-        
-        NSArray *contentList = @[
-            @"480.80", @"473.20", @"868.34万股",
-            @"471.80", @"471.20", @"41.29亿",
-            @"0.09%", @"20.15", @"4228.55万亿",
-            @"10.02", @"20.15", @"98.55亿",
-            @"2.80", @"20.15", @"4198.55亿",
-            @"476.88", @"20.15", @"98.55亿",
-            @"471.80", @"20.15", @"2.48%",
-            @"0.80%", @"20.15", @"20股",
-            ];
-        
-        NSArray *colorList = @[
-            UIColor.upColor, UIColor.upColor, UIColor.handicapInfoTextColor,
-            UIColor.downColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.upColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            ];
-        
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
-            model.titleStr = titleList[idx];
-            model.describeStr = describeList[idx];
-            model.contentStr = contentList[idx];
-            model.myColor = colorList[idx];
-            [array addObject:model];
-        }];
-        
-        self.stockInfoView.stockInfoList = array;
+//        NSArray *titleList = @[
+//            @"最高", @"今开", @"成交量",
+//            @"最低", @"昨收", @"成交额",
+//            @"换手率", @"市盈率", @"总市值",
+//            @"量比", @"市盈", @"总股本",
+//            @"收益", @"市盈", @"流通市值",
+//            @"52周高", @"市净率", @"流通股本",
+//            @"52周低", @"均价", @"振幅",
+//            @"股息率", @"股息", @"每手",
+//            ];
+//
+//        NSArray *describeList = @[
+//            @"", @"", @"",
+//            @"", @"", @"",
+//            @"", @"TTM", @"",
+//            @"", @"动", @"",
+//            @"TTM", @"静", @"",
+//            @"", @"", @"",
+//            @"", @"", @"",
+//            @"TTM", @"TTM", @"",
+//            ];
+//
+//        NSArray *contentList = @[
+//            @"480.80", @"473.20", @"868.34万股",
+//            @"471.80", @"471.20", @"41.29亿",
+//            @"0.09%", @"20.15", @"4228.55万亿",
+//            @"10.02", @"20.15", @"98.55亿",
+//            @"2.80", @"20.15", @"4198.55亿",
+//            @"476.88", @"20.15", @"98.55亿",
+//            @"471.80", @"20.15", @"2.48%",
+//            @"0.80%", @"20.15", @"20股",
+//            ];
+//
+//        NSArray *colorList = @[
+//            UIColor.upColor, UIColor.upColor, UIColor.handicapInfoTextColor,
+//            UIColor.downColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.upColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+//            ];
+//
+//        NSMutableArray *array = [[NSMutableArray alloc] init];
+//        [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
+//            model.titleStr = titleList[idx];
+//            model.describeStr = describeList[idx];
+//            model.contentStr = contentList[idx];
+//            model.myColor = colorList[idx];
+//            [array addObject:model];
+//        }];
+//
+//        self.stockInfoView.stockInfoList = array;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:kNoticeName_GetMoreData object:nil];
         
@@ -183,17 +185,9 @@
 
 #pragma mark - 数据重载
 
-//- (void)setDataSource:(NSDictionary *)dataSource {
-//    _dataSource = dataSource;
-//    self.middleLayerView.dataSource = dataSource;
-//}
-//
-//- (void)LoadMoreKLineData:(NSDictionary *)data {
-//    NSDictionary *dict = data[@"data"];
-//    NSArray * arr = dict[@"result"][@"data"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
-//}
-
+- (void)setMQTTDataWithJson:(NSDictionary *)json {
+    
+}
 
 - (void)updateKLineDataWithJson:(NSDictionary *)json
                       ChartTyep:(NSInteger)chartType
@@ -212,6 +206,9 @@
 
 - (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
                       KLineJson:(NSDictionary *)kLineJson {
+    
+    JMStockInfoModel *model = [JMStockInfoModel mj_objectWithKeyValues:handicapJson];
+    self.stockInfoView.stockInfoViewModel = [[JMStockInfoViewModel alloc] initWithModel:model];
     self.middleLayerView.dataSource = kLineJson;
 }
 

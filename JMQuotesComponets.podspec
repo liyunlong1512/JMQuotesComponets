@@ -42,4 +42,5 @@ TODO: Add long description of the pod here.
   s.dependency 'SDWebImage'
   s.dependency 'Masonry'
   s.dependency 'YYCategories'
+  s.dependency 'MJExtension'
 end
