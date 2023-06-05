@@ -33,6 +33,9 @@
 		FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F22A25AA3000706DD1 /* weekK.json */; };
 		FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F32A25AA3000706DD1 /* more_dayK.json */; };
 		FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3FB2A25EB0A00706DD1 /* hqlist.json */; };
+		FAE400B42A2D8505004A9C81 /* mqtt_pk_hk_1.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B12A2D8505004A9C81 /* mqtt_pk_hk_1.json */; };
+		FAE400B52A2D8505004A9C81 /* mqtt_pk_hk_2.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B22A2D8505004A9C81 /* mqtt_pk_hk_2.json */; };
+		FAE400B62A2D8505004A9C81 /* mqtt_pk_hk_0.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B32A2D8505004A9C81 /* mqtt_pk_hk_0.json */; };
 		FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3952A29C1A200B0407D /* mqtt_pk.json */; };
 		FAE9B3982A29C1A200B0407D /* mqtt_fs.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3962A29C1A200B0407D /* mqtt_fs.json */; };
 /* End PBXBuildFile section */
@@ -86,6 +89,9 @@
 		FA71C3F22A25AA3000706DD1 /* weekK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekK.json; sourceTree = "<group>"; };
 		FA71C3F32A25AA3000706DD1 /* more_dayK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = more_dayK.json; sourceTree = "<group>"; };
 		FA71C3FB2A25EB0A00706DD1 /* hqlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqlist.json; sourceTree = "<group>"; };
+		FAE400B12A2D8505004A9C81 /* mqtt_pk_hk_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_1.json; sourceTree = "<group>"; };
+		FAE400B22A2D8505004A9C81 /* mqtt_pk_hk_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_2.json; sourceTree = "<group>"; };
+		FAE400B32A2D8505004A9C81 /* mqtt_pk_hk_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_0.json; sourceTree = "<group>"; };
 		FAE9B3952A29C1A200B0407D /* mqtt_pk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk.json; sourceTree = "<group>"; };
 		FAE9B3962A29C1A200B0407D /* mqtt_fs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_fs.json; sourceTree = "<group>"; };
 		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 		6003F593195388D20070C39A /* Example for JMQuotesComponets */ = {
 			isa = PBXGroup;
 			children = (
+				FAE400B02A2D817B004A9C81 /* MQTT */,
 				FA71C3EC2A25AA3000706DD1 /* Assets */,
 				6003F59C195388D20070C39A /* JMAppDelegate.h */,
 				6003F59D195388D20070C39A /* JMAppDelegate.m */,
@@ -235,6 +242,16 @@
 				FA71C3F32A25AA3000706DD1 /* more_dayK.json */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		FAE400B02A2D817B004A9C81 /* MQTT */ = {
+			isa = PBXGroup;
+			children = (
+				FAE400B32A2D8505004A9C81 /* mqtt_pk_hk_0.json */,
+				FAE400B12A2D8505004A9C81 /* mqtt_pk_hk_1.json */,
+				FAE400B22A2D8505004A9C81 /* mqtt_pk_hk_2.json */,
+			);
+			path = MQTT;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,15 +343,18 @@
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				FA71C3F72A25AA3000706DD1 /* dayK.json in Resources */,
 				FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */,
+				FAE400B52A2D8505004A9C81 /* mqtt_pk_hk_2.json in Resources */,
 				FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				FA71C3F42A25AA3000706DD1 /* yearK.json in Resources */,
 				FA71C3F52A25AA3000706DD1 /* moonK.json in Resources */,
 				FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */,
 				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
+				FAE400B42A2D8505004A9C81 /* mqtt_pk_hk_1.json in Resources */,
 				FA221BDC2A271E4E00C1E793 /* pkdata.json in Resources */,
 				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
 				FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */,
+				FAE400B62A2D8505004A9C81 /* mqtt_pk_hk_0.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

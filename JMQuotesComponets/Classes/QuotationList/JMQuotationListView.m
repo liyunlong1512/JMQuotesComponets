@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, SortState) {
  */
 
 - (void)setDataSortingMethodWithSortState:(SortState)sortState
-                                 SortType:(SortState)sortType  {
+                                 SortType:(NSInteger)sortType  {
     // 获取当前时间
     NSDate *currentTime = [NSDate date];
 
@@ -803,6 +803,76 @@ typedef NS_ENUM(NSInteger, SortState) {
     self.tableView.hidden = self.defaultDataSource.count == 0 ? YES : NO;
     
     [self.tableView reloadData];
+    
+}
+
+- (void)setMQTTDataWithJson:(NSDictionary *)json {
+    
+    NSString *funId = json[@"funId"];
+    
+    // 盘口
+    if (funId.intValue == 2) {
+     
+        NSArray *array = json[@"data"];
+        if (array.count == 0) return;
+        
+        NSString * assetIdStr = array.lastObject[0];
+        
+        [self.defaultDataSource enumerateObjectsUsingBlock:^(JMQuotationListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            // 判断股票代码是否一样
+            if ([assetIdStr isEqualToString:model.assetId]) {
+                // 替换元素
+                JMQuotationListModel *newModel = self.defaultDataSource[idx];
+                newModel.price = array.lastObject[6];
+                newModel.changePct = array.lastObject[12];
+                [self.defaultDataSource replaceObjectAtIndex:idx withObject:newModel];
+                
+//                // 局部刷新
+//                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+//                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+        
+        // 判断是否有排序条件
+        if (self.sortPriceState == SortStateDefault && self.sortQuoteState == SortStateDefault) {
+            
+        }
+        
+        // 最新价格排序
+        if (self.sortPriceState != SortStateDefault) {
+            
+            switch (self.sortPriceState) {
+                case SortStateAscending:
+                    [self setDataSortingMethodWithSortState:SortStateAscending SortType:1];
+                    break;
+                case SortStateDescending:
+                    [self setDataSortingMethodWithSortState:SortStateDescending SortType:1];
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        
+        // 涨跌幅排序
+        if (self.sortQuoteState != SortStateDefault) {
+            
+            switch (self.sortQuoteState) {
+                case SortStateAscending:
+                    [self setDataSortingMethodWithSortState:SortStateAscending SortType:2];
+                    break;
+                case SortStateDescending:
+                    [self setDataSortingMethodWithSortState:SortStateDescending SortType:2];
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        
+        
+        [self.tableView reloadData];
+    }
     
 }
 

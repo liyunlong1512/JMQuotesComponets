@@ -55,6 +55,11 @@ pod 'JMQuotesComponets',:git =>"https://github.com/liyunlong1512/JMQuotesCompone
 
 self.quotationListView.dataJsonList = jsondata;
 
+/**
+ *  MQTT数据 传整体数据过来
+ */
+- (void)setMQTTDataWithJson:(NSDictionary *)json;
+
 
 // QuotationListDelegate 代理方法
 

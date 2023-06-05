@@ -39,6 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** 数据源 */
 @property (nonatomic,strong) NSMutableArray *dataJsonList;
 
+/**
+ *  MQTT数据
+ */
+- (void)setMQTTDataWithJson:(NSDictionary *)json;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

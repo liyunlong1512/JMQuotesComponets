@@ -22,6 +22,9 @@
 /** <#注释#> */
 @property(nonatomic, assign) BOOL isMore;
 
+/** <#注释#> */
+@property(nonatomic, assign) NSInteger count;
+
 @end
 
 @implementation JMViewController
@@ -33,9 +36,11 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-//    [self CreateWatchlistUI];
+    self.count = 0;
     
-    [self CreateStockDetails];
+    [self CreateWatchlistUI];
+    
+//    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -149,20 +154,33 @@
     
     // 延时 5 秒执行 doSomethingAfterDelay 方法
     [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
-    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
+//    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                      target:self
+                                                    selector:@selector(doSomethingAfterDelay1)
+                                                    userInfo:nil
+                                                     repeats:YES];
     
 }
 
 - (void)doSomethingAfterDelay1 {
+    
+    if (self.count > 2) {
+        return;
+    }
+    
     // 在延时后执行的代码
     // 获取 JSON 文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"mqtt_pk" ofType:@"json"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"mqtt_pk_hk_%ld",self.count] ofType:@"json"];
     // 读取 JSON 文件数据
     NSData *data = [NSData dataWithContentsOfFile:path];
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     [self.stockDetailsView setMQTTDataWithJson:jsonObject];
+    
+    self.count += 1;
 }
 
 - (void)doSomethingAfterDelay {
@@ -222,6 +240,33 @@
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     self.quotationListView.dataJsonList = jsonObject[@"result"];
     
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                      target:self
+                                                    selector:@selector(doSomethingAfterDelay2)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    
+}
+
+- (void)doSomethingAfterDelay2 {
+    
+    if (self.count > 2) {
+        return;
+    }
+    
+    NSLog(@"计时器开始：%ld", self.count);
+    
+    // 在延时后执行的代码
+    // 获取 JSON 文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"mqtt_pk_hk_%ld",self.count] ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [self.quotationListView setMQTTDataWithJson:jsonObject];
+    
+    self.count += 1;
 }
 
 #pragma mark — Lazy
