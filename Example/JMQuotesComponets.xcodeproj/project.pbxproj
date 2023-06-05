@@ -33,6 +33,8 @@
 		FA71C3F92A25AA3000706DD1 /* weekK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F22A25AA3000706DD1 /* weekK.json */; };
 		FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3F32A25AA3000706DD1 /* more_dayK.json */; };
 		FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */ = {isa = PBXBuildFile; fileRef = FA71C3FB2A25EB0A00706DD1 /* hqlist.json */; };
+		FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3952A29C1A200B0407D /* mqtt_pk.json */; };
+		FAE9B3982A29C1A200B0407D /* mqtt_fs.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3962A29C1A200B0407D /* mqtt_fs.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		FA71C3F22A25AA3000706DD1 /* weekK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekK.json; sourceTree = "<group>"; };
 		FA71C3F32A25AA3000706DD1 /* more_dayK.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = more_dayK.json; sourceTree = "<group>"; };
 		FA71C3FB2A25EB0A00706DD1 /* hqlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqlist.json; sourceTree = "<group>"; };
+		FAE9B3952A29C1A200B0407D /* mqtt_pk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk.json; sourceTree = "<group>"; };
+		FAE9B3962A29C1A200B0407D /* mqtt_fs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_fs.json; sourceTree = "<group>"; };
 		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +222,8 @@
 		FA71C3EC2A25AA3000706DD1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FAE9B3962A29C1A200B0407D /* mqtt_fs.json */,
+				FAE9B3952A29C1A200B0407D /* mqtt_pk.json */,
 				FA71C3FB2A25EB0A00706DD1 /* hqlist.json */,
 				FA71C3ED2A25AA3000706DD1 /* yearK.json */,
 				FA71C3EE2A25AA3000706DD1 /* moonK.json */,
@@ -315,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE9B3982A29C1A200B0407D /* mqtt_fs.json in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				FA71C3F72A25AA3000706DD1 /* dayK.json in Resources */,
@@ -327,6 +334,7 @@
 				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
 				FA221BDC2A271E4E00C1E793 /* pkdata.json in Resources */,
 				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
+				FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

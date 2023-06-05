@@ -680,9 +680,9 @@
     BOOL isStockIndex = [dataSource[@"isStockIndex"] boolValue];//是否是指数
     NSString * assetID = dataSource[@"assetID"];//股票代码
     BOOL isInitialization = [dataSource[@"isInitialization"] boolValue];//是否更新数据(切换K线)
-    NSDictionary *dict = dataSource[@"data"];
+    NSDictionary *dict = dataSource[@"result"];
     // K线图数据源
-    NSArray * arr = dict[@"result"][@"data"];
+    NSArray * arr = dict[@"data"];
     
     //价格小数据点格式化
     NSString * priceFormate = dataSource[@"priceFormate"];

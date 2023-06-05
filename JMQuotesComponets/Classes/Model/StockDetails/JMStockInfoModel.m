@@ -10,4 +10,17 @@
 
 @implementation JMStockInfoModel
 
+- (NSString *)marketType {
+    
+    if (!_marketType){
+        NSArray *assetIdList = [_assetId componentsSeparatedByString:@"."];
+        _marketType = assetIdList.lastObject;
+    }
+    return _marketType;
+}
+
+@end
+
+@implementation JMTimeChartModel
+
 @end

@@ -25,65 +25,65 @@ NS_ASSUME_NONNULL_BEGIN
 /** 颜色 */
 @property (nonatomic, strong) UIColor *myColor;
 
-/** <#注释#> */
+/** 股票代码 */
 @property (nonatomic, copy) NSString *assetId;
-/** <#注释#> */
+/** 股票名称 */
 @property (nonatomic, copy) NSString *name;
-/** <#注释#> */
+/** 现价 */
 @property (nonatomic, copy) NSString *price;
-/** <#注释#> */
+/** 涨跌额 */
 @property (nonatomic, copy) NSString *change;
-/** <#注释#> */
+/** 开盘价 */
 @property (nonatomic, copy) NSString *open;
-/** <#注释#> */
+/** 昨收价 */
 @property (nonatomic, copy) NSString *preClose;
-/** <#注释#> */
+/** 最高价 */
 @property (nonatomic, copy) NSString *high;
-/** <#注释#> */
+/** 最低价 */
 @property (nonatomic, copy) NSString *low;
-/** <#注释#> */
+/** 成交量 */
 @property (nonatomic, copy) NSString *volume;
-/** <#注释#> */
+/** 成交额 */
 @property (nonatomic, copy) NSString *turnover;
-/** <#注释#> */
+/** 涨跌幅 */
 @property (nonatomic, copy) NSString *changePct;
-/** <#注释#> */
+/** 市盈率 ttm */
 @property (nonatomic, copy) NSString *ttmPe;
-/** <#注释#> */
+/** 市盈(静) */
 @property (nonatomic, copy) NSString *pe;
-/** <#注释#> */
+/** 52周高 */
 @property (nonatomic, copy) NSString *week52High;
-/** <#注释#> */
+/** 52周低 */
 @property (nonatomic, copy) NSString *week52Low;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *hisHigh;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *hisLow;
-/** <#注释#> */
+/** 均价 */
 @property (nonatomic, copy) NSString *avgPrice;
-/** <#注释#> */
+/** 换手率 */
 @property (nonatomic, copy) NSString *turnRate;
-/** <#注释#> */
+/** 市净率 */
 @property (nonatomic, copy) NSString *pb;
-/** <#注释#> */
+/** 量比 */
 @property (nonatomic, copy) NSString *volRate;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *commitTee;
-/** <#注释#> */
+/** 收益 */
 @property (nonatomic, copy) NSString *epsp;
-/** <#注释#> */
+/** 总市值 */
 @property (nonatomic, copy) NSString *totalVal;
-/** <#注释#> */
+/** 振幅 */
 @property (nonatomic, copy) NSString *ampLiTude;
-/** <#注释#> */
+/** 流通股本 */
 @property (nonatomic, copy) NSString *flshr;
-/** <#注释#> */
+/** 总股本 */
 @property (nonatomic, copy) NSString *total;
-/** <#注释#> */
+/** 交易状态 */
 @property(nonatomic, assign) NSInteger status;
-/** <#注释#> */
+/** 时间戳 */
 @property (nonatomic, copy) NSString *ts;
-/** <#注释#> */
+/** 每手 */
 @property (nonatomic, copy) NSString *lotSize;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *bid1;
@@ -93,9 +93,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *ask1;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *askQty1;
-/** <#注释#> */
+/** 股息 */
 @property (nonatomic, copy) NSString *ttmDps;
-/** <#注释#> */
+/** 股息率 */
 @property (nonatomic, copy) NSString *dpsRate;
 /** <#注释#> */
 @property(nonatomic, assign) BOOL isShortSell;
@@ -103,8 +103,40 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *type;
 /** <#注释#> */
 @property (nonatomic, copy) NSString *brokerQueue;
-/** <#注释#> */
+/** 流通市值 */
 @property (nonatomic, copy) NSString *fmktVal;
+
+/** 市场类型 */
+@property (nonatomic, copy) NSString *marketType;
+
+/** 美股全天交易状态，166, 返回格式数组1|0|0,依次顺序是盘前，盘后，盘中的状态，其中1表示交易中，0表示非交易时间 */
+@property (nonatomic, copy) NSString *usTradeStatus;
+
+@end
+
+/// 分时数据Model
+@interface JMTimeChartModel : NSObject
+
+/** 索引 */
+@property(nonatomic, assign) NSInteger index;
+/** 资产ID */
+@property (nonatomic, strong) NSString *assetID;
+/** 推送时间 */
+@property (nonatomic, strong) NSNumber *pushTime;
+/** 现价 */
+@property (nonatomic, strong) NSNumber *currentPrice;
+/** 均价 */
+@property (nonatomic, strong) NSNumber *averagePrice;
+/** 昨收价 */
+@property (nonatomic, strong) NSNumber *yesterdayClosePrice;
+/** 分钟成交量 */
+@property (nonatomic, strong) NSNumber *minuteVolume;
+/** 分钟成交额 */
+@property (nonatomic, strong) NSNumber *minuteTurnover;
+/** 是否加入到5日分时 */
+@property (nonatomic, assign) BOOL addTo5DaysTimeSharing;
+/** 今开 */
+@property (nonatomic, strong) NSNumber *todayOpenPrice;
 
 @end
 

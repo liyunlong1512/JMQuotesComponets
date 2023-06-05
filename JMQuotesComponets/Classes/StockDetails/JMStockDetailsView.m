@@ -27,6 +27,15 @@
 /** K线图view */
 @property (nonatomic, strong) JMMiddleLayerView *middleLayerView;
 
+/** 盘口信息数据源 */
+@property (nonatomic, strong) JMStockInfoModel *stockInfoModel;
+
+/** 时间tab选择 */
+@property(nonatomic, assign) NSInteger selectTimeIndex;
+
+/** 初始K线信息数据 */
+@property (nonatomic, strong) NSDictionary *kLineJson;
+
 @end
 
 @implementation JMStockDetailsView
@@ -34,65 +43,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.selectTimeIndex = 3;
         [self createUI];
-        
-        
-//        NSArray *titleList = @[
-//            @"最高", @"今开", @"成交量",
-//            @"最低", @"昨收", @"成交额",
-//            @"换手率", @"市盈率", @"总市值",
-//            @"量比", @"市盈", @"总股本",
-//            @"收益", @"市盈", @"流通市值",
-//            @"52周高", @"市净率", @"流通股本",
-//            @"52周低", @"均价", @"振幅",
-//            @"股息率", @"股息", @"每手",
-//            ];
-//
-//        NSArray *describeList = @[
-//            @"", @"", @"",
-//            @"", @"", @"",
-//            @"", @"TTM", @"",
-//            @"", @"动", @"",
-//            @"TTM", @"静", @"",
-//            @"", @"", @"",
-//            @"", @"", @"",
-//            @"TTM", @"TTM", @"",
-//            ];
-//
-//        NSArray *contentList = @[
-//            @"480.80", @"473.20", @"868.34万股",
-//            @"471.80", @"471.20", @"41.29亿",
-//            @"0.09%", @"20.15", @"4228.55万亿",
-//            @"10.02", @"20.15", @"98.55亿",
-//            @"2.80", @"20.15", @"4198.55亿",
-//            @"476.88", @"20.15", @"98.55亿",
-//            @"471.80", @"20.15", @"2.48%",
-//            @"0.80%", @"20.15", @"20股",
-//            ];
-//
-//        NSArray *colorList = @[
-//            UIColor.upColor, UIColor.upColor, UIColor.handicapInfoTextColor,
-//            UIColor.downColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.upColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-//            ];
-//
-//        NSMutableArray *array = [[NSMutableArray alloc] init];
-//        [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
-//            model.titleStr = titleList[idx];
-//            model.describeStr = describeList[idx];
-//            model.contentStr = contentList[idx];
-//            model.myColor = colorList[idx];
-//            [array addObject:model];
-//        }];
-//
-//        self.stockInfoView.stockInfoList = array;
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:kNoticeName_GetMoreData object:nil];
         
     }
@@ -124,6 +76,202 @@
     
 }
 
+#pragma mark - Private method
+
+/**
+ * 获取收盘状态
+ * market 市场类型
+ * status   US分时图类型 0/盘前 1/盘中 2/盘后
+ * model
+ */
+- (BOOL)getClosingStatusWithMarket:(NSString *)market
+                 TimeSharingStatus:(NSInteger)status
+                    StockInfoModel:(JMStockInfoModel *)model {
+    
+    if ([market isEqualToString:@"HK"]) {
+        
+        return model.status == 7 ? NO : YES;
+        
+    } else if ([market isEqualToString:@"US"]) {
+        
+        NSArray *list = [model.usTradeStatus componentsSeparatedByString:@"|"];
+        if (list.count != 3) {
+            return YES;
+        }
+        
+        if (status == 0) {
+            return [list[0] isEqualToString:@"1"] ? NO : YES;
+          } else if (status == 1) {
+            return [list[1] isEqualToString:@"1"] ? NO : YES;
+          } else if (status == 2) {
+            return [list[2] isEqualToString:@"1"] ? NO : YES;
+          }
+        
+    } else if ([market isEqualToString:@"SZ"] || [market isEqualToString:@"SH"] || [market isEqualToString:@"ML"]) {
+        return model.status == 7 ? NO : YES;
+    }
+    
+    return YES;
+}
+
+/**
+ * 获取市场类型
+ * market 市场类型
+ * status   US分时图类型 0/盘前 1/盘中 2/盘后
+ */
+- (NSString *)getMarketTypeWithMarket:(NSString *)market
+                    TimeSharingStatus:(NSInteger)status {
+    
+    NSString *type = @"HK";
+    if ([market isEqualToString:@"HK"]) {
+        type = @"HK";
+    } else if ([market isEqualToString:@"US"]) {
+        if (status == 0) {
+            type = @"US1"; //盘前
+        } else if (status == 1) {
+            type = @"US2"; //盘中
+        } else if (status == 2) {
+            type = @"US3"; //盘后
+        }
+    } else if ([market isEqualToString:@"SZ"] || [market isEqualToString:@"SH"] || [market isEqualToString:@"ML"]) {
+        type = @"ZH";
+    }
+    return type;
+}
+
+/**
+ * K线图API请求数据组装
+ * json K线数据
+ * model 盘口数据
+ * chatType K线图类型
+ */
+- (void)setKLineChartAPIRequestDataAssemblyWithKLineJson:(NSDictionary *)json
+                                          StockInfoModel:(JMStockInfoModel *)model
+                                                ChatType:(NSInteger)chatType {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    BOOL isClose = [self getClosingStatusWithMarket:model.marketType TimeSharingStatus:1 StockInfoModel:model];
+    
+    [dic setObject:model.assetId forKey:@"assetID"];
+    [dic setObject:[NSString stringWithFormat:@"%ld",chatType] forKey:@"chatType"];
+    [dic setObject:model.preClose forKey:@"close"];
+    [dic setObject:[NSString stringWithFormat:@"%d",isClose] forKey:@"isClose"];
+    [dic setObject:[self getMarketTypeWithMarket:model.marketType TimeSharingStatus:1] forKey:@"marketType"];
+    [dic setObject:model.price forKey:@"price"];
+    [dic setObject:json[@"result"] forKey:@"result"];
+    
+    self.middleLayerView.dataSource = dic;
+}
+
+/**
+ * K线图MQTT请求数据组装
+ * json K线数据
+ * model 盘口数据
+ * chatType K线图类型
+ */
+- (void)setKLineChartMQTTRequestDataAssemblyWithKLineJson:(NSDictionary *)json
+                                           StockInfoModel:(JMStockInfoModel *)model
+                                                 ChatType:(NSInteger)chatType {
+    
+    NSArray *array = json[@"data"];
+    
+    if (array.count == 0) {
+        return;
+    }
+    
+    BOOL isClose = [self getClosingStatusWithMarket:model.marketType TimeSharingStatus:1 StockInfoModel:model];
+    
+    JMMiddleLayerViewModel *viewModel = [JMMiddleLayerViewModel objectWithTimeArray:array];
+    
+    [viewModel.timeChartModels enumerateObjectsUsingBlock:^(JMTimeChartModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        viewModel.assetID = obj.assetID;
+        viewModel.chatType = obj.addTo5DaysTimeSharing ? 4 : 3;
+        viewModel.isClose = isClose;
+        viewModel.marketType = [self getMarketTypeWithMarket:model.marketType TimeSharingStatus:1];
+        viewModel.price = obj.currentPrice;
+        viewModel.close = obj.yesterdayClosePrice;
+    }];
+        
+    // 判断股票代码是否一样
+    if (![model.assetId isEqualToString:viewModel.assetID]) {
+        return;
+    }
+    
+    // 判断当前是否位于选择时间分类
+    if (viewModel.chatType != self.selectTimeIndex) {
+        return;
+    }
+    
+    [self setEncapsulateKLineChartDataWithRawData:self.kLineJson NewData:viewModel];
+}
+
+/**
+ * 再次封装K线图数据
+ * rawData 原始数据
+ * newData 新数据
+ */
+- (void)setEncapsulateKLineChartDataWithRawData:(NSDictionary *)rawData
+                                        NewData:(JMMiddleLayerViewModel *)model {
+    
+    NSMutableArray *mutArray = [[NSMutableArray alloc] initWithArray:rawData[@"result"][@"data"]];
+    
+    // ["分时时间戳", "最新价", "均价", "分钟成交量", "分钟成交额", "今开"]
+    [model.timeChartModels enumerateObjectsUsingBlock:^(JMTimeChartModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        // 获取数组最后一个元素的时间
+        NSArray *lastObjectArray = mutArray.lastObject;
+        NSString *timestampStr = lastObjectArray[0];
+        // 推送数据的时间
+        long pushTime = [obj.pushTime longValue];
+        
+        NSArray * array = @[obj.pushTime, obj.currentPrice, obj.averagePrice, obj.minuteVolume, obj.minuteTurnover, obj.todayOpenPrice];
+        
+        
+        NSTimeInterval timestamp1 = timestampStr.longValue / 1000.0;
+        NSTimeInterval timestamp2 = pushTime / 1000.0;
+
+        NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:timestamp1];
+        NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:timestamp2];
+
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+        [calendar setTimeZone:timeZone];
+
+        NSDateComponents *components1 = [calendar components:NSCalendarUnitMinute fromDate:date1];
+        NSDateComponents *components2 = [calendar components:NSCalendarUnitMinute fromDate:date2];
+        
+        // 时间大于，添加数据
+        if (components1.minute < components2.minute) {
+            [mutArray addObject:array];
+        }
+        
+        // 时间一样，更新数据
+        if (components1.minute == components2.minute) {
+            [mutArray replaceObjectAtIndex:mutArray.count - 1 withObject:array];
+        }
+
+    }];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    BOOL isClose = [self getClosingStatusWithMarket:model.marketType TimeSharingStatus:1 StockInfoModel:self.stockInfoModel];
+    
+    [dic setObject:model.assetID forKey:@"assetID"];
+    [dic setObject:[NSString stringWithFormat:@"%ld", model.chatType] forKey:@"chatType"];
+    [dic setObject:[NSString stringWithFormat:@"%@", model.close] forKey:@"close"];
+    [dic setObject:[NSString stringWithFormat:@"%d",isClose] forKey:@"isClose"];
+    [dic setObject:[self getMarketTypeWithMarket:model.marketType TimeSharingStatus:1] forKey:@"marketType"];
+    [dic setObject:model.price forKey:@"price"];
+    
+    NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
+    [dataDic setObject:mutArray forKey:@"data"];
+    [dic setObject:dataDic forKey:@"result"];
+    
+    self.middleLayerView.dataSource = dic;
+    
+    NSLog(@"");
+}
+
 #pragma mark - 通知方法
 
 - (void)handleNotification:(NSNotification *)notification {
@@ -143,6 +291,8 @@
 
 - (void)KLineTimeSelectionWithIndex:(NSInteger)index {
     NSLog(@"图表时间 %ld", index);
+    // 记录选中
+    self.selectTimeIndex = index;
     if ([self.delegate respondsToSelector:@selector(KLineTimeSelectionWithIndex:)]) {
         [self.delegate KLineTimeSelectionWithIndex:index];
     }
@@ -159,6 +309,13 @@
 }
 
 #pragma mark — Lazy
+
+- (JMStockInfoModel *)stockInfoModel {
+    if (!_stockInfoModel){
+        _stockInfoModel = [[JMStockInfoModel alloc] init];
+    }
+    return  _stockInfoModel;
+}
 
 - (JMMiddleLayerView *)middleLayerView {
     if (!_middleLayerView){
@@ -187,6 +344,62 @@
 
 - (void)setMQTTDataWithJson:(NSDictionary *)json {
     
+    NSString *funId = json[@"funId"];
+    
+    // 盘口
+    if (funId.intValue == 2) {
+     
+        NSArray *array = json[@"data"];
+        if (array.count == 0) return;
+        
+        // ["资产ID","名称",资产类型,资产状态,"昨收","开盘","现价","最高","最低","成交量","成交额","涨跌额","涨跌幅","总市值","流通市值","换手率","动态市盈率","市净率","量比","委比","平均价","收益",净资产,"","静态市盈率",更新时间,"日期","时分秒","振幅",盘中状态值,"52周最高","52周最低","历史最高","历史最低","资产类别","交易货币","每股资产净值","溢价","杠杠比率","实际杠杠","牛熊溢价","打和点","距收回价","换股价"]
+        NSString * assetIdStr = array.lastObject[0];
+        
+        if (![self.stockInfoModel.assetId isEqualToString:assetIdStr]) {
+            return;
+        }
+        
+        JMStockInfoModel *model = self.stockInfoModel;
+        model.assetId = array.lastObject[0];
+        model.name = array.lastObject[1];
+        model.status = [array.lastObject[3] intValue];
+        model.preClose = array.lastObject[4];
+        model.open = array.lastObject[5];
+        model.price = array.lastObject[6];
+        model.high = array.lastObject[7];
+        model.low = array.lastObject[8];
+        model.volume = array.lastObject[9];
+        model.turnover = array.lastObject[10];
+        model.change = array.lastObject[11];
+        model.changePct = array.lastObject[12];
+        model.totalVal = array.lastObject[13];
+        model.fmktVal = array.lastObject[14];
+        model.turnRate = array.lastObject[15];
+        model.ttmPe = array.lastObject[16];
+        model.pb = array.lastObject[17];
+        model.volRate = array.lastObject[18];
+        model.avgPrice = array.lastObject[20];
+        model.epsp = array.lastObject[21];
+        model.pe = array.lastObject[24];
+        model.ts = array.lastObject[25];
+        model.ampLiTude = array.lastObject[28];
+        model.week52High = array.lastObject[30];
+        model.week52Low = array.lastObject[31];
+        model.hisHigh = array.lastObject[32];
+        model.hisLow = array.lastObject[33];
+        
+        self.stockInfoView.stockInfoViewModel = [[JMStockInfoViewModel alloc] initWithModel:model];
+        self.stockInfoModel = model;
+        
+    }
+    
+    // 分时
+    if (funId.intValue == 4) {
+        [self setKLineChartMQTTRequestDataAssemblyWithKLineJson:json
+                                                 StockInfoModel:self.stockInfoModel
+                                                       ChatType:self.selectTimeIndex];
+    }
+    
 }
 
 - (void)updateKLineDataWithJson:(NSDictionary *)json
@@ -195,11 +408,11 @@
                            More:(BOOL)more {
     
     if (more) {
-        NSDictionary *dict = json[@"data"];
-        NSArray * arr = dict[@"result"][@"data"];
+        NSArray * arr = json[@"result"][@"data"];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
     } else {
-        self.middleLayerView.dataSource = json;
+        self.kLineJson = json;
+        [self setKLineChartAPIRequestDataAssemblyWithKLineJson:json StockInfoModel:self.stockInfoModel ChatType:chartType];
     }
     
 }
@@ -209,7 +422,10 @@
     
     JMStockInfoModel *model = [JMStockInfoModel mj_objectWithKeyValues:handicapJson];
     self.stockInfoView.stockInfoViewModel = [[JMStockInfoViewModel alloc] initWithModel:model];
-    self.middleLayerView.dataSource = kLineJson;
+    self.stockInfoModel = model;
+    
+    self.kLineJson = kLineJson;
+    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:3];
 }
 
 @end

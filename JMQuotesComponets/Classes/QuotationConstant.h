@@ -109,7 +109,7 @@ typedef NS_ENUM(NSInteger, PopMenuType) {
 typedef NS_ENUM(NSInteger, KlineType) {
     KlineTypeKline = 1, //K线
     KlineTypeTimeLine,  //分时图
-    KlineTypeIndicator //指标
+    KlineTypeIndicator, //指标
 };
 
 

@@ -33,9 +33,9 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-    [self CreateWatchlistUI];
+//    [self CreateWatchlistUI];
     
-//    [self CreateStockDetails];
+    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,6 +147,34 @@
     
     [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject];
     
+    // 延时 5 秒执行 doSomethingAfterDelay 方法
+    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
+    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
+    
+}
+
+- (void)doSomethingAfterDelay1 {
+    // 在延时后执行的代码
+    // 获取 JSON 文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"mqtt_pk" ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [self.stockDetailsView setMQTTDataWithJson:jsonObject];
+}
+
+- (void)doSomethingAfterDelay {
+    // 在延时后执行的代码
+    // 获取 JSON 文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"mqtt_fs" ofType:@"json"];
+    // 读取 JSON 文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将 JSON 数据转换为 Objective-C 对象
+    NSError *error = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [self.stockDetailsView setMQTTDataWithJson:jsonObject];
 }
 
 #pragma mark - QuotationListDelegate
