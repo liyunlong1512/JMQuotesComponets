@@ -38,9 +38,9 @@
     
     self.count = 0;
     
-    [self CreateWatchlistUI];
+//    [self CreateWatchlistUI];
     
-//    [self CreateStockDetails];
+    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,10 +153,10 @@
     [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject];
     
     // 延时 5 秒执行 doSomethingAfterDelay 方法
-    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
+//    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
 //    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
-    
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+//
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                       target:self
                                                     selector:@selector(doSomethingAfterDelay1)
                                                     userInfo:nil
@@ -166,19 +166,37 @@
 
 - (void)doSomethingAfterDelay1 {
     
-    if (self.count > 2) {
+    if (self.count > 11) {
         return;
     }
     
-    // 在延时后执行的代码
-    // 获取 JSON 文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"mqtt_pk_hk_%ld",self.count] ofType:@"json"];
-    // 读取 JSON 文件数据
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    // 将 JSON 数据转换为 Objective-C 对象
-    NSError *error = nil;
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    [self.stockDetailsView setMQTTDataWithJson:jsonObject];
+    NSLog(@"计数器%ld",self.count);
+    
+
+    NSArray *jsonStrings = @[
+        @"{\"data\":[[\"00700.HK\",1685951460000,\"338.000\",\"335.334\",\"315.400\",\"151856\",\"51313608.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951520000,\"338.000\",\"335.349\",\"315.400\",\"125000\",\"42233042.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951580000,\"338.000\",\"335.354\",\"315.400\",\"69460\",\"23470272.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951640000,\"338.000\",\"335.366\",\"315.400\",\"93105\",\"31467355.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951700000,\"338.000\",\"335.382\",\"315.400\",\"110190\",\"37231710.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951760000,\"338.400\",\"335.400\",\"315.400\",\"119030\",\"40261176.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951820000,\"338.400\",\"335.419\",\"315.400\",\"111140\",\"37614200.400\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951880000,\"338.400\",\"335.435\",\"315.400\",\"104100\",\"35231770.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951940000,\"338.800\",\"335.486\",\"315.400\",\"301810\",\"102187967.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685951960000,\"338.800\",\"335.486\",\"315.400\",\"301810\",\"102187967.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685952000000,\"338.200\",\"335.648\",\"315.400\",\"1360910\",\"460337657.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}",
+        @"{\"data\":[[\"00700.HK\",1685952010000,\"338.200\",\"335.648\",\"315.400\",\"1360910\",\"460337657.000\",\"N\",\"336.000\"]],\"funId\":4,\"sendTime\":\"2023-06-02 14:32:11\",\"topicName\":\"QUOT/HK/00700.HK/4\"}"
+    ];
+    
+    NSData *jsonData = [jsonStrings[self.count] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+
+    if (error) {
+        NSLog(@"Error parsing JSON: %@", error.localizedDescription);
+    } else {
+        [self.stockDetailsView setMQTTDataWithJson:jsonDict];
+    }
     
     self.count += 1;
 }

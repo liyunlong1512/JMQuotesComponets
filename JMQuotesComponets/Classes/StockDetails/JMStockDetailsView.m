@@ -34,7 +34,8 @@
 @property(nonatomic, assign) NSInteger selectTimeIndex;
 
 /** 初始K线信息数据 */
-@property (nonatomic, strong) NSDictionary *kLineJson;
+//@property (nonatomic, strong) NSDictionary *kLineJson;
+@property (nonatomic, strong) NSMutableArray *klineDataList;
 
 @end
 
@@ -202,24 +203,20 @@
         return;
     }
     
-    [self setEncapsulateKLineChartDataWithRawData:self.kLineJson NewData:viewModel];
+    [self setEncapsulateKLineChartData:viewModel];
 }
 
 /**
  * 再次封装K线图数据
- * rawData 原始数据
  * newData 新数据
  */
-- (void)setEncapsulateKLineChartDataWithRawData:(NSDictionary *)rawData
-                                        NewData:(JMMiddleLayerViewModel *)model {
-    
-    NSMutableArray *mutArray = [[NSMutableArray alloc] initWithArray:rawData[@"result"][@"data"]];
+- (void)setEncapsulateKLineChartData:(JMMiddleLayerViewModel *)model {
     
     // ["分时时间戳", "最新价", "均价", "分钟成交量", "分钟成交额", "今开"]
     [model.timeChartModels enumerateObjectsUsingBlock:^(JMTimeChartModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         // 获取数组最后一个元素的时间
-        NSArray *lastObjectArray = mutArray.lastObject;
+        NSArray *lastObjectArray = self.klineDataList.lastObject;
         NSString *timestampStr = lastObjectArray[0];
         // 推送数据的时间
         long pushTime = [obj.pushTime longValue];
@@ -237,17 +234,31 @@
         NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
         [calendar setTimeZone:timeZone];
 
-        NSDateComponents *components1 = [calendar components:NSCalendarUnitMinute fromDate:date1];
-        NSDateComponents *components2 = [calendar components:NSCalendarUnitMinute fromDate:date2];
+        NSDateComponents *hour1 = [calendar components:NSCalendarUnitHour fromDate:date1];
+        NSDateComponents *hour2 = [calendar components:NSCalendarUnitHour fromDate:date2];
         
-        // 时间大于，添加数据
-        if (components1.minute < components2.minute) {
-            [mutArray addObject:array];
+        NSDateComponents *minute1 = [calendar components:NSCalendarUnitMinute fromDate:date1];
+        NSDateComponents *minute2 = [calendar components:NSCalendarUnitMinute fromDate:date2];
+        
+        
+        // 小时小于
+        if (hour1.hour < hour2.hour) {
+            [self.klineDataList addObject:array];
         }
         
-        // 时间一样，更新数据
-        if (components1.minute == components2.minute) {
-            [mutArray replaceObjectAtIndex:mutArray.count - 1 withObject:array];
+        // 小时等于
+        if (hour1.hour == hour2.hour) {
+            
+            // 分钟小于，添加数据
+            if (minute1.minute < minute2.minute) {
+                [self.klineDataList addObject:array];
+            }
+
+            // 分钟一样，更新数据
+            if (minute1.minute == minute2.minute) {
+                [self.klineDataList replaceObjectAtIndex:self.klineDataList.count - 1 withObject:array];
+            }
+            
         }
 
     }];
@@ -264,7 +275,7 @@
     [dic setObject:model.price forKey:@"price"];
     
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
-    [dataDic setObject:mutArray forKey:@"data"];
+    [dataDic setObject:self.klineDataList forKey:@"data"];
     [dic setObject:dataDic forKey:@"result"];
     
     self.middleLayerView.dataSource = dic;
@@ -411,7 +422,10 @@
         NSArray * arr = json[@"result"][@"data"];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNoticeName_LoadMoreData object:arr];
     } else {
-        self.kLineJson = json;
+        NSArray * array = json[@"result"][@"data"];
+        if (array.count <= 0) return;
+        
+        self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
         [self setKLineChartAPIRequestDataAssemblyWithKLineJson:json StockInfoModel:self.stockInfoModel ChatType:chartType];
     }
     
@@ -424,7 +438,10 @@
     self.stockInfoView.stockInfoViewModel = [[JMStockInfoViewModel alloc] initWithModel:model];
     self.stockInfoModel = model;
     
-    self.kLineJson = kLineJson;
+    NSArray * array = kLineJson[@"result"][@"data"];
+    if (array.count <= 0) return;
+    
+    self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
     [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:3];
 }
 

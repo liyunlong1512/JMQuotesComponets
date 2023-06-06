@@ -36,6 +36,8 @@
 		FAE400B42A2D8505004A9C81 /* mqtt_pk_hk_1.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B12A2D8505004A9C81 /* mqtt_pk_hk_1.json */; };
 		FAE400B52A2D8505004A9C81 /* mqtt_pk_hk_2.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B22A2D8505004A9C81 /* mqtt_pk_hk_2.json */; };
 		FAE400B62A2D8505004A9C81 /* mqtt_pk_hk_0.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B32A2D8505004A9C81 /* mqtt_pk_hk_0.json */; };
+		FAE400B92A2ECC1B004A9C81 /* fs_us.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400B72A2ECC1B004A9C81 /* fs_us.json */; };
+		FAE400BC2A2ECC5F004A9C81 /* pkdata_us.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE400BB2A2ECC5F004A9C81 /* pkdata_us.json */; };
 		FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3952A29C1A200B0407D /* mqtt_pk.json */; };
 		FAE9B3982A29C1A200B0407D /* mqtt_fs.json in Resources */ = {isa = PBXBuildFile; fileRef = FAE9B3962A29C1A200B0407D /* mqtt_fs.json */; };
 /* End PBXBuildFile section */
@@ -92,6 +94,8 @@
 		FAE400B12A2D8505004A9C81 /* mqtt_pk_hk_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_1.json; sourceTree = "<group>"; };
 		FAE400B22A2D8505004A9C81 /* mqtt_pk_hk_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_2.json; sourceTree = "<group>"; };
 		FAE400B32A2D8505004A9C81 /* mqtt_pk_hk_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk_hk_0.json; sourceTree = "<group>"; };
+		FAE400B72A2ECC1B004A9C81 /* fs_us.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fs_us.json; sourceTree = "<group>"; };
+		FAE400BB2A2ECC5F004A9C81 /* pkdata_us.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pkdata_us.json; sourceTree = "<group>"; };
 		FAE9B3952A29C1A200B0407D /* mqtt_pk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_pk.json; sourceTree = "<group>"; };
 		FAE9B3962A29C1A200B0407D /* mqtt_fs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mqtt_fs.json; sourceTree = "<group>"; };
 		FE312DB62BAF7CA4501A2778 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 		FA71C3EC2A25AA3000706DD1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FAE400BB2A2ECC5F004A9C81 /* pkdata_us.json */,
+				FAE400B72A2ECC1B004A9C81 /* fs_us.json */,
 				FAE9B3962A29C1A200B0407D /* mqtt_fs.json */,
 				FAE9B3952A29C1A200B0407D /* mqtt_pk.json */,
 				FA71C3FB2A25EB0A00706DD1 /* hqlist.json */,
@@ -341,6 +347,7 @@
 				FAE9B3982A29C1A200B0407D /* mqtt_fs.json in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				FAE400B92A2ECC1B004A9C81 /* fs_us.json in Resources */,
 				FA71C3F72A25AA3000706DD1 /* dayK.json in Resources */,
 				FA71C3FA2A25AA3000706DD1 /* more_dayK.json in Resources */,
 				FAE400B52A2D8505004A9C81 /* mqtt_pk_hk_2.json in Resources */,
@@ -351,6 +358,7 @@
 				FA71C3FC2A25EB0A00706DD1 /* hqlist.json in Resources */,
 				FA71C3F82A25AA3000706DD1 /* fs.json in Resources */,
 				FAE400B42A2D8505004A9C81 /* mqtt_pk_hk_1.json in Resources */,
+				FAE400BC2A2ECC5F004A9C81 /* pkdata_us.json in Resources */,
 				FA221BDC2A271E4E00C1E793 /* pkdata.json in Resources */,
 				FA71C3F62A25AA3000706DD1 /* wr.json in Resources */,
 				FAE9B3972A29C1A200B0407D /* mqtt_pk.json in Resources */,
