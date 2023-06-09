@@ -40,7 +40,7 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 #  s.dependency 'SDWebImage'
-  s.dependency 'Masonry'
-  s.dependency 'YYCategories'
-  s.dependency 'MJExtension'
+  s.dependency 'Masonry', :git => "https://github.com/SnapKit/Masonry.git"
+  s.dependency 'YYCategories', :git => "https://github.com/ibireme/YYCategories.git"
+  s.dependency 'MJExtension', :git => "https://github.com/CoderMJLee/MJExtension.git"
 end
