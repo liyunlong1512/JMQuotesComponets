@@ -388,7 +388,6 @@
 				"${BUILT_PRODUCTS_DIR}/JMQuotesComponets/JMQuotesComponets.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -396,7 +395,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JMQuotesComponets.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
