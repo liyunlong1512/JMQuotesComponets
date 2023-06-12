@@ -230,9 +230,8 @@
     }
 }
 
-- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode
-                                         StockName:(nonnull NSString *)stockName {
-    NSLog(@"选中%@", stockCode);
+- (void)quotationListDelegateWithSelectedModel:(JMQuotationListModel *)model {
+    NSLog(@"选中%@", model.name);
     [self.quotationListView setSelectionTabIndex:2];
 }
 

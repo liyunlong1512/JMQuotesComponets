@@ -571,9 +571,9 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 // 处理某行的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedStockCode:)]) {
+    if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedModel:)]) {
         JMQuotationListModel *model = self.sortDataSource[indexPath.row];
-        [self.delegate quotationListDelegateWithSelectedStockCode:model.assetId StockName:model.name];
+        [self.delegate quotationListDelegateWithSelectedModel:model];
     }
 }
 

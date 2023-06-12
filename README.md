@@ -77,11 +77,9 @@ self.quotationListView.dataJsonList = jsondata;
 
 /**
  *  选中个股回调
- *  stockCode: 股票代码
- *  stockName: 股票名称
+ *  model 选中股票model
  */
-- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode
-                                         StockName:(NSString *)stockName {
+- (void)quotationListDelegateWithSelectedModel:(JMQuotationListModel *)model {
     // 跳转个股详情逻辑
 }
 

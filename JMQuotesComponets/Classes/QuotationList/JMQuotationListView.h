@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMQuotationListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,11 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  选中个股回调
- *  stockCode: 股票代码
- *  stockName: 股票名称
+ *  model 选中股票model
  */
-- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode
-                                         StockName:(NSString *)stockName;
+- (void)quotationListDelegateWithSelectedModel:(JMQuotationListModel *)model;
 
 /**
  *  自选股分类选择回调
