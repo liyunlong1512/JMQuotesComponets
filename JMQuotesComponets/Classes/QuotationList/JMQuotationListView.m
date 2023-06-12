@@ -160,8 +160,8 @@ typedef NS_ENUM(NSInteger, SortState) {
     NSString *currentTimeString = [dateFormatter stringFromDate:currentTime];
 
     // 比较当前时间和默认时间
-    NSString *defaultTime1 = @"04:30";
-    NSString *defaultTime2 = @"16:30";
+    NSString *defaultTime1 = @"08:00";
+    NSString *defaultTime2 = @"20:00";
     
     
     [self.hkDataSource removeAllObjects];
