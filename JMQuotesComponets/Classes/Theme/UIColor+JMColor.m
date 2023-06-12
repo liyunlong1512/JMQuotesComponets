@@ -134,7 +134,7 @@
 }
 
 + (UIColor *)line5Color {
-    return  [UIColor colorWithRGBHex:0x4DFCDD];
+    return  [UIColor colorWithRGBHex:0x14BC7C];
 }
 
 #pragma mark 分时线的颜色

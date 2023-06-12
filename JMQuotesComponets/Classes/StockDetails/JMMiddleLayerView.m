@@ -256,7 +256,7 @@
     
     self.menuType = PopMenuType_Weights;
     
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), kHeightScale(330)) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), self.isExpand ? kHeightScale(430) : kHeightScale(330)) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
     
     self.menu.dataSource = self;
     self.menu.delegate = self;
@@ -270,7 +270,7 @@
     
     self.menuType = PopMenuType_time;
     
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), kHeightScale(330)) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), self.isExpand ? kHeightScale(430) : kHeightScale(330)) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
     
     self.menu.dataSource = self;
     self.menu.delegate = self;

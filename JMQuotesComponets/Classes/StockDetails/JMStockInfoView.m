@@ -9,6 +9,7 @@
 #import "JMStockInfoView.h"
 #import "QuotationConstant.h"
 #import "JMHandicapInfoCollectionViewCell.h"
+#import "UIButton+KJEnlarge.h"
 
 @interface JMStockInfoView ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -55,7 +56,7 @@
     
     [self addSubview:self.changeAmountLab];
     [self.changeAmountLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.latestPriceLab.mas_top).mas_offset(5);
+        make.top.mas_equalTo(self.latestPriceLab.mas_top).mas_offset(8);
         make.left.mas_equalTo(self.latestPriceLab.mas_right).mas_offset(10);
     }];
     
@@ -101,6 +102,11 @@
             make.height.mas_offset(kHeightScale(3*20));
         }];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(setIsExpand:)]) {
+        [self.delegate setIsExpand:sender.selected];
+    }
+    
     [self.handicapInfoCollectionView reloadData];
 }
 
@@ -194,6 +200,7 @@
         [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")] forState:UIControlStateNormal];
         [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateHighlighted];
         [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateSelected];
+        [_expandBtn setTouchAreaInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
         [_expandBtn addTarget:self action:@selector(ExpandBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _expandBtn;

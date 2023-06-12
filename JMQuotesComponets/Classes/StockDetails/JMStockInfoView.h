@@ -11,10 +11,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol StockInfoViewDelegate <NSObject>
+
+/**
+ * 是否展开
+ */
+- (void)setIsExpand:(BOOL)isExpand;
+
+@end
+
+
 @interface JMStockInfoView : UIView
 
 /** 盘口信息 */
 @property (nonatomic, strong) JMStockInfoViewModel *stockInfoViewModel;
+
+@property (nonatomic, weak) id<StockInfoViewDelegate> delegate;
 
 @end
 

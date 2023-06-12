@@ -13,9 +13,11 @@
 - (instancetype)initWithModel:(JMStockInfoModel *)model {
     if (self = [super init]) {
         
+        
         self.price = model.price;
-        self.change = model.change;
-        self.changePct = [self getPercentageUnitWithNumStr:model.changePct];
+        
+        NSString *changeStr = model.change;
+        NSString *changePctStr = [self getPercentageUnitWithNumStr:model.changePct];
         
         if ([model.changePct floatValue]  == 0.00){
             self.priceColor = UIColor.flatColor;
@@ -27,11 +29,18 @@
                 self.changeColor = UIColor.downColor;
                 self.changePctColor = UIColor.downColor;
             } else {
+                
+                changeStr = [NSString stringWithFormat:@"+%@", model.change];
+                changePctStr = [NSString stringWithFormat:@"+%@", [self getPercentageUnitWithNumStr:model.changePct]];
+                
                 self.priceColor = UIColor.upColor;
                 self.changeColor = UIColor.upColor;
                 self.changePctColor = UIColor.upColor;
             }
         }
+    
+        self.change = changeStr;
+        self.changePct = changePctStr;
         
         self.tradingStatus = [self getTradingStatusWithStatus:model.status Timestamp:model.ts Market:model.marketType];
         

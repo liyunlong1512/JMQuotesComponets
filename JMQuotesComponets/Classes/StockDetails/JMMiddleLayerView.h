@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<MiddleLayerViewDelegate> delegate;
 
+/** 是否展开 */
+@property(nonatomic, assign) BOOL isExpand;
+
 @end
 
 NS_ASSUME_NONNULL_END

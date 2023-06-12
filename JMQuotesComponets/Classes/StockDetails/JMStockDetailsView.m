@@ -16,7 +16,7 @@
 #import "JMStockInfoViewModel.h"
 #import <MJExtension/MJExtension.h>
 
-@interface JMStockDetailsView ()<DelayPromptViewDelegate,MiddleLayerViewDelegate>
+@interface JMStockDetailsView ()<DelayPromptViewDelegate, MiddleLayerViewDelegate, StockInfoViewDelegate>
 
 /** 延时行情提示 */
 @property (nonatomic,strong) JMDelayPromptView *delayPromptView;
@@ -309,6 +309,12 @@
     }
 }
 
+#pragma mark - StockInfoViewDelegate
+
+- (void)setIsExpand:(BOOL)isExpand {
+    self.middleLayerView.isExpand = isExpand;
+}
+
 #pragma mark - DelayPromptViewDelegate
 
 - (void)closePrompt {
@@ -339,6 +345,7 @@
 - (JMStockInfoView *)stockInfoView {
     if (!_stockInfoView){
         _stockInfoView = [[JMStockInfoView alloc] init];
+        _stockInfoView.delegate = self;
     }
     return  _stockInfoView;
 }

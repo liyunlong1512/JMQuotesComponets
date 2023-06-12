@@ -38,9 +38,9 @@
     
     self.count = 0;
     
-    [self CreateWatchlistUI];
+//    [self CreateWatchlistUI];
     
-//    [self CreateStockDetails];
+    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,6 +83,8 @@
         default:
             break;
     }
+    
+    if (index > 8) return;
     
     // 获取 JSON 文件的路径
     NSString *path = [[NSBundle mainBundle] pathForResource:jsonName ofType:@"json"];
