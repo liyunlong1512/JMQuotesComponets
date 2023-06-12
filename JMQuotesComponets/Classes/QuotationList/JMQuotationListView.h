@@ -15,8 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  选中个股回调
  *  stockCode: 股票代码
+ *  stockName: 股票名称
  */
-- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode;
+- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode
+                                         StockName:(NSString *)stockName;
 
 /**
  *  自选股分类选择回调

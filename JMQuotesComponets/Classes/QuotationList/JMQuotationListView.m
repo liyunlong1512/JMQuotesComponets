@@ -573,7 +573,7 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(quotationListDelegateWithSelectedStockCode:)]) {
         JMQuotationListModel *model = self.sortDataSource[indexPath.row];
-        [self.delegate quotationListDelegateWithSelectedStockCode:model.assetId];
+        [self.delegate quotationListDelegateWithSelectedStockCode:model.assetId StockName:model.name];
     }
 }
 

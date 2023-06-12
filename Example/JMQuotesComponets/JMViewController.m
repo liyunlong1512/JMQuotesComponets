@@ -230,7 +230,8 @@
     }
 }
 
-- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode {
+- (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode
+                                         StockName:(nonnull NSString *)stockName {
     NSLog(@"选中%@", stockCode);
     [self.quotationListView setSelectionTabIndex:2];
 }
