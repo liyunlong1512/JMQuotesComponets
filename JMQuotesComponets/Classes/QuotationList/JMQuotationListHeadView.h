@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<QuotationListHeadViewDelegate> delegate;
 
+/** 这种选中Tab */
+- (void)setSelectionTabIndex:(NSInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

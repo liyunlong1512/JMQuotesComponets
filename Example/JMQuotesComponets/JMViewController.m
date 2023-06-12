@@ -38,9 +38,9 @@
     
     self.count = 0;
     
-//    [self CreateWatchlistUI];
+    [self CreateWatchlistUI];
     
-    [self CreateStockDetails];
+//    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -117,7 +117,6 @@
 }
 
 - (void)KLineWeightsSelectionWithType:(NSString *)type {
-    
 }
 
 - (void)KLineTimeSelectionWithIndex:(NSInteger)index {
@@ -233,10 +232,13 @@
 
 - (void)quotationListDelegateWithSelectedStockCode:(NSString *)stockCode {
     NSLog(@"选中%@", stockCode);
+    [self.quotationListView setSelectionTabIndex:2];
 }
 
-- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode {
+- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode
+                          fetchCompletionHandler:(nonnull void (^)(BOOL))completionHandler {
     NSLog(@"删除%@", stockCode);
+    completionHandler(YES);
 }
 
 #pragma mark - 创建自选列表

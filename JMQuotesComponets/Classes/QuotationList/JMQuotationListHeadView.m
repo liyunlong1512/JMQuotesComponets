@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSArray *buttonTitles;
 @property (nonatomic, strong) NSMutableArray *buttons;
 @property (nonatomic, strong) UIButton *selectedButton;
+/** 选中index */
+@property(nonatomic, assign) NSInteger selectedTabIndex;
 
 @end
 
@@ -23,6 +25,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.selectedTabIndex = 0;
         [self createMarketCategoriesUI];
     }
     return self;
@@ -74,7 +77,7 @@
         [button setTag:idx];
         [self addSubview:button];
         [self.buttons addObject:button];
-        if(idx == 0){
+        if(idx == self.selectedTabIndex){
             button.selected = YES;
             self.selectedButton = button;
         }
@@ -94,6 +97,24 @@
             make.height.mas_offset(buttonHeight);
         }];
         currentX += buttonWidth + spacing;
+    }
+    
+}
+
+#pragma mark - 数据重载
+
+- (void)setSelectionTabIndex:(NSInteger)index {
+    
+    for (UIView *subview in self.subviews) {
+        [subview removeFromSuperview];
+    }
+    
+    self.selectedTabIndex = index;
+    
+    [self createMarketCategoriesUI];
+    
+    if ([self.delegate respondsToSelector:@selector(quotationListHeadViewWithSelectionIndex:)]) {
+        [self.delegate quotationListHeadViewWithSelectionIndex:index];
     }
     
 }

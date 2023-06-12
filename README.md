@@ -60,6 +60,9 @@ self.quotationListView.dataJsonList = jsondata;
  */
 - (void)setMQTTDataWithJson:(NSDictionary *)json;
 
+/** 设置选中Tab */
+- (void)setSelectionTabIndex:(NSInteger)index;
+
 
 // QuotationListDelegate 代理方法
 
@@ -83,8 +86,10 @@ self.quotationListView.dataJsonList = jsondata;
 /**
  *  删除个股回调
  *  stockCode: 股票代码
+ *  删除回调
  */
-- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode;
+- (void)deleteOptionalStockWithSelectedStockCode:(NSString *)stockCode
+                          fetchCompletionHandler:(void (^)(BOOL isDelete))completionHandler;
 
 ```
 

@@ -544,15 +544,20 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        // 在这里执行删除操作
-        [self.sortDataSource removeObjectAtIndex:indexPath.row];
-        [self.defaultDataSource removeObjectAtIndex:indexPath.row];
-        [self.tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView setEditing:NO animated:YES];
         
-        if ([self.delegate respondsToSelector:@selector(deleteOptionalStockWithSelectedStockCode:)]) {
+        if ([self.delegate respondsToSelector:@selector(deleteOptionalStockWithSelectedStockCode:fetchCompletionHandler:)]) {
             JMQuotationListModel *model = self.sortDataSource[indexPath.row];
-            [self.delegate deleteOptionalStockWithSelectedStockCode:model.assetId];
+            [self.delegate deleteOptionalStockWithSelectedStockCode:model.assetId fetchCompletionHandler:^(BOOL isDelete) {
+                
+                if (isDelete) {
+                    // 在这里执行删除操作
+                    [self.sortDataSource removeObjectAtIndex:indexPath.row];
+                    [self.defaultDataSource removeObjectAtIndex:indexPath.row];
+                    [self.tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView setEditing:NO animated:YES];
+                }
+                
+            }];
         }
         
     }];
@@ -874,6 +879,11 @@ typedef NS_ENUM(NSInteger, SortState) {
         [self.tableView reloadData];
     }
     
+}
+
+/** 这种选中Tab */
+- (void)setSelectionTabIndex:(NSInteger)index {
+    [self.quotationListHeadView setSelectionTabIndex:index];
 }
 
 @end
