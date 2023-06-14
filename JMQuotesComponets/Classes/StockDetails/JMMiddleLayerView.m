@@ -160,11 +160,11 @@
         }
             break;
         case 1:{
-            return KLineChartTypeBetween;
+            return KLineChartTypeAfter;
         }
             break;
         case 2:{
-            return KLineChartTypeAfter;
+            return KLineChartTypeBetween;
         }
             break;
         case 3:{

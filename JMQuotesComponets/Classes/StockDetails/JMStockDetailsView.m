@@ -439,7 +439,8 @@
 }
 
 - (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
-                      KLineJson:(NSDictionary *)kLineJson {
+                      KLineJson:(NSDictionary *)kLineJson
+                      ChartTyep:(NSInteger)chartType {
     
     JMStockInfoModel *model = [JMStockInfoModel mj_objectWithKeyValues:handicapJson];
     self.stockInfoView.stockInfoViewModel = [[JMStockInfoViewModel alloc] initWithModel:model];
@@ -449,7 +450,7 @@
     if (array.count <= 0) return;
     
     self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
-    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:3];
+    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
 }
 
 @end

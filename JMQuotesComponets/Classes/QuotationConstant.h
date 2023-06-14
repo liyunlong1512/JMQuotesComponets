@@ -116,8 +116,8 @@ typedef NS_ENUM(NSInteger, KlineType) {
 // K线图类型
 typedef NS_ENUM(NSInteger, KLineChartType) {
     KLineChartTypeBefore = 0, //盘前
-    KLineChartTypeBetween,    //盘中
     KLineChartTypeAfter,      //盘后
+    KLineChartTypeBetween,    //盘中
     KLineChartTypeMinuteHour, //分时
     KLineChartTypeFiveDay,    //五日
     KLineChartTypeDayK,       //日K

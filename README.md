@@ -144,11 +144,13 @@ dataJsonList 数据结构
 
 /**
  *  初始化设置数据
- *  handicapJson    盘口数据   传result这一层
- *  kLineJson       K线数据   传result这一层
+ *  handicapJson 盘口数据
+ *  kLineJson       K线数据
+ *  chartType        K线tab类型  港股默认:3 美股默认:2
  */
 - (void)setDataWithHandicapJson:(NSDictionary *)handicapJson
-                      KLineJson:(NSDictionary *)kLineJson;
+                      KLineJson:(NSDictionary *)kLineJson
+                      ChartTyep:(NSInteger)chartType;
 
 /**
  *  更新K线数据

@@ -142,6 +142,7 @@
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error = nil;
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+//    NSDictionary *jsonObject = @{};
     
     // 获取 JSON 文件的路径
     NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata" ofType:@"json"];
@@ -157,11 +158,11 @@
 //    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
 //    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
 //
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                      target:self
-                                                    selector:@selector(doSomethingAfterDelay1)
-                                                    userInfo:nil
-                                                     repeats:YES];
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+//                                                      target:self
+//                                                    selector:@selector(doSomethingAfterDelay1)
+//                                                    userInfo:nil
+//                                                     repeats:YES];
     
 }
 
