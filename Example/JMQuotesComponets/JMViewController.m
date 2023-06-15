@@ -145,7 +145,7 @@
 //    NSDictionary *jsonObject = @{};
     
     // 获取 JSON 文件的路径
-    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata_us" ofType:@"json"];
+    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata" ofType:@"json"];
     // 读取 JSON 文件数据
     NSData *data1 = [NSData dataWithContentsOfFile:path1];
     // 将 JSON 数据转换为 Objective-C 对象

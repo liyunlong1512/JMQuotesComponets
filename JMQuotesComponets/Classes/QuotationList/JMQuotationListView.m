@@ -12,6 +12,7 @@
 #import "JMQuotationListTableViewCell.h"
 #import "JMDelayPromptView.h"
 #import "JMQuotationListHeadView.h"
+#import "WOCrashProtectorManager.h"
 
 typedef NS_ENUM(NSInteger, SortState) {
     SortStateDefault,
@@ -70,6 +71,8 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        //开启防crash机制
+        [WOCrashProtectorManager makeAllEffective];
         [self createUI];
         self.sortPriceState = SortStateDefault;
         self.sortQuoteState = SortStateDefault;

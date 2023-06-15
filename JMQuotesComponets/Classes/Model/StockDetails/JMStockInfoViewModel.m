@@ -14,143 +14,213 @@
     if (self = [super init]) {
         
         
-        self.price = model.price;
-        
-        NSString *changeStr = model.change;
-        NSString *changePctStr = [self getPercentageUnitWithNumStr:model.changePct];
-        
-        if ([model.changePct floatValue]  == 0.00){
+        if (model.price == nil && model.change == nil && model.changePct == nil && model.ts == nil && model.marketType == nil) {
+            self.price = @"--";
+            self.change = @"--";
+            self.changePct = @"--";
+            self.tradingStatus = @"--";
             self.priceColor = UIColor.flatColor;
             self.changeColor = UIColor.flatColor;
             self.changePctColor = UIColor.flatColor;
+            
+            NSArray *titleList = @[
+                @"最高", @"今开", @"成交量",
+                @"最低", @"昨收", @"成交额",
+                @"换手率", @"市盈率", @"总市值",
+                @"量比", @"市盈", @"总股本",
+                @"收益", @"市盈", @"流通市值",
+                @"52周高", @"市净率", @"流通股本",
+                @"52周低", @"均价", @"振幅",
+                @"股息率", @"股息", @"每手",
+            ];
+            
+            NSArray *describeList = @[
+                @"", @"", @"",
+                @"", @"", @"",
+                @"", @"TTM", @"",
+                @"", @"动", @"",
+                @"", @"静", @"",
+                @"", @"", @"",
+                @"", @"", @"",
+                @"", @"", @"",
+            ];
+            
+            NSArray *contentList = @[
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+                @"--", @"--", @"--",
+            ];
+            
+            NSArray *colorList = @[
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+            ];
+            
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
+                model.titleStr = titleList[idx];
+                model.describeStr = describeList[idx];
+                model.contentStr = contentList[idx];
+                model.myColor = colorList[idx];
+                [array addObject:model];
+            }];
+            
+            self.handicapInfoList = array;
+            
         } else {
-            if ([model.changePct hasPrefix:@"-"]) {
-                self.priceColor = UIColor.downColor;
-                self.changeColor = UIColor.downColor;
-                self.changePctColor = UIColor.downColor;
+            
+            self.price = model.price == nil ? @"--" : model.price;
+            
+            NSString *changeStr = model.change;
+            NSString *changePctStr = [self getPercentageUnitWithNumStr:model.changePct];
+            
+            if ([model.changePct floatValue]  == 0.00){
+                self.priceColor = UIColor.flatColor;
+                self.changeColor = UIColor.flatColor;
+                self.changePctColor = UIColor.flatColor;
             } else {
-                
-                changeStr = [NSString stringWithFormat:@"+%@", model.change];
-                changePctStr = [NSString stringWithFormat:@"+%@", [self getPercentageUnitWithNumStr:model.changePct]];
-                
-                self.priceColor = UIColor.upColor;
-                self.changeColor = UIColor.upColor;
-                self.changePctColor = UIColor.upColor;
+                if ([model.changePct hasPrefix:@"-"]) {
+                    self.priceColor = UIColor.downColor;
+                    self.changeColor = UIColor.downColor;
+                    self.changePctColor = UIColor.downColor;
+                } else {
+                    
+                    changeStr = [NSString stringWithFormat:@"+%@", model.change];
+                    changePctStr = [NSString stringWithFormat:@"+%@", [self getPercentageUnitWithNumStr:model.changePct]];
+                    
+                    self.priceColor = UIColor.upColor;
+                    self.changeColor = UIColor.upColor;
+                    self.changePctColor = UIColor.upColor;
+                }
             }
+        
+            self.change = changeStr;
+            self.changePct = changePctStr;
+            
+            self.tradingStatus = [self getTradingStatusWithStatus:model.status Timestamp:model.ts Market:model.marketType];
+            
+            NSString *type = model.marketType;
+            if ([type isEqualToString:@"HK"]) {
+                self.stockMarketType = StockMarketType_HK;
+            } else if ([type isEqualToString:@"US"]) {
+                self.stockMarketType = StockMarketType_US;
+            } else if ([type isEqualToString:@"SZ"]) {
+                self.stockMarketType = StockMarketType_SZ;
+            } else if ([type isEqualToString:@"SH"]) {
+                self.stockMarketType = StockMarketType_SH;
+            }
+            
+            
+            NSArray *titleList = @[
+                @"最高", @"今开", @"成交量",
+                @"最低", @"昨收", @"成交额",
+                @"换手率", @"市盈率", @"总市值",
+                @"量比", @"市盈", @"总股本",
+                @"收益", @"市盈", @"流通市值",
+                @"52周高", @"市净率", @"流通股本",
+                @"52周低", @"均价", @"振幅",
+                @"股息率", @"股息", @"每手",
+            ];
+            
+            NSArray *describeList = @[
+                @"", @"", @"",
+                @"", @"", @"",
+                @"", @"TTM", @"",
+                @"", @"动", @"",
+                @"", @"静", @"",
+                @"", @"", @"",
+                @"", @"", @"",
+                @"", @"", @"",
+            ];
+            
+            
+            NSMutableArray *contentList = [[NSMutableArray alloc] init];
+            // 最高
+            [contentList addObject:model.high];
+            // 最低
+            [contentList addObject:model.open];
+            // 成交量
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.volume]];
+            //最低
+            [contentList addObject:model.low];
+            //昨收
+            [contentList addObject:model.preClose];
+            //成交额
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.turnover]];
+            //换手率
+            [contentList addObject:[self getPercentageUnitWithNumStr:model.turnRate]];
+            //市盈率
+            [contentList addObject:model.ttmPe];
+            //总市值
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.totalVal]];
+            //量比
+            [contentList addObject:model.volRate];
+            //市盈(动)
+            [contentList addObject:model.ttmPe];
+            //总股本
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.total]];
+            //收益
+            [contentList addObject:model.epsp];
+            //市盈(静)
+            [contentList addObject:model.pe];
+            //流通市值
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.fmktVal]];
+            //52周高
+            [contentList addObject:model.week52High];
+            //市净率
+            [contentList addObject:model.pb];
+            //流通股本
+            [contentList addObject:[self getVolumeUnitWithNumStr:model.flshr]];
+            //52周低
+            [contentList addObject:model.week52Low];
+            //均价
+            [contentList addObject:model.avgPrice];
+            //振幅
+            [contentList addObject:[self getPercentageUnitWithNumStr:model.ampLiTude]];
+            //股息率
+            [contentList addObject:[self getPercentageUnitWithNumStr:model.dpsRate]];
+            //股息
+            [contentList addObject:model.ttmDps];
+            //每手
+            [contentList addObject:[NSString stringWithFormat:@"%@股",model.lotSize]];
+            
+            NSArray *colorList = @[
+                [self getColorByCompareWithStr1:model.high Str2:model.preClose], [self getColorByCompareWithStr1:model.open Str2:model.preClose], UIColor.handicapInfoTextColor,
+                [self getColorByCompareWithStr1:model.low Str2:model.preClose], UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+                UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
+            ];
+            
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
+                model.titleStr = titleList[idx];
+                model.describeStr = describeList[idx];
+                model.contentStr = contentList[idx];
+                model.myColor = colorList[idx];
+                [array addObject:model];
+            }];
+            
+            self.handicapInfoList = array;
+            
         }
-    
-        self.change = changeStr;
-        self.changePct = changePctStr;
         
-        self.tradingStatus = [self getTradingStatusWithStatus:model.status Timestamp:model.ts Market:model.marketType];
-        
-        NSString *type = model.marketType;
-        if ([type isEqualToString:@"HK"]) {
-            self.stockMarketType = StockMarketType_HK;
-        } else if ([type isEqualToString:@"US"]) {
-            self.stockMarketType = StockMarketType_US;
-        } else if ([type isEqualToString:@"SZ"]) {
-            self.stockMarketType = StockMarketType_SZ;
-        } else if ([type isEqualToString:@"SH"]) {
-            self.stockMarketType = StockMarketType_SH;
-        }
-        
-        
-        NSArray *titleList = @[
-            @"最高", @"今开", @"成交量",
-            @"最低", @"昨收", @"成交额",
-            @"换手率", @"市盈率", @"总市值",
-            @"量比", @"市盈", @"总股本",
-            @"收益", @"市盈", @"流通市值",
-            @"52周高", @"市净率", @"流通股本",
-            @"52周低", @"均价", @"振幅",
-            @"股息率", @"股息", @"每手",
-        ];
-        
-        NSArray *describeList = @[
-            @"", @"", @"",
-            @"", @"", @"",
-            @"", @"TTM", @"",
-            @"", @"动", @"",
-            @"", @"静", @"",
-            @"", @"", @"",
-            @"", @"", @"",
-            @"", @"", @"",
-        ];
-        
-        
-        NSMutableArray *contentList = [[NSMutableArray alloc] init];
-        // 最高
-        [contentList addObject:model.high];
-        // 最低
-        [contentList addObject:model.open];
-        // 成交量
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.volume]];
-        //最低
-        [contentList addObject:model.low];
-        //昨收
-        [contentList addObject:model.preClose];
-        //成交额
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.turnover]];
-        //换手率
-        [contentList addObject:[self getPercentageUnitWithNumStr:model.turnRate]];
-        //市盈率
-        [contentList addObject:model.ttmPe];
-        //总市值
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.totalVal]];
-        //量比
-        [contentList addObject:model.volRate];
-        //市盈(动)
-        [contentList addObject:model.ttmPe];
-        //总股本
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.total]];
-        //收益
-        [contentList addObject:model.epsp];
-        //市盈(静)
-        [contentList addObject:model.pe];
-        //流通市值
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.fmktVal]];
-        //52周高
-        [contentList addObject:model.week52High];
-        //市净率
-        [contentList addObject:model.pb];
-        //流通股本
-        [contentList addObject:[self getVolumeUnitWithNumStr:model.flshr]];
-        //52周低
-        [contentList addObject:model.week52Low];
-        //均价
-        [contentList addObject:model.avgPrice];
-        //振幅
-        [contentList addObject:[self getPercentageUnitWithNumStr:model.ampLiTude]];
-        //股息率
-        [contentList addObject:[self getPercentageUnitWithNumStr:model.dpsRate]];
-        //股息
-        [contentList addObject:model.ttmDps];
-        //每手
-        [contentList addObject:[NSString stringWithFormat:@"%@股",model.lotSize]];
-        
-        NSArray *colorList = @[
-            [self getColorByCompareWithStr1:model.high Str2:model.preClose], [self getColorByCompareWithStr1:model.open Str2:model.preClose], UIColor.handicapInfoTextColor,
-            [self getColorByCompareWithStr1:model.low Str2:model.preClose], UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-            UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor, UIColor.handicapInfoTextColor,
-        ];
-        
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [titleList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            JMStockInfoModel *model = [[JMStockInfoModel alloc] init];
-            model.titleStr = titleList[idx];
-            model.describeStr = describeList[idx];
-            model.contentStr = contentList[idx];
-            model.myColor = colorList[idx];
-            [array addObject:model];
-        }];
-        
-        self.handicapInfoList = array;
         
     }
     

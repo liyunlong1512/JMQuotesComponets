@@ -15,6 +15,7 @@
 #import "JMStockInfoModel.h"
 #import "JMStockInfoViewModel.h"
 #import <MJExtension/MJExtension.h>
+#import "WOCrashProtectorManager.h"
 
 @interface JMStockDetailsView ()<DelayPromptViewDelegate, MiddleLayerViewDelegate, StockInfoViewDelegate>
 
@@ -44,6 +45,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        //开启防crash机制
+        [WOCrashProtectorManager makeAllEffective];
+        
         self.selectTimeIndex = 3;
         [self createUI];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:kNoticeName_GetMoreData object:nil];
