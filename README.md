@@ -190,10 +190,11 @@ dataJsonList 数据结构
 
 **
  *  K线时间周期选择回调
- *  index: 时间周期, 当前项目从3开始
- *  0.盘前 1.盘中 2.盘后 3.分时 4.五日 5.日K 6.周K 7.月K 8.年K 9.1分 10.5分 11.15分 12.30分 13.60分
+ *  index: 时间周期, 美股2，港股3
+ *  0.盘前 1.盘后 2.盘中 3.分时 4.五日 5.日K 6.周K 7.月K 8.年K 9.1分 10.5分 11.15分 12.30分 13.60分
+ *  type: 接口需要 盘中，分时，五日需要自己去切换接口；index >=4 接口type使用这个参数
  */
-- (void)KLineTimeSelectionWithIndex:(NSInteger)index {
+- (void)KLineTimeSelectionWithIndex:(NSInteger)index Type:(NSString *)type {
 }
 
 ```

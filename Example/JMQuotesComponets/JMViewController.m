@@ -121,7 +121,7 @@
 - (void)KLineWeightsSelectionWithType:(NSString *)type {
 }
 
-- (void)KLineTimeSelectionWithIndex:(NSInteger)index {
+- (void)KLineTimeSelectionWithIndex:(NSInteger)index Type:(NSString *)type {
     [self setStockDateWithIndex:index];
 }
 
@@ -145,14 +145,14 @@
 //    NSDictionary *jsonObject = @{};
     
     // 获取 JSON 文件的路径
-    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata" ofType:@"json"];
+    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"pkdata_us" ofType:@"json"];
     // 读取 JSON 文件数据
     NSData *data1 = [NSData dataWithContentsOfFile:path1];
     // 将 JSON 数据转换为 Objective-C 对象
     NSError *error1 = nil;
     NSArray *jsonObject1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error1];
     
-    [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject];
+    [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject ChartTyep:2];
     
     // 延时 5 秒执行 doSomethingAfterDelay 方法
 //    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];

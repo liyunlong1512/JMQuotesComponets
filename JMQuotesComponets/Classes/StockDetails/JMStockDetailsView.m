@@ -283,6 +283,55 @@
     NSLog(@"");
 }
 
+/**
+ * 获取K线图类型
+ * 5.D 6.W 7.M 8.Y 9.Minute1 10.Minute5 11.Minute15 12.Minute30 13.Minute60
+ */
+- (NSString *)getReturnKlineTypeWithAPIType:(NSInteger)type {
+    switch (type) {
+        case 5:{
+            return @"D";
+        }
+            break;
+        case 6:{
+            return @"W";
+        }
+            break;
+        case 7:{
+            return @"M";
+        }
+            break;
+        case 8:{
+            return @"Y";
+        }
+            break;
+        case 9:{
+            return @"Minute1";
+        }
+            break;
+        case 10:{
+            return @"Minute5";
+        }
+            break;
+        case 11:{
+            return @"Minute15";
+        }
+            break;
+        case 12:{
+            return @"Minute30";
+        }
+            break;
+        case 13:{
+            return @"Minute60";
+        }
+            break;
+        default:{
+            return @"";
+        }
+            break;
+    }
+}
+
 #pragma mark - 通知方法
 
 - (void)handleNotification:(NSNotification *)notification {
@@ -304,8 +353,8 @@
     NSLog(@"图表时间 %ld", index);
     // 记录选中
     self.selectTimeIndex = index;
-    if ([self.delegate respondsToSelector:@selector(KLineTimeSelectionWithIndex:)]) {
-        [self.delegate KLineTimeSelectionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(KLineTimeSelectionWithIndex:Type:)]) {
+        [self.delegate KLineTimeSelectionWithIndex:index Type: [self getReturnKlineTypeWithAPIType:index]];
     }
 }
 
@@ -366,7 +415,7 @@
     
     // 盘口
     if (funId.intValue == 2) {
-     
+        
         NSArray *array = json[@"data"];
         if (array.count == 0) return;
         

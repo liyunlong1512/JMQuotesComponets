@@ -316,7 +316,7 @@
     NSInteger _chartType;
     switch (sender.tag) {
         case 8888:{
-            _chartType = 3;
+            _chartType = [[JMChatManager sharedInstance].market containsString:@"US"] ? 2 : 3;
         }
             break;
         default:
