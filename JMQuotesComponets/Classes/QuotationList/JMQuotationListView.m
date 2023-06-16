@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, SortState) {
     SortStateDescending
 };
 
-@interface JMQuotationListView () <UITableViewDataSource, UITableViewDelegate, DelayPromptViewDelegate, QuotationListHeadViewDelegate>
+@interface JMQuotationListView () <UITableViewDataSource, UITableViewDelegate, DelayPromptViewDelegate, QuotationListHeadViewDelegate, UIGestureRecognizerDelegate>
 
 /** 延时行情提示 */
 @property (nonatomic,strong) JMDelayPromptView *delayPromptView;
@@ -63,6 +63,8 @@ typedef NS_ENUM(NSInteger, SortState) {
 /** 沪深 */
 @property (nonatomic, strong) NSMutableArray *hsDataSource;
 
+/** 是否暂停MQTT */
+@property(nonatomic, assign) BOOL isPauseMQTT;
 
 @end
 
@@ -76,6 +78,7 @@ typedef NS_ENUM(NSInteger, SortState) {
         [self createUI];
         self.sortPriceState = SortStateDefault;
         self.sortQuoteState = SortStateDefault;
+        self.isPauseMQTT = NO;
     }
     return self;
 }
@@ -139,6 +142,28 @@ typedef NS_ENUM(NSInteger, SortState) {
         make.left.right.bottom.equalTo(self);
     }];
     
+}
+
+#pragma mark - Private method
+
+/// cell 右滑手势
+- (void)handleSwipeGesture:(UISwipeGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateRecognized) {
+        // 获取当前右滑的 UITableViewCell
+        UITableViewCell *cell = (UITableViewCell *)gesture.view;
+        // 在这里处理 UITableViewCell 的右滑事件
+        NSLog(@"右滑");
+        self.isPauseMQTT = NO;
+    }
+}
+
+/// tabview 点击手势
+- (void)handleTapGesture:(UITapGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        // 在这里处理点击操作
+        NSLog(@"点击");
+        self.isPauseMQTT = NO;
+    }
 }
 
 #pragma mark - 自选股列表排序方法
@@ -533,6 +558,13 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    // 在这里处理 UITableViewCell 的左滑事件
+    NSLog(@"左滑");
+    self.isPauseMQTT = YES;
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -548,6 +580,7 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         
+        self.isPauseMQTT = NO;
         if ([self.delegate respondsToSelector:@selector(deleteOptionalStockWithSelectedStockCode:fetchCompletionHandler:)]) {
             JMQuotationListModel *model = self.sortDataSource[indexPath.row];
             [self.delegate deleteOptionalStockWithSelectedStockCode:model.assetId fetchCompletionHandler:^(BOOL isDelete) {
@@ -589,6 +622,12 @@ typedef NS_ENUM(NSInteger, SortState) {
     JMQuotationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMQuotationListTableViewCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.quotationListModel = self.sortDataSource[indexPath.row];
+    
+    // 创建一个 UISwipeGestureRecognizer 手势识别器
+    UISwipeGestureRecognizer *swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [cell addGestureRecognizer:swipeGestureRecognizer];
+    
     return cell;
 }
 
@@ -695,6 +734,12 @@ typedef NS_ENUM(NSInteger, SortState) {
         _tableView.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
         [_tableView registerClass:[JMQuotationListTableViewCell class] forCellReuseIdentifier:@"JMQuotationListTableViewCell"];
         _tableView.allowsSelectionDuringEditing = YES;
+        
+        // 创建一个 UITapGestureRecognizer 手势识别器
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        tapGestureRecognizer.delegate = self;
+        [self.tableView addGestureRecognizer:tapGestureRecognizer];
+        
     }
     return _tableView;
 }
@@ -817,6 +862,10 @@ typedef NS_ENUM(NSInteger, SortState) {
 - (void)setMQTTDataWithJson:(NSDictionary *)json {
     
     NSString *funId = json[@"funId"];
+    
+    if (self.isPauseMQTT == YES) {
+        return;
+    }
     
     // 盘口
     if (funId.intValue == 2) {
