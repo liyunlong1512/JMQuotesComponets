@@ -146,26 +146,6 @@ typedef NS_ENUM(NSInteger, SortState) {
 
 #pragma mark - Private method
 
-/// cell 右滑手势
-- (void)handleSwipeGesture:(UISwipeGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateRecognized) {
-        // 获取当前右滑的 UITableViewCell
-        UITableViewCell *cell = (UITableViewCell *)gesture.view;
-        // 在这里处理 UITableViewCell 的右滑事件
-        NSLog(@"右滑");
-        self.isPauseMQTT = NO;
-    }
-}
-
-/// tabview 点击手势
-- (void)handleTapGesture:(UITapGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        // 在这里处理点击操作
-        NSLog(@"点击");
-        self.isPauseMQTT = NO;
-    }
-}
-
 #pragma mark - 自选股列表排序方法
 
 /**
@@ -574,6 +554,7 @@ typedef NS_ENUM(NSInteger, SortState) {
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.isPauseMQTT = NO;
     [self.tableView setEditing:NO animated:YES];  // 重置编辑状态
 }
 
@@ -622,12 +603,6 @@ typedef NS_ENUM(NSInteger, SortState) {
     JMQuotationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMQuotationListTableViewCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.quotationListModel = self.sortDataSource[indexPath.row];
-    
-    // 创建一个 UISwipeGestureRecognizer 手势识别器
-    UISwipeGestureRecognizer *swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [cell addGestureRecognizer:swipeGestureRecognizer];
-    
     return cell;
 }
 
@@ -734,12 +709,6 @@ typedef NS_ENUM(NSInteger, SortState) {
         _tableView.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
         [_tableView registerClass:[JMQuotationListTableViewCell class] forCellReuseIdentifier:@"JMQuotationListTableViewCell"];
         _tableView.allowsSelectionDuringEditing = YES;
-        
-        // 创建一个 UITapGestureRecognizer 手势识别器
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-        tapGestureRecognizer.delegate = self;
-        [self.tableView addGestureRecognizer:tapGestureRecognizer];
-        
     }
     return _tableView;
 }

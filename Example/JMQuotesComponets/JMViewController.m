@@ -38,9 +38,9 @@
     
     self.count = 0;
     
-//    [self CreateWatchlistUI];
+    [self CreateWatchlistUI];
     
-    [self CreateStockDetails];
+//    [self CreateStockDetails];
 }
 
 - (void)didReceiveMemoryWarning

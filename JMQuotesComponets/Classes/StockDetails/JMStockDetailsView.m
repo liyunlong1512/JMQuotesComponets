@@ -19,6 +19,9 @@
 
 @interface JMStockDetailsView ()<DelayPromptViewDelegate, MiddleLayerViewDelegate, StockInfoViewDelegate>
 
+/** 滚动视图 */
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 /** 延时行情提示 */
 @property (nonatomic,strong) JMDelayPromptView *delayPromptView;
 
@@ -60,24 +63,56 @@
     
     self.backgroundColor = UIColor.stockDetailsBackgroundColor;
     
-    [self addSubview:self.delayPromptView];
+    [self addSubview:self.scrollView];
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self);
+//        make.width.mas_offset(kScreenWidth);
+        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-60-kBottomSafeHeight);
+    }];
+
+    [self.scrollView addSubview:self.delayPromptView];
     [self.delayPromptView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.mas_equalTo(self);
+        make.top.mas_equalTo(self.scrollView.mas_top);
+        make.left.mas_equalTo(self.scrollView.mas_left);
+//        make.right.mas_equalTo(self.scrollView.mas_right);
+        make.width.equalTo(self.scrollView.mas_width);
         make.height.mas_offset(kHeightScale(24));
     }];
-    
-    [self addSubview:self.stockInfoView];
+
+    [self.scrollView addSubview:self.stockInfoView];
     [self.stockInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.delayPromptView.mas_bottom).mas_offset(14);
-        make.left.right.mas_equalTo(self);
+        make.left.mas_equalTo(self.scrollView.mas_left);
+        make.width.equalTo(self.scrollView.mas_width);
     }];
-    
-    [self addSubview:self.middleLayerView];
+
+    [self.scrollView addSubview:self.middleLayerView];
     [self.middleLayerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.stockInfoView.mas_bottom).mas_offset(14);
-        make.left.right.mas_equalTo(self);
+        make.left.mas_equalTo(self.scrollView.mas_left);
+        make.width.equalTo(self.scrollView.mas_width);
         make.height.mas_offset(kHeightScale(345));
+        make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
+    
+//    [self addSubview:self.delayPromptView];
+//    [self.delayPromptView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.left.right.mas_equalTo(self);
+//        make.height.mas_offset(kHeightScale(24));
+//    }];
+//
+//    [self addSubview:self.stockInfoView];
+//    [self.stockInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.delayPromptView.mas_bottom).mas_offset(14);
+//        make.left.right.mas_equalTo(self);
+//    }];
+//
+//    [self addSubview:self.middleLayerView];
+//    [self.middleLayerView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.stockInfoView.mas_bottom).mas_offset(14);
+//        make.left.right.mas_equalTo(self);
+//        make.height.mas_offset(kHeightScale(345));
+//    }];
     
 }
 
@@ -373,6 +408,7 @@
 - (void)closePrompt {
     NSLog(@"关闭延时行情提示");
     self.delayPromptView.hidden = YES;
+    self.middleLayerView.isClosePrompt = YES;
     [self.delayPromptView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_offset(0);
     }];
@@ -409,6 +445,15 @@
         _delayPromptView.delegate = self;
     }
     return  _delayPromptView;
+}
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView){
+        _scrollView = [[UIScrollView alloc] init];
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+    }
+    return  _scrollView;
 }
 
 #pragma mark - 数据重载

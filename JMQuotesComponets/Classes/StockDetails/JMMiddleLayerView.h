@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 是否展开 */
 @property(nonatomic, assign) BOOL isExpand;
 
+/** 是否关闭延时提示 */
+@property(nonatomic, assign) BOOL isClosePrompt;
+
 @end
 
 NS_ASSUME_NONNULL_END
