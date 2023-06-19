@@ -69,7 +69,6 @@
 		2CB9CB6522C33B9A8E37FB5ED01C397D /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D41600E14744E282EDEE77E4DFF52 /* MASConstraint.m */; };
 		2D034F2276E3F29F3376B21C3BF7F0AF /* JMQuotationListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C862993DA5D0BF800B8DB310DDD2FEF /* JMQuotationListView.m */; };
 		2D8881974CAF6426CBEB530E4C50953F /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4EC18C01D1D5C9B1CD2623BE4A2F6 /* NSObject+MJProperty.m */; };
-		2FB44D9B8166FB507DE979F60D9CE25B /* UIButton+KJEnlarge.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F99AB428880C048CA31824454F967 /* UIButton+KJEnlarge.m */; };
 		3007B3FF053D0E5B74FE2FF683811CC6 /* stockMarketIcon_HK@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FC035DB85386F4E94FECBCDFE2EDB5 /* stockMarketIcon_HK@2x.png */; };
 		306C057D997C7FFA22D627BAD737AD50 /* JMEMAPainter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6860B6842D8B844EEE08D48F5AEFA086 /* JMEMAPainter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BE27757EA49038AB2C3441EC8FDCAF /* JMPopMenuCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB998DC7D042AC0CF9F6A40CB38325B /* JMPopMenuCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -150,7 +149,6 @@
 		687BCC2335378650C3EF8EC437314487 /* NSString+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E114613D6FCE696295891609D37E7AE /* NSString+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691D859536D77B991066FCE2CA2C3555 /* NSKeyedUnarchiver+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A23715857950A4751C91050F2CEF6C /* NSKeyedUnarchiver+YYAdd.m */; };
 		69452C497102F45EB23089E8055476CD /* NSObject+MJClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEA294F9B41EFCF4B66A20878A3F3E3 /* NSObject+MJClass.m */; };
-		6E699B3A88D318CB263C4F0A8C8D1E68 /* UIButton+KJEnlarge.h in Headers */ = {isa = PBXBuildFile; fileRef = FB506936CDACBEA3F87885B1069FCE68 /* UIButton+KJEnlarge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F4F7D716C2F8706820A19E2EEFDEB8D /* expand_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 253C2CA113824E6D530AB20BFDC27B82 /* expand_s@3x.png */; };
 		6F95516526825B7B870177277DF0A36B /* MJExtensionConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E86E909ECE5885442D7D73E5C0F28D5 /* MJExtensionConst.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FC52F1677946E4059B3C7AA93C20330 /* JMWRPainter.m in Sources */ = {isa = PBXBuildFile; fileRef = 276721760F85AF9B949940963DBFCD70 /* JMWRPainter.m */; };
@@ -423,7 +421,7 @@
 		0AFB32F93F9294BD470F5D24B23D433A /* MJExtension-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJExtension-prefix.pch"; sourceTree = "<group>"; };
 		0C96E13757C929A8D66B81FC350A1FB2 /* UIScrollView+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+YYAdd.h"; path = "YYCategories/UIKit/UIScrollView+YYAdd.h"; sourceTree = "<group>"; };
 		0CE025F49064506CC602938E29026390 /* MASConstraintMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Masonry/MASConstraintMaker.h; sourceTree = "<group>"; };
-		0D2E611585E4C3C75E0AFEEDB861B514 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		0D2E611585E4C3C75E0AFEEDB861B514 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0D45FF7A448EF6DF1FA1E89CDF251AE2 /* Pods-JMQuotesComponets_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-JMQuotesComponets_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0D63E92BA21AB8C02F95D029149307F0 /* NSObject+YYAddForARC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+YYAddForARC.h"; path = "YYCategories/Foundation/NSObject+YYAddForARC.h"; sourceTree = "<group>"; };
 		1042D81B6334E6D0D362F134B484233A /* NSDictionary+WOCrash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+WOCrash.m"; sourceTree = "<group>"; };
@@ -575,7 +573,6 @@
 		7548688686C9C7DAB5B5536838F2E26B /* MJFoundation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJFoundation.h; path = MJExtension/MJFoundation.h; sourceTree = "<group>"; };
 		761610095011B24AE18DF00C84315633 /* NSKeyedUnarchiver+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSKeyedUnarchiver+YYAdd.h"; path = "YYCategories/Foundation/NSKeyedUnarchiver+YYAdd.h"; sourceTree = "<group>"; };
 		769B11FCC04612A51AB9387AA985FF9B /* YYCandlePainter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YYCandlePainter.m; sourceTree = "<group>"; };
-		772F99AB428880C048CA31824454F967 /* UIButton+KJEnlarge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KJEnlarge.m"; sourceTree = "<group>"; };
 		780101977ED2978F1D1FFEC44A406C8A /* NSBundle+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBundle+YYAdd.h"; path = "YYCategories/Foundation/NSBundle+YYAdd.h"; sourceTree = "<group>"; };
 		79027C282898ED9DBE9A771C71ACCE2D /* NSData+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+YYAdd.h"; path = "YYCategories/Foundation/NSData+YYAdd.h"; sourceTree = "<group>"; };
 		79D95999CCC482EE31FE5FD0E148269B /* JMMinMaxModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMMinMaxModel.m; sourceTree = "<group>"; };
@@ -583,7 +580,7 @@
 		7E2EA1DB9E7B62BE6143A5EA76A98611 /* UIColor+JMColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JMColor.m"; sourceTree = "<group>"; };
 		7EB3726FF737FA0F5B2A2B4B5D8B0597 /* NSMutableArray+WOCrash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+WOCrash.m"; sourceTree = "<group>"; };
 		7F400721C20615830F0FE10FCA83183D /* sort_n.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = sort_n.png; path = JMQuotesComponets/Assets/sort_n.png; sourceTree = "<group>"; };
-		8105934088B9B1F4FF8822A61164A3A5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		8105934088B9B1F4FF8822A61164A3A5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		814114068A6556AE82E50A83FE7F006E /* JMQuotationListModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JMQuotationListModel.h; sourceTree = "<group>"; };
 		82B1BA68DAFAF9C133018743D1A1F13E /* JMDelayPromptView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMDelayPromptView.m; sourceTree = "<group>"; };
 		8342B5C4BF12CCE6650FF87FB81221B4 /* expand_n@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "expand_n@3x.png"; path = "JMQuotesComponets/Assets/expand_n@3x.png"; sourceTree = "<group>"; };
@@ -628,7 +625,7 @@
 		9C3904B95A2F963C7F809D859A05A60A /* JMMiddleLayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JMMiddleLayerView.h; sourceTree = "<group>"; };
 		9C862993DA5D0BF800B8DB310DDD2FEF /* JMQuotationListView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMQuotationListView.m; sourceTree = "<group>"; };
 		9D6DCAE47D125B0AC6809F53F918A8C3 /* sort_n@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sort_n@3x.png"; path = "JMQuotesComponets/Assets/sort_n@3x.png"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DB89C1B300E25B50CBD99C2F0E3475C /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
 		9DFCA58E58781D624208F5CCC27CAEBC /* NSDictionary+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+YYAdd.h"; path = "YYCategories/Foundation/NSDictionary+YYAdd.h"; sourceTree = "<group>"; };
 		9E114613D6FCE696295891609D37E7AE /* NSString+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+YYAdd.h"; path = "YYCategories/Foundation/NSString+YYAdd.h"; sourceTree = "<group>"; };
@@ -702,7 +699,7 @@
 		D09B669A027AEA572858484D6463F65B /* delete.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = delete.png; path = JMQuotesComponets/Assets/delete.png; sourceTree = "<group>"; };
 		D0ABD56C38F8FD7DD7D125F8626BA32A /* MJPropertyType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJPropertyType.m; path = MJExtension/MJPropertyType.m; sourceTree = "<group>"; };
 		D11C85A0A5B70490121828EAE4AA33D6 /* YYIndicatorModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YYIndicatorModel.m; sourceTree = "<group>"; };
-		D1B2AA8C3F03C0EF90D4F220415036F2 /* JMQuotesComponets.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = JMQuotesComponets.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D1B2AA8C3F03C0EF90D4F220415036F2 /* JMQuotesComponets.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = JMQuotesComponets.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D2A638FF45C33C0909E8F7D6463F6FD6 /* NSNumber+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNumber+YYAdd.h"; path = "YYCategories/Foundation/NSNumber+YYAdd.h"; sourceTree = "<group>"; };
 		D2CAAB0AD0B8495D7A25E08EDAA29669 /* NSArray+WOCrash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WOCrash.m"; sourceTree = "<group>"; };
 		D376487FC585C942D22CE71D3C29461D /* JMQuotationListHeadView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMQuotationListHeadView.m; sourceTree = "<group>"; };
@@ -762,7 +759,6 @@
 		F7A23715857950A4751C91050F2CEF6C /* NSKeyedUnarchiver+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSKeyedUnarchiver+YYAdd.m"; path = "YYCategories/Foundation/NSKeyedUnarchiver+YYAdd.m"; sourceTree = "<group>"; };
 		FA033ED6963794B9AE52953ED6AD9E3F /* JMCandlestickChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMCandlestickChartView.m; sourceTree = "<group>"; };
 		FAF87B4CE7B96F746395CB319C942CBC /* JMVerticalTextPainter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMVerticalTextPainter.m; sourceTree = "<group>"; };
-		FB506936CDACBEA3F87885B1069FCE68 /* UIButton+KJEnlarge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIButton+KJEnlarge.h"; sourceTree = "<group>"; };
 		FBF3E88000A570069B0B226FBD0A4E24 /* JMMAPainter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JMMAPainter.h; sourceTree = "<group>"; };
 		FC5E47617241BA0AC1D3F55F3DBD900C /* MASLayoutConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
 		FCE6EBD61B7FB2506B0660DE5F68CA51 /* YYTimePainter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YYTimePainter.h; sourceTree = "<group>"; };
@@ -848,7 +844,6 @@
 				272EF4D4EB3419D1B776DF6F2FAA307B /* JMWRPainter.h */,
 				276721760F85AF9B949940963DBFCD70 /* JMWRPainter.m */,
 			);
-			name = JMWR;
 			path = JMWR;
 			sourceTree = "<group>";
 		};
@@ -866,7 +861,6 @@
 				C8E122AFCE211165094DF1BBD2867B44 /* YYKlineGlobalVariable.h */,
 				E7B91745BC43A2963FA10B79E6258F7F /* YYKlineGlobalVariable.m */,
 			);
-			name = Variable;
 			path = Variable;
 			sourceTree = "<group>";
 		};
@@ -875,7 +869,6 @@
 			children = (
 				45130FC11BAFB01D3E5651F4EE51D5E6 /* YYKlineConstant.h */,
 			);
-			name = Constant;
 			path = Constant;
 			sourceTree = "<group>";
 		};
@@ -901,7 +894,6 @@
 				38A0439BC65A8C82704112325E058656 /* Constant */,
 				69BCC00A32FC7D3534AEAE854FFB7C94 /* Variable */,
 			);
-			name = Config;
 			path = Config;
 			sourceTree = "<group>";
 		};
@@ -911,7 +903,6 @@
 				403C68765669EAB04CE08BED468D4CAA /* JMVolPainter.h */,
 				8E3BB51B8FD33EB9AE1FA59EC151FF41 /* JMVolPainter.m */,
 			);
-			name = JMVol;
 			path = JMVol;
 			sourceTree = "<group>";
 		};
@@ -921,7 +912,6 @@
 				02182244EA06D7B8D7B7D8E54F769FDF /* YYTimelinePainter.h */,
 				C249BB944AA764AEAD1DDCBE632779F1 /* YYTimelinePainter.m */,
 			);
-			name = YYTimeline;
 			path = YYTimeline;
 			sourceTree = "<group>";
 		};
@@ -931,7 +921,6 @@
 				90B17C6BBA8E99021CF301A5100706D6 /* NSString+DecimalsCalculation.h */,
 				53BB23D8C0C7D3FA71AA7B60981B9CB3 /* NSString+DecimalsCalculation.m */,
 			);
-			name = NSString;
 			path = NSString;
 			sourceTree = "<group>";
 		};
@@ -941,7 +930,6 @@
 				05F13E40E66FF9FCEFF83F375E1907CF /* JMKDJPainter.h */,
 				8810B7BECED4F3FB742DA7E0B65A6F09 /* JMKDJPainter.m */,
 			);
-			name = JMKDJ;
 			path = JMKDJ;
 			sourceTree = "<group>";
 		};
@@ -964,7 +952,6 @@
 				45FB382F55437D3673A7AAFD9768894B /* WOCrashProtectorManager.m */,
 				2E835815AEB9C5C3C8291C8B1111429E /* WOContainer */,
 			);
-			name = NoCrash;
 			path = NoCrash;
 			sourceTree = "<group>";
 		};
@@ -990,7 +977,6 @@
 				6B0A83160608C46B329E8D2B2E2F1278 /* JMTimePainter.h */,
 				6D003FDB1F5DCECB0525D2A3160A8163 /* JMTimePainter.m */,
 			);
-			name = JMTime;
 			path = JMTime;
 			sourceTree = "<group>";
 		};
@@ -1012,7 +998,6 @@
 				32ADE10742FA73DCB56251C7D24C2BAD /* YYKDJPainter.h */,
 				51369260A376746CA247A2AF2CC5ABD3 /* YYKDJPainter.m */,
 			);
-			name = YYKDJ;
 			path = YYKDJ;
 			sourceTree = "<group>";
 		};
@@ -1022,7 +1007,6 @@
 				3C3B65226C53DF2D78C26F457A03B221 /* JMBOLLPainter.h */,
 				7214392CF30B362939BF69C97725DFBA /* JMBOLLPainter.m */,
 			);
-			name = JMBOLL;
 			path = JMBOLL;
 			sourceTree = "<group>";
 		};
@@ -1032,7 +1016,6 @@
 				AC8ED2CAE02BDB4B5685112271BE5574 /* YYRSIPainter.h */,
 				028BF8930C83351DBD21835FDB7BB05D /* YYRSIPainter.m */,
 			);
-			name = YYRSI;
 			path = YYRSI;
 			sourceTree = "<group>";
 		};
@@ -1042,7 +1025,6 @@
 				6FD502E3D3470722A0944A65D2D0CD6D /* YYBOLLPainter.h */,
 				9095E8C234ED48F303B4175A2788FFD6 /* YYBOLLPainter.m */,
 			);
-			name = YYBOLL;
 			path = YYBOLL;
 			sourceTree = "<group>";
 		};
@@ -1092,7 +1074,6 @@
 				17351203CF3289EC0BCCAF9161F55B86 /* NSString+WOCrash.h */,
 				1953F648C53D4B5A5FC2372A4EEB7780 /* NSString+WOCrash.m */,
 			);
-			name = WOContainer;
 			path = WOContainer;
 			sourceTree = "<group>";
 		};
@@ -1102,7 +1083,6 @@
 				E58513F98D03E9BF4BB68AC495E7B850 /* JMMoveDetailInfoView.h */,
 				F5A258274BC565747BB5B0C42A42AAF7 /* JMMoveDetailInfoView.m */,
 			);
-			name = JMMoveDetailInfoView;
 			path = JMMoveDetailInfoView;
 			sourceTree = "<group>";
 		};
@@ -1111,7 +1091,6 @@
 			children = (
 				1E2B2CBBFFAC622AF6DE356D5A26D108 /* JMKlineConstant.h */,
 			);
-			name = Constant;
 			path = Constant;
 			sourceTree = "<group>";
 		};
@@ -1121,7 +1100,6 @@
 				C1BF202B4B965E59A7E7BCF664C496C0 /* YYCandlePainter.h */,
 				769B11FCC04612A51AB9387AA985FF9B /* YYCandlePainter.m */,
 			);
-			name = YYCandle;
 			path = YYCandle;
 			sourceTree = "<group>";
 		};
@@ -1131,7 +1109,6 @@
 				DFE1B04795554F2BA391D5703385950E /* JMRSIPainter.h */,
 				BC78E62A6CBA175C5750FDA88B9F73BF /* JMRSIPainter.m */,
 			);
-			name = JMRSI;
 			path = JMRSI;
 			sourceTree = "<group>";
 		};
@@ -1141,7 +1118,6 @@
 				FE26118033732F0F611E9B79FC7CB8BF /* YYWRPainter.h */,
 				AAC9516CA08A8DC34D516C4F2A331440 /* YYWRPainter.m */,
 			);
-			name = YYWR;
 			path = YYWR;
 			sourceTree = "<group>";
 		};
@@ -1151,7 +1127,6 @@
 				0A6B3524A2C3D282A4A72BA2B0BE3BE4 /* JMCandlePainter.h */,
 				491BD64CC478A46CA926799B7A55F82B /* JMCandlePainter.m */,
 			);
-			name = JMCandle;
 			path = JMCandle;
 			sourceTree = "<group>";
 		};
@@ -1167,7 +1142,6 @@
 				38FA7B82150BABD466B5986535B34220 /* JMMinMaxModel.h */,
 				79D95999CCC482EE31FE5FD0E148269B /* JMMinMaxModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1191,7 +1165,6 @@
 				62EE4AB2B7BB3EFFB250210EB64BF8C5 /* YYMACDPainter.h */,
 				CE67994A7245ED5525014ADB6762089B /* YYMACDPainter.m */,
 			);
-			name = YYMACD;
 			path = YYMACD;
 			sourceTree = "<group>";
 		};
@@ -1201,7 +1174,6 @@
 				FDA0EF0A21325D9510269C359E55A4CA /* YYMoveDetailInfoView.h */,
 				B79EBA976C2FF71F048955261F7B7086 /* YYMoveDetailInfoView.m */,
 			);
-			name = YYMoveDetailInfoView;
 			path = YYMoveDetailInfoView;
 			sourceTree = "<group>";
 		};
@@ -1217,7 +1189,6 @@
 				56137DA3B8FD9F51CCCFC38735BDB6F9 /* YYMinMaxModel.h */,
 				690DB379B2CAE8548A02F7803E4889A9 /* YYMinMaxModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1227,7 +1198,6 @@
 				BC565444E629E6D0781E3E50BA20484D /* NSDate+Extension.h */,
 				491F32D297448A302B1C156C38187F65 /* NSDate+Extension.m */,
 			);
-			name = NSDate;
 			path = NSDate;
 			sourceTree = "<group>";
 		};
@@ -1257,7 +1227,6 @@
 				994DDBE977EFA1D018AE85493572789D /* NSString+MJExtension.m */,
 				A8A13AAEF68553E6C44D493DADD8FB2D /* Support Files */,
 			);
-			name = MJExtension;
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
@@ -1266,10 +1235,7 @@
 			children = (
 				5EFC5AFA40EF38BC7CD80F0B5700F355 /* UIButton+KJContentLayout.h */,
 				1C892F0640349FE9E1894C544B52F80B /* UIButton+KJContentLayout.m */,
-				FB506936CDACBEA3F87885B1069FCE68 /* UIButton+KJEnlarge.h */,
-				772F99AB428880C048CA31824454F967 /* UIButton+KJEnlarge.m */,
 			);
-			name = UIButton;
 			path = UIButton;
 			sourceTree = "<group>";
 		};
@@ -1279,7 +1245,6 @@
 				CF9F5C631D9405592F1513C0DC2F284D /* JMTimelinePainter.h */,
 				8E758A74F0EE1004A33BC8D9597D4AC6 /* JMTimelinePainter.m */,
 			);
-			name = JMTimeline;
 			path = JMTimeline;
 			sourceTree = "<group>";
 		};
@@ -1302,7 +1267,6 @@
 				0F4973E7CD56405965AE68C806C9259F /* JMVol */,
 				01CBE0FA3BB95471C9C7954857D4354F /* JMWR */,
 			);
-			name = Painter;
 			path = Painter;
 			sourceTree = "<group>";
 		};
@@ -1336,7 +1300,6 @@
 				21C0F632D9B384E6B871C3F4C8E1CA75 /* JMKlineGlobalVariable.h */,
 				11450EE11A2138AE6671BA7C37D529A1 /* JMKlineGlobalVariable.m */,
 			);
-			name = Variable;
 			path = Variable;
 			sourceTree = "<group>";
 		};
@@ -1413,7 +1376,6 @@
 				DAF3D0548EA6D577D79974D09CC51304 /* no-arc */,
 				C398BC38DD4333507BD923A9710F970B /* Support Files */,
 			);
-			name = YYCategories;
 			path = YYCategories;
 			sourceTree = "<group>";
 		};
@@ -1494,7 +1456,6 @@
 				E10207F9C082A7B3B803E9787EFB63F4 /* JMMACDPainter.h */,
 				6F3302C96A9DE5A2C81A2E01C7E938AB /* JMMACDPainter.m */,
 			);
-			name = JMMACD;
 			path = JMMACD;
 			sourceTree = "<group>";
 		};
@@ -1504,7 +1465,6 @@
 				9999DD5C5EBD4970401154C7196EE411 /* YYMAPainter.h */,
 				E0C2FD9E324093B878F3A0B1FF06E83A /* YYMAPainter.m */,
 			);
-			name = YYMA;
 			path = YYMA;
 			sourceTree = "<group>";
 		};
@@ -1514,7 +1474,6 @@
 				FCE6EBD61B7FB2506B0660DE5F68CA51 /* YYTimePainter.h */,
 				D525A5D79433E288C0B2F1D97D2331DA /* YYTimePainter.m */,
 			);
-			name = YYTime;
 			path = YYTime;
 			sourceTree = "<group>";
 		};
@@ -1550,7 +1509,6 @@
 				175ED92B20F4462D47F230175D8BE3C9 /* JMDelayPromptView.h */,
 				82B1BA68DAFAF9C133018743D1A1F13E /* JMDelayPromptView.m */,
 			);
-			name = DelayPromptView;
 			path = DelayPromptView;
 			sourceTree = "<group>";
 		};
@@ -1560,7 +1518,6 @@
 				FBF3E88000A570069B0B226FBD0A4E24 /* JMMAPainter.h */,
 				8A625FC397CED9DA3B45980B7B3241B8 /* JMMAPainter.m */,
 			);
-			name = JMMA;
 			path = JMMA;
 			sourceTree = "<group>";
 		};
@@ -1570,7 +1527,6 @@
 				C596C82A6520610340871F41BD59C56F /* JMVerticalTextPainter.h */,
 				FAF87B4CE7B96F746395CB319C942CBC /* JMVerticalTextPainter.m */,
 			);
-			name = JMVerticalText;
 			path = JMVerticalText;
 			sourceTree = "<group>";
 		};
@@ -1580,7 +1536,6 @@
 				9BCD273572A5A47B13CA3C82816CFC43 /* YYEMAPainter.h */,
 				6B2A8C1C38D93084C1768E0000EBD5FB /* YYEMAPainter.m */,
 			);
-			name = YYEMA;
 			path = YYEMA;
 			sourceTree = "<group>";
 		};
@@ -1590,7 +1545,6 @@
 				814114068A6556AE82E50A83FE7F006E /* JMQuotationListModel.h */,
 				AF15C6C6B3A9EC98177152448CE77FA5 /* JMQuotationListModel.m */,
 			);
-			name = QuotationList;
 			path = QuotationList;
 			sourceTree = "<group>";
 		};
@@ -1628,7 +1582,6 @@
 				452A4BD529355AEDF919606A37F44A4C /* Model */,
 				54BA9C43A3E91A6055E80E24453F39E2 /* Painter */,
 			);
-			name = CandlestickChart;
 			path = CandlestickChart;
 			sourceTree = "<group>";
 		};
@@ -1650,7 +1603,6 @@
 				B4F09B6D12A3AFB97DD4F3E118F81743 /* YYVol */,
 				40EC2A852952E9A2F30F6A5604AB8CCF /* YYWR */,
 			);
-			name = Painter;
 			path = Painter;
 			sourceTree = "<group>";
 		};
@@ -1663,7 +1615,6 @@
 				46300F764846BFF74D972EE5BEDBDB44 /* Model */,
 				AB2C1ECF28B45162C297FB8DE508C3A6 /* Painter */,
 			);
-			name = LineChart;
 			path = LineChart;
 			sourceTree = "<group>";
 		};
@@ -1693,7 +1644,6 @@
 				44017C36EFC3B59FDAC054472BF37067 /* YYVolPainter.h */,
 				EEEBAC9A87627DEEBE1DF44CC11CB589 /* YYVolPainter.m */,
 			);
-			name = YYVol;
 			path = YYVol;
 			sourceTree = "<group>";
 		};
@@ -1703,7 +1653,6 @@
 				71FE1002C2E592321A3951CA9AEE3EA0 /* YYVerticalTextPainter.h */,
 				EF8385ABC540A6B0562113203BEB3D93 /* YYVerticalTextPainter.m */,
 			);
-			name = YYVerticalText;
 			path = YYVerticalText;
 			sourceTree = "<group>";
 		};
@@ -1752,7 +1701,6 @@
 				08C4E9E89BC7C351CAA0778DCA5B1F53 /* ViewController+MASAdditions.m */,
 				CDC7D4DE3A45C795F9048D3489CBED65 /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -1791,7 +1739,6 @@
 				4CB998DC7D042AC0CF9F6A40CB38325B /* JMPopMenuCell.h */,
 				9997B9F4A7C61F52B7CCF308819E0437 /* JMPopMenuCell.m */,
 			);
-			name = MenuView;
 			path = MenuView;
 			sourceTree = "<group>";
 		};
@@ -1837,7 +1784,6 @@
 				6860B6842D8B844EEE08D48F5AEFA086 /* JMEMAPainter.h */,
 				2D89BA71D506701E3E8F31BC9B07643C /* JMEMAPainter.m */,
 			);
-			name = JMEMA;
 			path = JMEMA;
 			sourceTree = "<group>";
 		};
@@ -1847,7 +1793,6 @@
 				0D56BDD33029F98643E0EC90FE808B26 /* Constant */,
 				0C3676E928725F06EC2656C8ACF4FB61 /* Variable */,
 			);
-			name = Config;
 			path = Config;
 			sourceTree = "<group>";
 		};
@@ -1857,7 +1802,6 @@
 				E07ED9A2FD3793F6CA5F50122D527BDE /* JMIndicatorView.h */,
 				8495E4C13D1B30C57C98EB75BD7D51F8 /* JMIndicatorView.m */,
 			);
-			name = JMIndicator;
 			path = JMIndicator;
 			sourceTree = "<group>";
 		};
@@ -1869,7 +1813,6 @@
 				954ACD50E82D56EAD5D74A436CF602C3 /* JMStockInfoViewModel.h */,
 				9E68AC3C9C1D954C7ED1170617471087 /* JMStockInfoViewModel.m */,
 			);
-			name = StockDetails;
 			path = StockDetails;
 			sourceTree = "<group>";
 		};
@@ -2033,7 +1976,6 @@
 				E196D310D7CD8E2C04C56F4FCC3F53E8 /* NSTimer+Crash.h in Headers */,
 				598C85FEF045445B9734CA186DBB30F2 /* QuotationConstant.h in Headers */,
 				07E4AD917B7A4A07DFBACA31315E183A /* UIButton+KJContentLayout.h in Headers */,
-				6E699B3A88D318CB263C4F0A8C8D1E68 /* UIButton+KJEnlarge.h in Headers */,
 				A73174E7EA8C722B70B119CDB91532DF /* UIColor+JMColor.h in Headers */,
 				9035A94497E013FB031F6F917C91B603 /* WOCrashLog.h in Headers */,
 				24E4CE85C5D9ADD745C90F5DEEFF4C22 /* WOCrashProtectorManager.h in Headers */,
@@ -2471,7 +2413,6 @@
 				008783D946F8F5577E0293C2FA2647FE /* NSString+WOCrash.m in Sources */,
 				F27083967273ABE67A41968EDF462EBA /* NSTimer+Crash.m in Sources */,
 				64A130D409C1088E60D28906C851E9F6 /* UIButton+KJContentLayout.m in Sources */,
-				2FB44D9B8166FB507DE979F60D9CE25B /* UIButton+KJEnlarge.m in Sources */,
 				9446F777B5533BAF736E370307293BBF /* UIColor+JMColor.m in Sources */,
 				D0EAF70BC3CB4DE2A050448846F6E40A /* WOCrashLog.m in Sources */,
 				3D4C1A71DEF40E7470AB6534136A57B4 /* WOCrashProtectorManager.m in Sources */,
@@ -2969,8 +2910,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};

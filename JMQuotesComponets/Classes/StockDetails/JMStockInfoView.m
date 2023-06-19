@@ -9,7 +9,6 @@
 #import "JMStockInfoView.h"
 #import "QuotationConstant.h"
 #import "JMHandicapInfoCollectionViewCell.h"
-#import "UIButton+KJEnlarge.h"
 
 @interface JMStockInfoView ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -30,6 +29,7 @@
 
 /** 展开按钮 */
 @property (nonatomic, strong) UIButton *expandBtn;
+@property (nonatomic, strong) UIImageView *expandImageView;
 
 @end
 
@@ -79,12 +79,18 @@
         make.height.mas_offset(kHeightScale(60));
     }];
     
-    [self addSubview:self.expandBtn];
-    [self.expandBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self addSubview:self.expandImageView];
+    [self.expandImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.handicapInfoCollectionView.mas_bottom);
         make.centerX.mas_equalTo(self);
         make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-10);
         make.size.mas_offset(kWidthScale(10));
+    }];
+    
+    [self addSubview:self.expandBtn];
+    [self.expandBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.expandImageView);
+        make.size.mas_offset(kWidthScale(30));
     }];
     
 }
@@ -97,10 +103,12 @@
         [self.handicapInfoCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(kHeightScale(8*20));
         }];
+        self.expandImageView.image = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")];
     } else {
         [self.handicapInfoCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(kHeightScale(3*20));
         }];
+        self.expandImageView.image = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")];
     }
     
     if ([self.delegate respondsToSelector:@selector(setIsExpand:)]) {
@@ -197,13 +205,21 @@
 - (UIButton *)expandBtn {
     if (!_expandBtn) {
         _expandBtn = [[UIButton alloc] init];
-        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")] forState:UIControlStateNormal];
-        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateHighlighted];
-        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateSelected];
-        [_expandBtn setTouchAreaInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+//        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")] forState:UIControlStateNormal];
+//        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateHighlighted];
+//        [_expandBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateSelected];
+//        [_expandBtn setTouchAreaInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
         [_expandBtn addTarget:self action:@selector(ExpandBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _expandBtn;
+}
+
+- (UIImageView *)expandImageView {
+    if (!_expandImageView) {
+        _expandImageView = [[UIImageView alloc] init];
+        _expandImageView.image = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")];
+    }
+    return _expandImageView;
 }
 
 - (UICollectionView *)handicapInfoCollectionView {
