@@ -8,8 +8,9 @@
 #import "JMMoveDetailInfoView.h"
 #import "UIColor+JMColor.h"
 #import <Masonry/Masonry.h>
-#import "NSDate+Extension.h"
+//#import "NSDate+Extension.h"
 #import "JMChatManager.h"
+#import <YYCategories/YYCategories.h>
 
 @interface JMMoveDetailInfoView ()
 
@@ -83,6 +84,35 @@
 #pragma mark - Delegate
 
 #pragma mark — Private method
+
+- (NSString *)dayFromWeekday:(NSDate *)date {
+    switch([date weekday]) {
+        case 1:
+            return @"周日";
+            break;
+        case 2:
+            return @"周一";
+            break;
+        case 3:
+            return @"周二";
+            break;
+        case 4:
+            return @"周三";
+            break;
+        case 5:
+            return @"周四";
+            break;
+        case 6:
+            return @"周五";
+            break;
+        case 7:
+            return @"周六";
+            break;
+        default:
+            break;
+    }
+    return @"";
+}
 
 /** 获取颜色
  * NewValue             新值
@@ -472,7 +502,7 @@
     
     // 日期
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:lineModel.Timestamp.doubleValue];;
-    NSString *ad = [NSString stringWithFormat:@"%@ %@", self.chartType > KLineChartTypeYearK ? lineModel.V_MMDDHHMM : lineModel.V_YYYYMMDD,[NSDate dayFromWeekday:date]];
+    NSString *ad = [NSString stringWithFormat:@"%@ %@", self.chartType > KLineChartTypeYearK ? lineModel.V_MMDDHHMM : lineModel.V_YYYYMMDD,[self dayFromWeekday:date]];
     self.dateLab.text = ad;
     
     // 开盘价

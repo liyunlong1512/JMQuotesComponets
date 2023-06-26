@@ -8,7 +8,7 @@
 #import "YYTimePainter.h"
 #import "YYKlineGlobalVariable.h"
 #import "QuotationConstant.h"
-#import "NSDate+Extension.h"
+//#import "NSDate+Extension.h"
 #import "JMChatManager.h"
 
 @implementation YYTimePainter
