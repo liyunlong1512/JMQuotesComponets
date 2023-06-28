@@ -259,10 +259,23 @@ static void dispatch_main_async_safe(dispatch_block_t block) {
         }
 
         // 底部浮动日期
-        [self.floatedDateLab mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(self.verticalView);
-            make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-CGRectGetHeight(self.painterView.bounds) * self.volumeViewRatio);
-        }];
+        NSLog(@"hhhhhhh %f",location.x);
+        if (location.x < kWidthScale(35)) {
+            [self.floatedDateLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo(self.verticalView).mas_offset(kWidthScale(20));
+                make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-CGRectGetHeight(self.painterView.bounds) * self.volumeViewRatio);
+            }];
+        } else if (location.x > kWidthScale(330)) {
+            [self.floatedDateLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo(self.verticalView).mas_offset(-kWidthScale(20));
+                make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-CGRectGetHeight(self.painterView.bounds) * self.volumeViewRatio);
+            }];
+        } else {
+            [self.floatedDateLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo(self.verticalView);
+                make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-CGRectGetHeight(self.painterView.bounds) * self.volumeViewRatio);
+            }];
+        }
         [self.floatedDateLab layoutIfNeeded];
         self.floatedDateLab.hidden = NO;
 

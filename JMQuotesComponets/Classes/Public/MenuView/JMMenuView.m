@@ -357,7 +357,7 @@
 //蒙版背景点击事件
 - (void)tapEvent
 {
-//    [self closeMenu:YES];
+    [self closeMenu:YES];
 }
 
 //防止手势透传

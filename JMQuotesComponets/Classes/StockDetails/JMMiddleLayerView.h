@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 是否关闭延时提示 */
 @property(nonatomic, assign) BOOL isClosePrompt;
 
+/** 高度 */
+@property(nonatomic, assign) CGFloat originY;
+
 @end
 
 NS_ASSUME_NONNULL_END

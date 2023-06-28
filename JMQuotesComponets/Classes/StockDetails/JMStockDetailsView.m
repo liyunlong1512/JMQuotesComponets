@@ -41,6 +41,10 @@
 //@property (nonatomic, strong) NSDictionary *kLineJson;
 @property (nonatomic, strong) NSMutableArray *klineDataList;
 
+/** <#注释#> */
+@property(nonatomic, assign) CGFloat aaa;
+@property(nonatomic, assign) CGFloat bbb;
+
 @end
 
 @implementation JMStockDetailsView
@@ -55,8 +59,22 @@
         [self createUI];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:kNoticeName_GetMoreData object:nil];
         
+        [self performSelector:@selector(delayedMethod) withObject:nil afterDelay:1.0];
+        
     }
     return self;
+}
+
+- (void)delayedMethod {
+//    NSLog(@"1秒后执行了这个方法");
+    // 将 myView 的位置转换为 scrollView 的坐标系
+    CGRect myViewFrameInScrollView = [self.middleLayerView convertRect:self.middleLayerView.frame toView:self.scrollView];
+//    // 输出 myView 在 scrollView 中的位置和大小
+//    NSLog(@"myView 在 scrollView 中的位置：(%f, %f)", myViewFrameInScrollView.origin.x, myViewFrameInScrollView.origin.y);
+//    NSLog(@"myView 在 scrollView 中的大小：(%f, %f)", myViewFrameInScrollView.size.width, myViewFrameInScrollView.size.height);
+    self.middleLayerView.originY = myViewFrameInScrollView.size.height;
+    self.aaa = myViewFrameInScrollView.origin.y;
+    self.bbb = myViewFrameInScrollView.size.height;
 }
 
 - (void)createUI {
@@ -401,6 +419,11 @@
 
 - (void)setIsExpand:(BOOL)isExpand {
     self.middleLayerView.isExpand = isExpand;
+    if (isExpand) {
+        self.middleLayerView.originY = self.aaa - 25;
+    } else {
+        self.middleLayerView.originY = self.bbb;
+    }
 }
 
 #pragma mark - DelayPromptViewDelegate

@@ -258,13 +258,13 @@
     
     double menuHeight = kHeightScale(330);
     
-    if (self.isClosePrompt) {
-        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
-    } else {
-        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
-    }
+//    if (self.isClosePrompt) {
+//        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
+//    } else {
+//        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
+//    }
     
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), menuHeight) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), self.originY) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
     
     self.menu.dataSource = self;
     self.menu.delegate = self;
@@ -279,20 +279,21 @@
     self.menuType = PopMenuType_time;
 
     double menuHeight = kHeightScale(330);
-    
-    if (self.isClosePrompt) {
-        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
-    } else {
-        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
-    }
-    
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), menuHeight) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
-    
+
+//    if (self.isClosePrompt) {
+//        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
+//    } else {
+//        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
+//    }
+
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), self.originY) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
+
     self.menu.dataSource = self;
     self.menu.delegate = self;
     self.menu.menuViewBgColor = UIColor.backgroundColor;
     self.menu.alpha = 0.1;
     [self.menu showMenu:YES];
+    
 }
 
 - (void)TimeSelectionButtonClick:(UIButton *)sender {
