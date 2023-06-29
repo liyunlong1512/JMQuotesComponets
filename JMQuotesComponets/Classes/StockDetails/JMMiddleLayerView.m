@@ -256,15 +256,15 @@
     
     self.menuType = PopMenuType_Weights;
     
-    double menuHeight = kHeightScale(330);
+    double menuHeight = self.originY;
     
-//    if (self.isClosePrompt) {
-//        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
-//    } else {
-//        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
-//    }
+    if (self.isClosePrompt) {
+        menuHeight = self.originY - kHeightScale(24);
+    } else {
+        menuHeight = self.originY;
+    }
     
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), self.originY) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), menuHeight) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
     
     self.menu.dataSource = self;
     self.menu.delegate = self;
@@ -278,15 +278,15 @@
     
     self.menuType = PopMenuType_time;
 
-    double menuHeight = kHeightScale(330);
+    double menuHeight = self.originY;
+    
+    if (self.isClosePrompt) {
+        menuHeight = self.originY - kHeightScale(24);
+    } else {
+        menuHeight = self.originY;
+    }
 
-//    if (self.isClosePrompt) {
-//        menuHeight = self.isExpand ? kHeightScale(406) : kHeightScale(306);
-//    } else {
-//        menuHeight = self.isExpand ? kHeightScale(430) : kHeightScale(330);
-//    }
-
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), self.originY) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
+    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), menuHeight) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
 
     self.menu.dataSource = self;
     self.menu.delegate = self;

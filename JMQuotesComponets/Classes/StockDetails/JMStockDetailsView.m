@@ -571,6 +571,11 @@
     
     self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
     [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
+    
+    if ([model.marketType isEqualToString:@"US"]){
+        [self closePrompt];
+    }
+    
 }
 
 @end
