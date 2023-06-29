@@ -336,11 +336,11 @@
     if(number1 >= 1e12){
         text = [NSString stringWithFormat:@"%@万亿", [formatter stringFromNumber:@(number.doubleValue/1e12)]];
     } else if (number1 >= 1e8) {
-        text = [NSString stringWithFormat:@"%@万亿", [formatter stringFromNumber:@(number.doubleValue/1e8)]];
+        text = [NSString stringWithFormat:@"%@亿", [formatter stringFromNumber:@(number.doubleValue/1e8)]];
     } else if (number1 >= 1e4) {
-        text = [NSString stringWithFormat:@"%@万亿", [formatter stringFromNumber:@(number.doubleValue/1e4)]];
+        text = [NSString stringWithFormat:@"%@万", [formatter stringFromNumber:@(number.doubleValue/1e4)]];
     } else {
-        text = [NSString stringWithFormat:@"%@万亿", [formatter stringFromNumber:@(number.doubleValue)]];
+        text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:@(number.doubleValue)]];
     }
     return text;
 }

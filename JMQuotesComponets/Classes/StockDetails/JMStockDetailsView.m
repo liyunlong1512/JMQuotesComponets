@@ -83,9 +83,8 @@
     
     [self addSubview:self.scrollView];
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.mas_equalTo(self);
+        make.left.right.top.bottom.mas_equalTo(self);
 //        make.width.mas_offset(kScreenWidth);
-        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-60-kBottomSafeHeight);
     }];
 
     [self.scrollView addSubview:self.delayPromptView];
