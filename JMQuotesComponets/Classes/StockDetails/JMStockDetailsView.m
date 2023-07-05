@@ -570,7 +570,7 @@
     if (array.count <= 0) return;
     
     self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
-//    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
+    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
     
     if ([model.marketType isEqualToString:@"US"]){
         [self closePrompt];
