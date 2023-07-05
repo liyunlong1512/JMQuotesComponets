@@ -55,7 +55,7 @@
 
 - (void)createMarketCategoriesUI {
     
-    self.buttonTitles = @[@"自选", @"港股", @"美股"];
+    self.buttonTitles = @[@"全部", @"港股", @"美股"];
     self.buttons = [[NSMutableArray alloc] init];
     
     UIImage *imgae_n = [UIImage imageWithContentsOfFile:kImageNamed(@"marketTypeBtnBG_n.png")];
