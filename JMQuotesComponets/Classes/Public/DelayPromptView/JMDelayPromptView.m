@@ -63,9 +63,7 @@
 - (UIButton *)closeBtn {
     if (!_closeBtn) {
         _closeBtn = [[UIButton alloc] init];
-        [_closeBtn setTitle:@"X" forState:UIControlStateNormal];
-        [_closeBtn setTitleColor:UIColor.delayPromptTextColor forState:UIControlStateNormal];
-        [_closeBtn.titleLabel setFont:kFont_Medium(16)];
+        [_closeBtn setBackgroundImage:[UIImage imageWithContentsOfFile:kImageNamed(@"close.png")] forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(CloseBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _closeBtn;

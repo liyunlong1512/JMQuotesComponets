@@ -164,6 +164,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(UIColor*)moveViewTitleColor;
 
+/**
+ *  空数据提示文字颜色
+ */
++(UIColor*)nullDataTextColor;
+
 @end
 
 NS_ASSUME_NONNULL_END

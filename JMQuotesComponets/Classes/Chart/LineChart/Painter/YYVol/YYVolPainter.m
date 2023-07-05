@@ -212,7 +212,7 @@
                     textLayer.foregroundColor = UIColor.secondaryTextColor.CGColor;
                 }
                 
-                textLayer.frame = CGRectMake(0, y-[UIFont systemFontOfSize:12.f].lineHeight, 100, [UIFont systemFontOfSize:12.f].lineHeight);
+                textLayer.frame = CGRectMake(0, y-[UIFont systemFontOfSize:12.f].lineHeight, CGRectGetWidth(area), [UIFont systemFontOfSize:12.f].lineHeight);
                 textLayer.contentsScale = UIScreen.mainScreen.scale;
                 [layer addSublayer:textLayer];
             }

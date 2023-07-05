@@ -232,10 +232,11 @@
 - (void)updateMoreBtnStateWithSelected:(BOOL)selected {
     
     UIImage *image = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")];
+    UIImage *image_s = [UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")];
     
     if (selected) {
         [self.moreBtn setTitleColor:UIColor.delayPromptTextColor forState:UIControlStateNormal];
-        [self.moreBtn setImage:image forState:UIControlStateNormal];
+        [self.moreBtn setImage:image_s forState:UIControlStateNormal];
         [self.moreBtn setLayoutType:KJButtonContentLayoutStyleLeftImageRight];
         [self.moreBtn setPadding:2.f];
         [self.moreBtn setPeriphery:0.f];
@@ -596,8 +597,8 @@
     if (!_nullDataLab) {
         _nullDataLab = [[UILabel alloc] init];
         _nullDataLab.text = @"暂无数据";
-        _nullDataLab.textColor = UIColor.handicapInfoTextColor;
-        _nullDataLab.font = kFont_Regular(12.f);
+        _nullDataLab.textColor = UIColor.nullDataTextColor;
+        _nullDataLab.font = kFont_Regular(14.f);
     }
     return _nullDataLab;
 }
@@ -644,6 +645,7 @@
         [_moreBtn setTitleColor:UIColor.handicapInfoTextColor forState:UIControlStateNormal];
         [_moreBtn.titleLabel setFont:kFont_Regular(14.f)];
         [_moreBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_n.png")] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageWithContentsOfFile:kImageNamed(@"expand_s.png")] forState:UIControlStateSelected];
         [_moreBtn setLayoutType:KJButtonContentLayoutStyleLeftImageRight];
         [_moreBtn setPadding:2.f];
         [_moreBtn setPeriphery:0.f];

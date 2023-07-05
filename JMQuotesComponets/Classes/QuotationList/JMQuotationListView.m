@@ -704,7 +704,7 @@ typedef NS_ENUM(NSInteger, SortState) {
         _tableView.bounces = NO;
         // 设置tableView自动高度
         _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.backgroundColor = UIColor.backgroundColor;
+        _tableView.backgroundColor = UIColor.stockDetailsBackgroundColor;
         _tableView.separatorColor = UIColor.dividingLineColor;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
         [_tableView registerClass:[JMQuotationListTableViewCell class] forCellReuseIdentifier:@"JMQuotationListTableViewCell"];
@@ -774,8 +774,8 @@ typedef NS_ENUM(NSInteger, SortState) {
     if (!_nullDataLab) {
         _nullDataLab = [[UILabel alloc] init];
         _nullDataLab.text = @"暂无数据";
-        _nullDataLab.textColor = UIColor.handicapInfoTextColor;
-        _nullDataLab.font = kFont_Regular(12.f);
+        _nullDataLab.textColor = UIColor.nullDataTextColor;
+        _nullDataLab.font = kFont_Regular(14.f);
     }
     return _nullDataLab;
 }

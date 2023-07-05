@@ -98,7 +98,7 @@
 
     [self.scrollView addSubview:self.stockInfoView];
     [self.stockInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.delayPromptView.mas_bottom).mas_offset(14);
+        make.top.mas_equalTo(self.delayPromptView.mas_bottom);
         make.left.mas_equalTo(self.scrollView.mas_left);
         make.width.equalTo(self.scrollView.mas_width);
     }];
@@ -570,7 +570,7 @@
     if (array.count <= 0) return;
     
     self.klineDataList = [[NSMutableArray alloc] initWithArray:array];
-    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
+//    [self setKLineChartAPIRequestDataAssemblyWithKLineJson:kLineJson StockInfoModel:model ChatType:chartType];
     
     if ([model.marketType isEqualToString:@"US"]){
         [self closePrompt];

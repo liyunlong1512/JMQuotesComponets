@@ -33,7 +33,7 @@
  *  股票详情背景颜色
  */
 + (UIColor *)stockDetailsBackgroundColor  {
-    return [UIColor colorWithRGBHex:0xF7F7FB];
+    return [UIColor colorWithRGBHex:0xF5F6FA];
 }
 
 #pragma mark - 一级文本色
@@ -195,6 +195,13 @@
 
 +(UIColor*)moveViewTitleColor {
     return [UIColor colorWithRGBHex:0xBFC7DE];
+}
+
+/**
+ *  空数据提示文字颜色
+ */
++(UIColor*)nullDataTextColor {
+    return [UIColor colorWithRGBHex:0xB8C1D4];
 }
 
 @end
