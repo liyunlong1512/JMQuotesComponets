@@ -112,6 +112,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 美股全天交易状态，166, 返回格式数组1|0|0,依次顺序是盘前，盘后，盘中的状态，其中1表示交易中，0表示非交易时间 */
 @property (nonatomic, copy) NSString *usTradeStatus;
 
+/** 盘中状态值: 盘前0 盘后1 盘中2 */
+@property(nonatomic, copy) NSString *threeMarketStatus;
+
 @end
 
 /// 分时数据Model

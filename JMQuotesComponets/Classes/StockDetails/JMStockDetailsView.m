@@ -248,7 +248,7 @@
         viewModel.price = obj.currentPrice;
         viewModel.close = obj.yesterdayClosePrice;
     }];
-        
+    
     // 判断股票代码是否一样
     if (![model.assetId isEqualToString:viewModel.assetID]) {
         return;
@@ -256,6 +256,11 @@
     
     // 判断当前是否位于选择时间分类
     if (viewModel.chatType != self.selectTimeIndex) {
+        return;
+    }
+    
+    // 是否盘中
+    if (model.threeMarketStatus.intValue != 2) {
         return;
     }
     
@@ -490,7 +495,11 @@
         NSArray *array = json[@"data"];
         if (array.count == 0) return;
         
-        // ["资产ID","名称",资产类型,资产状态,"昨收","开盘","现价","最高","最低","成交量","成交额","涨跌额","涨跌幅","总市值","流通市值","换手率","动态市盈率","市净率","量比","委比","平均价","收益",净资产,"","静态市盈率",更新时间,"日期","时分秒","振幅",盘中状态值,"52周最高","52周最低","历史最高","历史最低","资产类别","交易货币","每股资产净值","溢价","杠杠比率","实际杠杠","牛熊溢价","打和点","距收回价","换股价"]
+        // HK
+        // "资产ID","名称",资产类型,资产状态,"昨收","开盘","现价","最高","最低","成交量","成交额","涨跌额","涨跌幅","总市值","流通市值","换手率","动态市盈率","市净率","量比","委比","平均价","收益",净资产,"","静态市盈率",更新时间,"日期","时分秒","振幅",盘中状态值,"52周最高","52周最低","历史最高","历史最低","资产类别","交易货币","每股资产净值","溢价","杠杠比率","实际杠杠","牛熊溢价","打和点","距收回价","换股价"
+        
+        // US
+        // "资产ID","名称",资产类型,资产状态,"昨收","开盘","现价","最高","最低","成交量","成交额","涨跌额","涨跌幅","总市值","流通市值","换手率","动态市盈率","市净率","量比","委比","平均价","收益",净资产,"","静态市盈率",更新时间,"日期","时分秒","振幅",盘中状态值,"52周最高","52周最低","历史最高","历史最低"
         NSString * assetIdStr = array.lastObject[0];
         
         if (![self.stockInfoModel.assetId isEqualToString:assetIdStr]) {
@@ -521,6 +530,7 @@
         model.pe = array.lastObject[24];
         model.ts = array.lastObject[25];
         model.ampLiTude = array.lastObject[28];
+        model.threeMarketStatus = array.lastObject[29];
         model.week52High = array.lastObject[30];
         model.week52Low = array.lastObject[31];
         model.hisHigh = array.lastObject[32];
