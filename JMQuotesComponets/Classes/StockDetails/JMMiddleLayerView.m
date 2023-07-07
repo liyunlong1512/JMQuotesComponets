@@ -53,6 +53,9 @@
 /** 时间选择 */
 @property (nonatomic, strong) PopTimeMenuView *timeSelectionView;
 
+/** <#注释#> */
+@property (nonatomic, strong) UIView *BGView;
+
 @end
 
 @implementation JMMiddleLayerView
@@ -62,14 +65,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self createUI];
-        
-//        // 创建 UITapGestureRecognizer 对象
-//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-//
-//        // 将 UITapGestureRecognizer 对象添加到 view 中
-//        [self addGestureRecognizer:tapGesture];
-        
+        [self createUI];        
     }
     return self;
 }
@@ -89,6 +85,7 @@
     
     
     self.timeSelectionView.hidden = YES;
+    self.BGView.hidden = YES;
 }
 
 - (void)popTimeMenuViewWeightsSelectionWithIndex:(NSInteger)index
@@ -116,6 +113,7 @@
     }
     
     self.timeSelectionView.hidden = YES;
+    self.BGView.hidden = YES;
 }
 
 #pragma mark — Private method
@@ -124,9 +122,10 @@
  * view 点击事件
  */
 - (void)viewTapped:(UITapGestureRecognizer *)sender {
-//    if (!self.timeSelectionView.hidden) {
-//        self.timeSelectionView.hidden = YES;
-//    }
+    if (!self.timeSelectionView.hidden) {
+        self.timeSelectionView.hidden = YES;
+        self.BGView.hidden = YES;
+    }
 }
 
 /**
@@ -236,6 +235,7 @@
     self.timeSelectionView.hidden = NO;
     self.timeSelectionView.type = 1;
     self.timeSelectionView.selectionTitle = self.resetBtn.titleLabel.text;
+    self.BGView.hidden = NO;
     
     [self.timeSelectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.resetBtn.mas_bottom).mas_offset(10);
@@ -251,14 +251,14 @@
     self.timeSelectionView.hidden = NO;
     self.timeSelectionView.type = 0;
     self.timeSelectionView.selectionTitle = self.selectedTime;
-    
+    self.BGView.hidden = NO;
+
     [self.timeSelectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.moreBtn.mas_bottom).mas_offset(10);
         make.centerX.mas_equalTo(self.moreBtn);
         make.width.mas_offset(kWidthScale(64));
         make.height.mas_offset(kHeightScale(200));
     }];
-    
 }
 
 - (void)TimeSelectionButtonClick:(UIButton *)sender {
@@ -537,6 +537,11 @@
         make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-10);
     }];
     
+    [self addSubview:self.BGView];
+    [self.BGView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.mas_equalTo(self);
+    }];
+    
     [self addSubview:self.timeSelectionView];
     [self.timeSelectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.moreBtn.mas_bottom).mas_offset(10);
@@ -548,6 +553,19 @@
 }
 
 #pragma mark — Lazy
+
+- (UIView *)BGView {
+    if (!_BGView) {
+        _BGView = [[UIView alloc] init];
+        _BGView.hidden = YES;
+        _BGView.backgroundColor = [UIColor clearColor];
+        // 创建 UITapGestureRecognizer 对象
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+        // 将 UITapGestureRecognizer 对象添加到 view 中
+        [_BGView addGestureRecognizer:tapGesture];
+    }
+    return _BGView;
+}
 
 - (PopTimeMenuView *)timeSelectionView {
     if (!_timeSelectionView) {
