@@ -204,4 +204,11 @@
     return [UIColor colorWithRGBHex:0xB8C1D4];
 }
 
+/**
+ *  阴影颜色
+ */
++(UIColor*)jmShadowColor {
+    return [UIColor colorWithRGBHex:0xA4B2C5];
+}
+
 @end

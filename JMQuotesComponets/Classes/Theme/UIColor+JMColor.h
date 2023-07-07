@@ -169,6 +169,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(UIColor*)nullDataTextColor;
 
+/**
+ *  阴影颜色
+ */
++(UIColor*)jmShadowColor;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,15 +9,14 @@
 #import "JMMiddleLayerView.h"
 #import "QuotationConstant.h"
 #import "UIButton+KJContentLayout.h"
-#import "JMMenuView.h"
-#import "JMPopMenuCell.h"
 #import "JMLineChartView.h"
 #import "JMCandlestickChartView.h"
 #import "JMKlineConstant.h"
 #import "YYKlineConstant.h"
 #import "JMChatManager.h"
+#import "PopTimeMenuView.h"
 
-@interface JMMiddleLayerView ()<UITableViewDataSource,UITableViewDelegate>
+@interface JMMiddleLayerView ()<PopTimeMenuViewDelegate>
 
 /** 分时按钮 */
 @property (nonatomic, strong) UIButton *timeBtn;
@@ -33,20 +32,8 @@
 /** 前复权 */
 @property (nonatomic, strong) UIButton *resetBtn;
 
-/** 菜单view */
-@property (nonatomic, strong) JMMenuView *menu;
-
-/** 时间 */
-@property (nonatomic, strong) NSArray *timeArray;
-
-/** 权重 */
-@property (nonatomic, strong) NSArray *weightsArray;
-
 /** 选中时间 */
 @property (nonatomic, copy) NSString *selectedTime;
-
-/** 菜单类型 */
-@property(nonatomic, assign) PopMenuType menuType;
 
 /** 空数据 */
 @property (nonatomic, strong) UIImageView *nullDataImageView;
@@ -63,6 +50,9 @@
 /** K线类型 */
 @property (nonatomic, assign) NSInteger chartType;
 
+/** 时间选择 */
+@property (nonatomic, strong) PopTimeMenuView *timeSelectionView;
+
 @end
 
 @implementation JMMiddleLayerView
@@ -73,82 +63,71 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self createUI];
+        
+//        // 创建 UITapGestureRecognizer 对象
+//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+//
+//        // 将 UITapGestureRecognizer 对象添加到 view 中
+//        [self addGestureRecognizer:tapGesture];
+        
     }
     return self;
 }
 
-#pragma mark - UITableViewDataSource,UITableViewDelegate
+#pragma mark - PopTimeMenuViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.menuType == PopMenuType_time ? self.timeArray.count : self.weightsArray.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    JMPopMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMPopMenuCell"];
-        if (!cell) {
-            cell = [[JMPopMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JMPopMenuCell"];
-        }
-    cell.titleLab.text = [NSString stringWithFormat:@"%@分",self.timeArray[indexPath.row]];
+- (void)popTimeMenuViewTimeSelectionWithIndex:(NSInteger)index
+                                        Title:(NSString *)title {
+    [self.selectedButton setSelected:NO];
+    [self.timeBtn setSelected:NO];
     
-    if (self.menuType == PopMenuType_time){
-        cell.titleLab.text = [NSString stringWithFormat:@"%@分",self.timeArray[indexPath.row]];
-    } else {
-        cell.titleLab.text = self.weightsArray[indexPath.row];
+    self.selectedTime = title;
+    
+    [self.moreBtn setTitle:title forState:UIControlStateNormal];
+    [self updateMoreBtnStateWithSelected:YES];
+    [self setKLineTimeSelectionWithIndex:index + 9];
+    
+    
+    self.timeSelectionView.hidden = YES;
+}
+
+- (void)popTimeMenuViewWeightsSelectionWithIndex:(NSInteger)index
+                                           Title:(NSString *)title {
+    [self.resetBtn setTitle:title forState:UIControlStateNormal];
+    
+    NSString * type = @"F";
+    switch (index) {
+        case 0:
+            type = @"F";
+            break;
+        case 1:
+            type = @"B";
+            break;
+        case 2:
+            type = @"N";
+            break;
+            
+        default:
+            break;
     }
     
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (self.menuType == PopMenuType_time){
-        NSLog(@"点击了%@",self.timeArray[indexPath.row]);
-        
-        [self.selectedButton setSelected:NO];
-        [self.timeBtn setSelected:NO];
-        
-        self.selectedTime = self.timeArray[indexPath.row];
-        
-        [self.moreBtn setTitle:[NSString stringWithFormat:@"%@分",self.timeArray[indexPath.row]] forState:UIControlStateNormal];
-        [self updateMoreBtnStateWithSelected:YES];
-        [self setKLineTimeSelectionWithIndex:indexPath.row + 9];
-    } else {
-        NSLog(@"点击了%@",self.weightsArray[indexPath.row]);
-        [self.resetBtn setTitle:self.weightsArray[indexPath.row] forState:UIControlStateNormal];
-        
-        NSString * type = @"F";
-        switch (indexPath.row) {
-            case 0:
-                type = @"F";
-                break;
-            case 1:
-                type = @"B";
-                break;
-            case 2:
-                type = @"N";
-                break;
-                
-            default:
-                break;
-        }
-        
-        if ([self.delegate respondsToSelector:@selector(KLineWeightsSelectionWithType:)]) {
-            [self.delegate KLineWeightsSelectionWithType:type];
-        }
+    if ([self.delegate respondsToSelector:@selector(KLineWeightsSelectionWithType:)]) {
+        [self.delegate KLineWeightsSelectionWithType:type];
     }
     
-    [self.menu closeMenu:NO];
+    self.timeSelectionView.hidden = YES;
 }
 
 #pragma mark — Private method
+
+/**
+ * view 点击事件
+ */
+- (void)viewTapped:(UITapGestureRecognizer *)sender {
+//    if (!self.timeSelectionView.hidden) {
+//        self.timeSelectionView.hidden = YES;
+//    }
+}
 
 /**
  * 获取K线图类型
@@ -254,46 +233,31 @@
 
 - (void)ResetBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
+    self.timeSelectionView.hidden = NO;
+    self.timeSelectionView.type = 1;
+    self.timeSelectionView.selectionTitle = self.resetBtn.titleLabel.text;
     
-    self.menuType = PopMenuType_Weights;
+    [self.timeSelectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.resetBtn.mas_bottom).mas_offset(10);
+        make.centerX.mas_equalTo(self.resetBtn);
+        make.width.mas_offset(kWidthScale(64));
+        make.height.mas_offset(kHeightScale(120));
+    }];
     
-    double menuHeight = self.originY;
-    
-    if (self.isClosePrompt) {
-        menuHeight = self.originY - kHeightScale(24);
-    } else {
-        menuHeight = self.originY;
-    }
-    
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(25), menuHeight) menuSize:CGSizeMake(60, 120) arrowStyle:PopMenuArrowTopfooter];
-    
-    self.menu.dataSource = self;
-    self.menu.delegate = self;
-    self.menu.menuViewBgColor = UIColor.backgroundColor;
-    self.menu.alpha = 0.1;
-    [self.menu showMenu:YES];
 }
 
 - (void)MoreBtnClick:(UIButton *)sender {
-//    sender.selected = !sender.selected;
+    sender.selected = !sender.selected;
+    self.timeSelectionView.hidden = NO;
+    self.timeSelectionView.type = 0;
+    self.timeSelectionView.selectionTitle = self.selectedTime;
     
-    self.menuType = PopMenuType_time;
-
-    double menuHeight = self.originY;
-    
-    if (self.isClosePrompt) {
-        menuHeight = self.originY - kHeightScale(24);
-    } else {
-        menuHeight = self.originY;
-    }
-
-    self.menu = [[JMMenuView alloc]initWithArrow:CGPointMake(kSCREEN_WIDTH - kWidthScale(80), menuHeight) menuSize:CGSizeMake(60, 200) arrowStyle:PopMenuArrowTopfooter];
-
-    self.menu.dataSource = self;
-    self.menu.delegate = self;
-    self.menu.menuViewBgColor = UIColor.backgroundColor;
-    self.menu.alpha = 0.1;
-    [self.menu showMenu:YES];
+    [self.timeSelectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.moreBtn.mas_bottom).mas_offset(10);
+        make.centerX.mas_equalTo(self.moreBtn);
+        make.width.mas_offset(kWidthScale(64));
+        make.height.mas_offset(kHeightScale(200));
+    }];
     
 }
 
@@ -319,7 +283,7 @@
         }
     }
     
-    [self.moreBtn setTitle:[NSString stringWithFormat:@"%@分",self.selectedTime] forState:UIControlStateNormal];
+    [self.moreBtn setTitle:self.selectedTime forState:UIControlStateNormal];
     [self updateMoreBtnStateWithSelected:NO];
     
     /// 更新显示图表
@@ -493,7 +457,7 @@
     
     self.buttonTitles = @[@"五日", @"日K", @"周K", @"月K", @"年K",];
     self.buttons = [[NSMutableArray alloc] init];
-    self.selectedTime = @"1";
+    self.selectedTime = @"1分";
     
     //规格选择
     __block UIButton *lastBtn = nil;
@@ -573,9 +537,26 @@
         make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-10);
     }];
     
+    [self addSubview:self.timeSelectionView];
+    [self.timeSelectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.moreBtn.mas_bottom).mas_offset(10);
+        make.centerX.mas_equalTo(self.moreBtn);
+        make.width.mas_offset(kWidthScale(64));
+        make.height.mas_offset(kHeightScale(200));
+    }];
+    
 }
 
 #pragma mark — Lazy
+
+- (PopTimeMenuView *)timeSelectionView {
+    if (!_timeSelectionView) {
+        _timeSelectionView = [[PopTimeMenuView alloc] init];
+        _timeSelectionView.hidden = YES;
+        _timeSelectionView.delegate = self;
+    }
+    return _timeSelectionView;
+}
 
 - (JMCandlestickChartView *)candlestickChartView {
     if (!_candlestickChartView) {
@@ -609,22 +590,6 @@
         _nullDataImageView.image = [UIImage imageWithContentsOfFile:kImageNamed(@"null_data.png")];
     }
     return _nullDataImageView;
-}
-
--(NSArray *)weightsArray
-{
-    if (!_weightsArray) {
-        _weightsArray = @[@"前复权",@"后复权",@"除权"];
-    }
-    return _weightsArray;
-}
-
--(NSArray *)timeArray
-{
-    if (!_timeArray) {
-        _timeArray = @[@"1",@"5",@"15",@"30",@"60"];
-    }
-    return _timeArray;
 }
 
 - (UIButton *)resetBtn {

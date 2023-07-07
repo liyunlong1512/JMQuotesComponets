@@ -119,6 +119,7 @@
 }
 
 - (void)KLineWeightsSelectionWithType:(NSString *)type {
+    
 }
 
 - (void)KLineTimeSelectionWithIndex:(NSInteger)index Type:(NSString *)type {
@@ -155,15 +156,15 @@
     [self.stockDetailsView setDataWithHandicapJson:jsonObject1.lastObject KLineJson:jsonObject ChartTyep:2];
     
     // 延时 5 秒执行 doSomethingAfterDelay 方法
-//    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:5.0];
-//    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
+//    [self performSelector:@selector(doSomethingAfterDelay) withObject:nil afterDelay:1.0];
+////    [self performSelector:@selector(doSomethingAfterDelay1) withObject:nil afterDelay:10.0];
 //
-//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5
 //                                                      target:self
 //                                                    selector:@selector(doSomethingAfterDelay1)
 //                                                    userInfo:nil
 //                                                     repeats:YES];
-    
+//
 }
 
 - (void)doSomethingAfterDelay1 {
@@ -206,7 +207,7 @@
 - (void)doSomethingAfterDelay {
     // 在延时后执行的代码
     // 获取 JSON 文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"mqtt_fs" ofType:@"json"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"mqtt_pk" ofType:@"json"];
     // 读取 JSON 文件数据
     NSData *data = [NSData dataWithContentsOfFile:path];
     // 将 JSON 数据转换为 Objective-C 对象
